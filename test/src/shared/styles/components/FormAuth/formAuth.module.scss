@@ -1,0 +1,47 @@
+@use '../../variables' as *;
+
+.form {
+  width: 100%;
+  max-width: 400px;
+  padding: 2.5rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+
+  &__wrapper {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  &__input {
+    width: 90%;
+    padding: 1rem;
+    border: 1px solid $color-border;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.2s;
+
+    &:focus {
+      outline: none;
+      border-color: $color-primary;
+      box-shadow: 0 0 0 3px rgba($color-primary, 0.1);
+    }
+  }
+
+  &__button {
+    width: 100%;
+    padding: 1rem;
+    background-color: $color-primary;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover {
+      background-color: $color-primary;
+    }
+  }
+}

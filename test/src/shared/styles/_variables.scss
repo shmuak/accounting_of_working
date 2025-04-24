@@ -1,0 +1,59 @@
+$color-primary: #0f2043;      
+$color-primary-hover: #1d4ed8; 
+$color-danger: #dc2626;       
+$color-success: #16a34a;
+
+// Фоновые цвета
+$color-bg: #f8fafc;           
+$color-bg-secondary: #ffffff;  
+$color-bg-muted: #f1f5f9;     
+
+// Текст
+$color-text: #1e293b;         
+$color-text-secondary: #64748b; 
+$color-text-muted: #94a3b8;   
+
+// Границы
+$color-border: #e2e8f0;       
+$color-border-dark: #cbd5e1; 
+
+//  шрифт 
+$font-family-base: 'Inter', system-ui, -apple-system, sans-serif;
+$font-size-base: 16px;
+$line-height-base: 1.5;
+
+// Заголовки
+$h1-font-size: 48px;
+$h2-font-size: 32px;       
+$h3-font-size: 24px;       
+
+// Размеры и отступы 
+$spacing-unit: 4px;
+$spacing-1: $spacing-unit;    
+$spacing-2: $spacing-unit * 2;
+$spacing-3: $spacing-unit * 4; 
+$spacing-4: $spacing-unit * 6; 
+$spacing-5: $spacing-unit * 8; 
+
+// Формы
+$form-gap: $spacing-4;     
+$input-padding: $spacing-3 $spacing-4; 
+$input-height: 48px;
+$border-radius: 8px;
+$border-radius-sm: 4px;
+$border-radius-lg: 12px;
+
+// Тени
+$shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+$shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+$shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+
+// Анимации
+$transition-base: all 0.2s ease-in-out;
+$transition-fade: opacity 0.15s linear;
+
+// Breakpoints (для медиа-запросов)
+$breakpoint-sm: 640px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 1024px;
+$breakpoint-xl: 1280px;
