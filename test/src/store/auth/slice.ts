@@ -30,7 +30,6 @@ const authSlice = createSlice({
     },
   },
   extraReducers: () => {
-    // Можно добавить обработку статусов для thunk-экшенов
   },
 });
 

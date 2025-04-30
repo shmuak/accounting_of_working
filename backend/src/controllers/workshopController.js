@@ -3,8 +3,8 @@ const Workshop = require('../models/workshop');
 //получение всех цехов
 const getWorkshops = async (req,res) => {
     try {
-        const Workshops = await Workshop.find();
-        res.status(200).json({message:'Gel all workshops', Workshops});
+        const workshops = await Workshop.find()
+        res.json(workshops);       
     } catch (error) {
         res.status(500).json({message:'Server error'});
     }

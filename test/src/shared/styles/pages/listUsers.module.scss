@@ -12,19 +12,15 @@
     text-align: center;
   }
   
-  .addButton {
-    background-color: $color-success;
-    color: white;
-    padding: $spacing-3 $spacing-4;
-    border: none;
-    border-radius: $border-radius;
-    cursor: pointer;
-    margin-bottom: $spacing-4;
-    transition: $transition-base;
-    
-    &:hover {
-      background-color: $color-success, 10%;
-    }
+  .searchInput {
+    padding: 10px;
+    margin: 10px 0;
+    width: 100%;
+    max-width: 400px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
   }
   
   .formContainer {
@@ -189,7 +185,6 @@
     transition: $transition-base;
     
     &:hover {
-      background-color:$color-danger, 10%;
+      background-color:$color-danger, 100%;
     }
   }
-}

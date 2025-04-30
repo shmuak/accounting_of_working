@@ -5,7 +5,3 @@ export const loginRequest = async (login: string, password: string): Promise<{ t
   return response.data
 }
 
-export const fetchUsers = async () => {
-  const response = await $api.get('/auth/users')
-  return response.data
-}

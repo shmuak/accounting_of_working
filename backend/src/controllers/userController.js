@@ -13,6 +13,7 @@ const getUsers = async (req, res) => {
 // Создать пользователя
 const createUser = async (req, res) => {
     try {
+        console.log('createUser req.body:', req.body);
         const newUser = new User(req.body);
         const savedUser = await newUser.save();
         res.status(201).json({ message: 'User added', user: savedUser });

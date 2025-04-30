@@ -23,9 +23,8 @@ class authController {
             if(candidate) {
                 return res.status(400).json({message:"Пользователь уже есть"});
             }
-            const hash = bcrypt.hashSync(password, 7);
-            const userRole = await Role.findOne({value:"ADMIN"});
-            const user = new User({login, password:hash, role:userRole.value});  
+            const hash = bcrypt.hashSync(password, 7);            
+            const user = new User({login, password:hash, role:req.body.role});  
             await user.save();
             return res.json({message:"Пользователь зарегестрировал"});
         } catch(e) {

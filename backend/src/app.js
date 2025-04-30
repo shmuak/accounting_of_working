@@ -9,6 +9,7 @@ const consumableRoutes = require('./routes/consumableRoutes');
 const reportRouter = require('./routes/reportRoutes');
 const authRouter = require('./auth/authRouter');
 const adminRouter = require('./admin/adminRouter');
+const roleRouter = require('./routes/roleRouters');
 const errorHandler = require('./utils/errorHandler');
 const cors = require('cors');
 
@@ -29,6 +30,7 @@ app.use('/equipments', equipmentRouters);
 app.use('/consumables', consumableRoutes);
 app.use('/reports', reportRouter );
 app.use('/admin', adminRouter)
+app.use('/roles', roleRouter);
 app.use(errorHandler);
 
 module.exports = app;

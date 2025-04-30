@@ -8,7 +8,7 @@ const router = new Router();
 router.post('/registration', [
     check("login", "Логин не может быть пустым").notEmpty(),
     check("password","Пароль должен быть больше 6 символов").isLength({min:6})
-], authController.registration);
+], authMiddleware, authController.registration);
 
 router.post('/login', authController.login);
 
