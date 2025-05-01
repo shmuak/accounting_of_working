@@ -3,7 +3,7 @@ const User = require('../models/User');
 // Получить всех пользователей
 const getUsers = async (req, res) => {
     try {
-        const users = await User.find();
+        const users = await User.find().populate('workshop');        
         res.status(200).json({ message: 'Get all users', users });
     } catch (error) {
         res.status(500).json({ message: 'Server error' });

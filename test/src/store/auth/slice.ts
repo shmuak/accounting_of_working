@@ -29,8 +29,7 @@ const authSlice = createSlice({
       state.error = null;
     },
   },
-  extraReducers: () => {
-  },
+  extraReducers: () => {},
 });
 
 export const { setCredentials, logout, setError, clearError } = authSlice.actions;

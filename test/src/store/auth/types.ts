@@ -1,10 +1,11 @@
-import { User } from '../../app/types';
+import {  IUser } from '../../shared/types/index';
 
 export interface AuthState {
-  user: User | null;
+  user: IUser | null;
   token: string | null;
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | null;
+  
 }
 
 export interface LoginPayload {
@@ -13,6 +14,6 @@ export interface LoginPayload {
 }
 
 export interface AuthResponse {
-  user: User;
+  user: IUser;
   token: string;
 }

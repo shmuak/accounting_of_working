@@ -1,11 +1,27 @@
-import { useSelector } from 'react-redux'
-import { ReactNode } from 'react'
-import { Navigate } from 'react-router-dom'
-import { RootState } from '../app/store'
+import { useSelector } from 'react-redux';
+import { Navigate } from 'react-router-dom';
+import { RootState } from '../app/store';
+import { ReactNode } from 'react';
 
-const ProtectedRoute = ({ children }: { children: ReactNode }) => {
-  const isAuth = useSelector((state: RootState) => state.auth.isAuth)
-  return isAuth ? children : <Navigate to="/login" />
+interface ProtectedRouteProps {
+  children: ReactNode;
+  requiredRole: string;
 }
 
-export default ProtectedRoute
+
+const ProtectedRoute = ({ children, requiredRole }: ProtectedRouteProps) => {
+  const { user, token } = useSelector((state: RootState) => state.auth);
+  console.log('user.role:', user?.role); 
+  console.log('requiredRole:', requiredRole);
+  if (!user || !token) {
+    return <Navigate to="/auth/login" replace />;
+  }
+
+  if (requiredRole && user.role.toUpperCase() !== requiredRole.toUpperCase()) {
+    return <Navigate to="/unauthorized" replace />;
+  }
+
+  return <>{children}</>;
+};
+
+export default ProtectedRoute;

@@ -67,6 +67,7 @@ const ListUsers = () => {
                     value={formData.role || ''}
                     onChange={(e) => setFormData({ ...formData, role: e.target.value })}
                   />
+                  
                 </div>
                 <div className={styles.actions}>
                   <button className={styles.saveButton} onClick={() => handleSave(u._id)}>Сохранить</button>

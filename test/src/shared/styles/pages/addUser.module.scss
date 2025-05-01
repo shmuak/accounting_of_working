@@ -1,68 +1,96 @@
 @use '../variables' as *;
 
 .formContainer {
-    padding: $spacing-4;
-    border-radius: $border-radius;
-    margin-bottom: $spacing-4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 120px);
+  padding: $spacing-4;
+  background-color: $color-bg;
+  
+  .formCard {
+    background-color: $color-bg-secondary;
+    border-radius: $border-radius-lg;
+    box-shadow: $shadow-md;
+    padding: $spacing-5;
+    width: 100%;
+    max-width: 500px;
     
     h1 {
       font-size: $h2-font-size;
       color: $color-primary;
-      margin-bottom: $spacing-4;
+      margin-bottom: $spacing-5;
       text-align: center;
+      font-weight: 600;
     }
-    select {
-      width: 40%;
-      padding: $spacing-3;
-      margin-bottom: $spacing-3;
-      border: 1px solid $color-border;
-      border-radius: $border-radius-sm;
-      margin-right: $spacing-5;
-    }
-
-    input {
+  }
+  
+  .formGroup {
+    margin-bottom: $spacing-4;
+    
+    label {
       display: block;
-      width: 100%;
-      padding: $spacing-3;
-      margin-bottom: $spacing-3;
-      border: 1px solid $color-border;
-      border-radius: $border-radius-sm;
+      margin-bottom: $spacing-2;
+      color: $color-text;
+      font-weight: 500;
+    }
+  }
+  
+  .formSelect {
+    width: 100%;
+    padding: $spacing-3;
+    border: 1px solid $color-border;
+    border-radius: $border-radius-sm;
+    background-color: white;
+    font-size: $font-size-base;
+    transition: $transition-base;
+    
+    &:focus {
+      outline: none;
+      border-color: $color-primary;
+      box-shadow: 0 0 0 2px rgba($color-primary, 0.1);
+    }
+  }
+  
+  .formInput {
+    width: 92%;
+    padding: $spacing-3;
+    border: 1px solid $color-border;
+    border-radius: $border-radius-sm;
+    font-size: $font-size-base;
+    transition: $transition-base;
+    
+    &:focus {
+      outline: none;
+      border-color: $color-primary;
+      box-shadow: 0 0 0 2px rgba($color-primary, 0.1);
     }
     
-    .addButton {
-      background-color: $color-success;
-      color: white;
-      padding: $spacing-3 $spacing-4;
-      border: none;
-      border-radius: $border-radius;
-      cursor: pointer;
-      margin-bottom: $spacing-4;
-      transition: $transition-base;
-      
-      &:hover {
-        background-color: $color-success, 10%;
-      }
+    &::placeholder {
+      color: $color-text-muted;
     }
   }
   
-  ul {
-    list-style: none;
-    padding: 0;
-    margin-bottom: $spacing-5;
-  }
-  
-  .item {
-    background-color: $color-bg-secondary;
-    border: 1px solid $color-border;
+  .submitButton {
+    width: 100%;
+    background-color: $color-success;
+    color: white;
+    padding: $spacing-3;
+    border: none;
     border-radius: $border-radius;
-    padding: $spacing-4;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: $spacing-3;
+    font-size: $font-size-base;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: $spacing-3;
     transition: $transition-base;
     
     &:hover {
-      box-shadow: $shadow-sm;
+      background-color: darken($color-success, 10%);
+    }
+    
+    &:disabled {
+      background-color: lighten($color-success, 20%);
+      cursor: not-allowed;
     }
   }
+}
