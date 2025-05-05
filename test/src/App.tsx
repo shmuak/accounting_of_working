@@ -5,9 +5,12 @@ import AddUser from './features/admin/pages/users/AddUser';
 import AddWorkshop from './features/admin/pages/workshops/AddWorkshop';
 import Login from './features/auth/pages/Login';
 import ListWorkshops from './features/admin/pages/workshops/ListWorkshops';
-import MasterLayout from './features/master/masterLayOut';
+import MasterLayout from './features/master/masterLayout';
 import ProtectedRoute from './routes/ProtectedRoute'; 
 import AddRequest from './features/master/pages/AddRequest';
+import AddEquipment from './features/admin/pages/equipments/AddEquipment';
+import ListEquipments from './features/admin/pages/equipments/ListEquipments';
+import ListRequest from './features/master/pages/ListRequest';
 const App = () => {
   return (
     <Router>
@@ -32,7 +35,7 @@ const App = () => {
             }
           />
           <Route path="workshops" element={
-              <ProtectedRoute requiredRole="ADMIN">
+            <ProtectedRoute requiredRole="ADMIN">
               <ListWorkshops />
             </ProtectedRoute>
             }
@@ -41,19 +44,40 @@ const App = () => {
             <ProtectedRoute requiredRole='ADMIN'>
               <AddWorkshop />
               </ProtectedRoute>} />
+          <Route path="equipments/add" element={
+            <ProtectedRoute requiredRole='ADMIN'>
+              <AddEquipment/>
+            </ProtectedRoute>
+            }
+          />
+          <Route path="equipments" element={
+            <ProtectedRoute requiredRole='ADMIN'>
+              <ListEquipments />
+            </ProtectedRoute>
+            }
+          />
         </Route>
 
         <Route path="/master" element={<MasterLayout />}>
-  <Route index element={<Navigate to="create-request" />} />
-  <Route
-    path="create-request"
-    element={
-      <ProtectedRoute requiredRole="MASTER">
-        <AddRequest />
-      </ProtectedRoute>
-    }
-  />
-</Route>
+          <Route index element={<Navigate to="create-request" />} />
+          <Route
+            path="create-request"
+            element={
+              <ProtectedRoute requiredRole="MASTER">
+                <AddRequest />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="requests"
+            element={
+              <ProtectedRoute requiredRole="MASTER">
+                <ListRequest />
+              </ProtectedRoute>
+            } 
+          />
+          
+        </Route>
 
 
         

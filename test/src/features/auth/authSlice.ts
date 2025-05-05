@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { IUser } from '../../shared/types';
 
 interface AuthState {
   user: { role: string } | null;
@@ -16,14 +17,14 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    loginSuccess(state, action: PayloadAction<{ token: string; role: string }>) {
-      const roleUpper = action.payload.role.toUpperCase();
+    loginSuccess(state, action: PayloadAction<{ token: string; user: IUser }>) {
       state.token = action.payload.token;
-      state.user = { role: roleUpper };
+      state.user = action.payload.user;
       state.isAuth = true;
       localStorage.setItem('token', action.payload.token);
-      localStorage.setItem('role', roleUpper);
-    },    
+      localStorage.setItem('user', JSON.stringify(action.payload.user));
+    }
+    ,    
     logout(state) {
       state.token = null;
       state.user = null;

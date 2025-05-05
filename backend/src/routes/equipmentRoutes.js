@@ -4,7 +4,7 @@ const { getEquipments, createEquipment, updateEquipment, deleteEquipment } = req
 const router = express.Router();
 
 router.get('/', getEquipments);
-router.post('/', createEquipment);
+router.post('/', createEquipment);  
 router.patch('/:id', updateEquipment);
 router.delete('/:id', deleteEquipment);
 

@@ -19,6 +19,7 @@ module.exports = function(requiredRole) {
             }
 
             req.user = decoded;
+            console.log("Роль пользователя:", decoded.role);
             next();
         } catch (e) {
             console.log(e);

@@ -1,46 +1,62 @@
-$color-primary: #0f2043;      
-$color-primary-hover: #1d4ed8; 
-$color-danger: #dc5353;       
+// Основные цвета
+$color-primary: #0f2043;
+$color-primary-hover: #1d4ed8;
+$primary: $color-primary;
+$primary-hover: $color-primary-hover;
+
+$color-danger: #dc5353;
+$danger: $color-danger;
+
 $color-success: #40c772;
+$success: $color-success;
+
+// Дополнительные цвета
+$gray-light: #e2e8f0;
 
 // Фоновые цвета
-$color-bg: #f8fafc;           
-$color-bg-secondary: #ffffff;  
-$color-bg-muted: #f1f5f9;     
+$color-bg: #f8fafc;
+$color-bg-secondary: #ffffff;
+$color-bg-muted: #f1f5f9;
 
-// Текст
-$color-text: #1e293b;         
-$color-text-secondary: #64748b; 
-$color-text-muted: #94a3b8;   
+// Цвета текста
+$color-text: #1e293b;
+$color-text-secondary: #64748b;
+$color-text-muted: #94a3b8;
 
-// Границы
-$color-border: #e2e8f0;       
-$color-border-dark: #cbd5e1; 
+// Цвета границ
+$color-border: #e2e8f0;
+$color-border-dark: #cbd5e1;
 
-//  шрифт 
+// RGB для rgba(...) использования
+$color-text-rgb: 30, 41, 59;
+$primary-rgb: 15, 32, 67;
+$danger-rgb: 220, 83, 83;
+$success-rgb: 64, 199, 114;
+
+// Шрифт
 $font-family-base: 'Inter', system-ui, -apple-system, sans-serif;
 $font-size-base: 16px;
 $line-height-base: 1.5;
 
 // Заголовки
 $h1-font-size: 48px;
-$h2-font-size: 32px;       
-$h3-font-size: 24px;       
+$h2-font-size: 32px;
+$h3-font-size: 24px;
 
-// Размеры и отступы 
+// Размеры и отступы
 $spacing-unit: 4px;
-$spacing-1: $spacing-unit;    
-$spacing-2: $spacing-unit * 2;
-$spacing-3: $spacing-unit * 4; 
-$spacing-4: $spacing-unit * 6; 
-$spacing-5: $spacing-unit * 8; 
+$spacing-1: $spacing-unit;           // 4px
+$spacing-2: $spacing-unit * 2;       // 8px
+$spacing-3: $spacing-unit * 4;       // 16px
+$spacing-4: $spacing-unit * 6;       // 24px
+$spacing-5: $spacing-unit * 8;       // 32px
 
 // Формы
-$form-gap: $spacing-4;     
-$input-padding: $spacing-3 $spacing-4; 
+$form-gap: $spacing-4;
+$input-padding: $spacing-3 $spacing-4;
 $input-height: 48px;
-$border-radius: 8px;
 $border-radius-sm: 4px;
+$border-radius: 8px;
 $border-radius-lg: 12px;
 
 // Тени
@@ -52,7 +68,7 @@ $shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 $transition-base: all 0.2s ease-in-out;
 $transition-fade: opacity 0.15s linear;
 
-// Breakpoints (для медиа-запросов)
+// Breakpoints
 $breakpoint-sm: 640px;
 $breakpoint-md: 768px;
 $breakpoint-lg: 1024px;

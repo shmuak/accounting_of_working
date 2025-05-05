@@ -1,0 +1,56 @@
+@import '../../variables';
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid $gray-light;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.userInfo {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.userId,
+.userLogin,
+.userRole {
+  font-size: 1rem;
+  min-width: 120px;
+}
+
+.actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.editButton {
+  background-color: $primary;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: darken($primary, 10%);
+  }
+}
+
+.deleteButton {
+  background-color: $danger;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: darken($danger, 10%);
+  }
+}

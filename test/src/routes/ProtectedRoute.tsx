@@ -5,14 +5,13 @@ import { ReactNode } from 'react';
 
 interface ProtectedRouteProps {
   children: ReactNode;
-  requiredRole: string;
+  requiredRole: string; 
 }
 
 
 const ProtectedRoute = ({ children, requiredRole }: ProtectedRouteProps) => {
   const { user, token } = useSelector((state: RootState) => state.auth);
-  console.log('user.role:', user?.role); 
-  console.log('requiredRole:', requiredRole);
+  console.log(user,token)
   if (!user || !token) {
     return <Navigate to="/auth/login" replace />;
   }

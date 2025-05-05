@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const RequestSchema = new mongoose.Schema({
     equipmentId: mongoose.Schema.Types.ObjectId, 
-    workerId: {
+    masterId: {
         type: mongoose.Types.ObjectId,
         ref: 'User'
     },

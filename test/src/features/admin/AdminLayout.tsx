@@ -1,5 +1,5 @@
 import { Outlet, NavLink } from 'react-router-dom'
-import { FaUsers, FaUserPlus } from 'react-icons/fa'
+import { FaUsers, FaUserPlus, FaTools, FaToolbox } from 'react-icons/fa'
 import { BiBuilding, BiBuildings } from "react-icons/bi";
 import { IoMdExit } from "react-icons/io";
 import styles from '../../shared/styles/pages/Layout/adminLayout.module.scss'
@@ -28,6 +28,16 @@ const AdminLayout = () => {
             <li>
               <NavLink to="/admin/workshops/add" title="Добавить цех">
                 <BiBuildings />
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/admin/equipments/add" title='добавить оборудование'>
+              <FaTools />
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/admin/equipments" title="оборудование">
+                <FaToolbox />
               </NavLink>
             </li>
             <li>

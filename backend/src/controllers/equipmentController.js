@@ -3,7 +3,7 @@ const Equipment = require('../models/equipment');
 //Получение всего оборудования
 const getEquipments = async (req,res) => {
     try {
-        const equipment = await Equipment.find();
+        const equipment = await Equipment.find().populate('workshopId');
         res.status(200).json({message:'Get all Equipment', equipment});
     } catch (error) {
         res.status(500).json({message:'Server error'});
@@ -14,8 +14,9 @@ const getEquipments = async (req,res) => {
 const createEquipment = async (req, res) => {
       try {
            const newEquipment = new Equipment(req.body);
+           console.log(newEquipment);
            const savedEquipment = await newEquipment.save();
-           res.status(201).json({ message: 'User added', equipment: savedEquipment });
+           res.status(201).json({ message: 'Equipment added', equipment: savedEquipment });
        } catch (error) {
            if (error.code === 11000) { // Ошибка дублирования (если name уникальный)
                return res.status(400).json({ message: 'Equipment with this name already exists' });

@@ -1,11 +1,11 @@
-import {  IUser } from '../../shared/types/index';
+// src/features/auth/types.ts
+import { IUser } from '../../shared/types/index';
 
 export interface AuthState {
   user: IUser | null;
   token: string | null;
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | null;
-  
 }
 
 export interface LoginPayload {

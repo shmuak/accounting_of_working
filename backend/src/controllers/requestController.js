@@ -11,16 +11,28 @@ const getRequests = async (req, res) => {
 }
 
 //создание заявки
-const createRequest =  async (req,res) => {
+const createRequest = async (req,res) => {
     try {
-        const newRequest = new Request(req.body);
-        const savedRequest = await newRequest.save();
-        res.status(200).json({ message:'Request added,', request:savedRequest });
+      const { title, description, status, equipmentId, masterId } = req.body;
+      
+      const newRequest = new Request({
+        title,
+        description,
+        status: status || 'Pending',
+        equipmentId,
+        masterId
+      });
+      
+      const savedRequest = await newRequest.save();
+      res.status(200).json({ 
+        message: 'Request added', 
+        request: savedRequest 
+      });
     } catch (error) {
-        res.status(500).json({message:'Server error'});
+      console.error(error);
+      res.status(500).json({message:'Server error'});
     }
-}
-
+  }
 //изменение заявки
 const updateRequest = async (req,res) => {
     try {

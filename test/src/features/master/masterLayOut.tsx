@@ -1,8 +1,9 @@
 import { Outlet, NavLink } from 'react-router-dom';
 import { VscRequestChanges } from "react-icons/vsc";
 import { IoMdExit } from "react-icons/io";
+import { GrDocumentText } from "react-icons/gr";
+
 import styles from '../../shared/styles/pages/Layout/masterLayout.module.scss';
-console.log('MasterLayout рендерится');
 const MasterLayout = () => {
   return (
     
@@ -16,10 +17,16 @@ const MasterLayout = () => {
               </NavLink>
             </li>
             <li>
+              <NavLink to="/master/requests" title='Список заявок'>
+              <GrDocumentText />
+                </NavLink>
+            </li>
+            <li>
               <NavLink to="/auth/login" title="Выход">
                 <IoMdExit />
               </NavLink>
             </li>
+
           </ul>
         </nav>
       </aside>

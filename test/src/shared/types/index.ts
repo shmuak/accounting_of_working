@@ -22,3 +22,20 @@ export interface ITokenPayload {
   role: string;
   exp: number;
 }
+
+export interface IRequest {
+  _id: string;
+  title: string;
+  description?: string;
+  status: string;
+  equipmentId: IEquipment | string;
+}
+
+export interface IEquipment {
+  _id: string;
+  name: string;
+  type: string;
+  description: string;
+  status: string;
+  workshopId: IWorkshop | string;
+}
