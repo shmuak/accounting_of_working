@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import { IEquipment, IWorkshop } from "../../../../shared/types";
 import { fetchWorkshops,createEquipment } from "../../api"; 
 
-import styles from "../../../../shared/styles/pages/addEquipment.module.scss"; // Можно переименовать файл позже, чтобы был addEquipment.module.scss
-
+import styles from "../../../../shared/styles/pages/equipment/addEquipment.module.scss"; 
 const AddEquipment = () => {
   const [newEquipment, setNewEquipment] = useState<IEquipment>({
     name: '',

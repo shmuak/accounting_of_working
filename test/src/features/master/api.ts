@@ -8,7 +8,7 @@ export const createRequest = async (data: Partial<IRequest>) => {
 
   export const fetchRequests = async (): Promise<IRequest[]> => {
     const res = await $api.get('/requests');
-    console.log("Ответ от сервера:", res.data); // ⬅️ ВАЖНО
+    console.log("Ответ от сервера:", res.data); 
 
     return res.data.requests;
   }

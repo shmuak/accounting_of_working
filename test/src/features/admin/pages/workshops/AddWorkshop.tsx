@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { IWorkshop } from "../../../../shared/types"
 import { createWorkshop } from "../../api"
-import styles from "../../../../shared/styles/pages/addWorkshop.module.scss"
+import styles from "../../../../shared/styles/pages/workshop/addWorkshop.module.scss"
 
 const AddWorkshop = () => {
   const [newWorkshop, setNewWorkshop] = useState<Partial<IWorkshop>>({ 

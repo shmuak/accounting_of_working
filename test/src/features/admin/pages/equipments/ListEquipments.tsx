@@ -3,7 +3,7 @@ import { fetchEquipments, deleteEquipment, updateEquipment } from '../../api'
 import { useDispatch } from 'react-redux'
 import { logout } from '../../../auth/authSlice'
 import { IEquipment } from '../../../../shared/types'
-import styles from '../../../../shared/styles/pages/listEquipments.module.scss'
+import styles from '../../../../shared/styles/pages/equipment/listEquipments.module.scss'
 
 const ListEquipments = () => {
   const dispatch = useDispatch()

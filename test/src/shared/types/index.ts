@@ -29,10 +29,11 @@ export interface IRequest {
   description?: string;
   status: string;
   equipmentId: IEquipment | string;
+  masterId?: string | null;
 }
 
 export interface IEquipment {
-  _id: string;
+  _id?: string;
   name: string;
   type: string;
   description: string;

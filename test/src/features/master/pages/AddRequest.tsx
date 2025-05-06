@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { IEquipment, IUser } from "../../../shared/types/index";
 import { createRequest } from "../api";
-import styles from "../../../shared/styles/pages/addRequest.module.scss";
+import styles from "../../../shared/styles/pages/request/addRequest.module.scss";
 import { fetchEquipments } from "../../admin/api";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../app/store";
@@ -12,11 +12,13 @@ const AddRequest = () => {
     description: string;
     status: string;
     equipmentId: string;
+    masterId: string; 
   }>({
     title: '',
     description: '',
     status: 'Pending',
-    equipmentId: ''
+    equipmentId: '',
+    masterId: ''  
   });
 
   const [equipments, setEquipments] = useState<IEquipment[]>([]);
@@ -25,7 +27,12 @@ const AddRequest = () => {
 
   useEffect(() => {
     if (!user || !user.workshop) return;
-  
+    
+    setNewRequest(prevRequest => ({
+      ...prevRequest,
+      masterId: user._id 
+    }));
+
     fetchEquipments().then((allEquipments) => {
       const filtered = allEquipments.filter(
         (eq) =>
@@ -36,7 +43,6 @@ const AddRequest = () => {
       setEquipments(filtered);
     });
   }, [user]);
-  
 
   const handleCreate = async () => {
     if (!newRequest.title || !newRequest.equipmentId) {
@@ -46,8 +52,9 @@ const AddRequest = () => {
 
     setIsSubmitting(true);
     try {
+      console.log(newRequest)
       await createRequest(newRequest);
-      setNewRequest({ title: '', description: '', equipmentId: '', status: 'Pending' });
+      setNewRequest({ title: '', description: '', equipmentId: '', status: 'Pending', masterId: user?._id || '' });
       alert('Заявка успешно создана!');
     } catch (error) {
       console.error('Ошибка при создании заявки:', error);

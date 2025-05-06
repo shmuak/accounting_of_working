@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { createUser, fetchRoles, fetchWorkshops } from "../../api";
 import { IRole, IWorkshop } from "../../../../shared/types";
-import styles from '../../../../shared/styles/pages/addUser.module.scss';
+import styles from '../../../../shared/styles/pages/user/addUser.module.scss';
 
 const AddUser = () => {
   const [newUser, setNewUser] = useState({

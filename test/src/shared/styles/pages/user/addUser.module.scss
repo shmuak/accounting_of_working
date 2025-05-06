@@ -1,4 +1,4 @@
-@use '../variables' as *;
+@use '../../variables' as *;
 
 .formContainer {
   display: flex;
@@ -36,11 +36,12 @@
     }
   }
   
-  .formInput {
-    width: 90%;
+  .formSelect {
+    width: 100%;
     padding: $spacing-3;
     border: 1px solid $color-border;
     border-radius: $border-radius-sm;
+    background-color: white;
     font-size: $font-size-base;
     transition: $transition-base;
     
@@ -49,21 +50,15 @@
       border-color: $color-primary;
       box-shadow: 0 0 0 2px rgba($color-primary, 0.1);
     }
-    
-    &::placeholder {
-      color: $color-text-muted;
-    }
   }
-
-  .formTextarea {
-    width: 90%;
+  
+  .formInput {
+    width: 92%;
     padding: $spacing-3;
     border: 1px solid $color-border;
     border-radius: $border-radius-sm;
     font-size: $font-size-base;
     transition: $transition-base;
-    resize: vertical;
-    min-height: 80px;
     
     &:focus {
       outline: none;
@@ -90,11 +85,11 @@
     transition: $transition-base;
     
     &:hover {
-      background-color: $color-success;
+      background-color: darken($color-success, 10%);
     }
     
     &:disabled {
-      background-color: $color-success;
+      background-color: lighten($color-success, 20%);
       cursor: not-allowed;
     }
   }

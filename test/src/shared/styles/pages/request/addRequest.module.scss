@@ -1,4 +1,4 @@
-@use '../variables' as *;
+@use '../../variables' as *;
 
 .formContainer {
   display: flex;
@@ -52,6 +52,22 @@
     }
   }
   
+  .formSelect {
+    width: 100%;
+    padding: $spacing-3;
+    border: 1px solid $color-border;
+    border-radius: $border-radius-sm;
+    background-color: white;
+    font-size: $font-size-base;
+    transition: $transition-base;
+    
+    &:focus {
+      outline: none;
+      border-color: $color-primary;
+      box-shadow: 0 0 0 2px rgba($color-primary, 0.1);
+    }
+  }
+
   .formInput {
     width: 92%;
     padding: $spacing-3;

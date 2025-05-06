@@ -3,7 +3,7 @@ import { fetchUsers, deleteUser, updateUser } from '../../api'
 import { useDispatch } from 'react-redux'
 import { logout } from '../../../auth/authSlice'
 import { IUser } from '../../../../shared/types'
-import styles from '../../../../shared/styles/pages/listUsers.module.scss'
+import styles from '../../../../shared/styles/pages/user/listUsers.module.scss'
 import UserSearch from '../../components/userSearch/userSeacch'
 import UserItem from './components/UserItem'
 import EditUserModal from './components/EditUserModal'
@@ -54,7 +54,7 @@ const ListUsers = () => {
       <h1>Список пользователей</h1>
       <UserSearch searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
 
-      <ul>
+      <ul className=''>
         {filteredUsers.map(user => (
           <UserItem
             key={user._id}

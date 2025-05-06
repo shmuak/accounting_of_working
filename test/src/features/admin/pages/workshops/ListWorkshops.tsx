@@ -3,7 +3,7 @@ import { fetchWorkshops, deleteWorkshop, updateWorkshop } from '../../api'
 import { useDispatch } from 'react-redux'
 import { logout } from '../../../auth/authSlice'
 import { IWorkshop } from '../../../../shared/types'
-import styles from '../../../../shared/styles/pages/listUsers.module.scss'
+import styles from '../../../../shared/styles/pages/user/listUsers.module.scss'
 
 const ListWorkshops = () => {
   const dispatch = useDispatch()
