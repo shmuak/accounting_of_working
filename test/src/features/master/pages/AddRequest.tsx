@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { IEquipment, IUser } from "../../../shared/types/index";
+import { IEquipment, IUser } from "../../../shared/types";
 import { createRequest } from "../api";
-import styles from "../../../shared/styles/pages/request/addRequest.module.scss";
 import { fetchEquipments } from "../../admin/api";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../app/store";
+import styles from '../../../shared/styles/pages/request/addRequest.module.scss';
 
 const AddRequest = () => {
   const [newRequest, setNewRequest] = useState<{
@@ -52,7 +52,6 @@ const AddRequest = () => {
 
     setIsSubmitting(true);
     try {
-      console.log(newRequest)
       await createRequest(newRequest);
       setNewRequest({ title: '', description: '', equipmentId: '', status: 'Pending', masterId: user?._id || '' });
       alert('Заявка успешно создана!');
@@ -65,58 +64,94 @@ const AddRequest = () => {
   };
 
   return (
-    <div className={styles.formContainer}>
-      <div className={styles.formCard}>
-        <h1>Создать заявку</h1>
-
+    <div className={styles.createRequestSection}>
+      <h2 className={styles.sectionTitle}>Создать новую заявку</h2>
+      <form 
+        className={styles.requestForm}
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleCreate();
+        }}
+      >
         <div className={styles.formGroup}>
-          <label htmlFor="title">Заголовок</label>
+          <label htmlFor="title" className={styles.label}>
+            Заголовок заявки*
+          </label>
           <input
-            id="title"
             type="text"
-            placeholder="Введите заголовок"
-            value={newRequest.title || ''}
-            onChange={(e) => setNewRequest({ ...newRequest, title: e.target.value })}
-            className={styles.formInput}
+            id="title"
+            name="title"
+            required
+            className={styles.input}
+            placeholder="Кратко опишите проблему"
+            value={newRequest.title}
+            onChange={(e) => setNewRequest({...newRequest, title: e.target.value})}
           />
         </div>
-
-        <div className={styles.formGroup}>
-          <label htmlFor="equipment">Оборудование</label>
-          <select
-            id="equipment"
-            value={newRequest.equipmentId || ''}
-            onChange={(e) => setNewRequest({ ...newRequest, equipmentId: e.target.value })}
-            className={styles.formSelect}
-          >
-            <option value="">Выберите оборудование</option>
-            {equipments.map((eq) => (
-              <option key={eq._id} value={eq._id}>
-                {eq.name}
-              </option>
-            ))}
-          </select>
+        
+        <div className={styles.formRow}>
+          <div className={styles.formGroup}>
+            <label htmlFor="equipment" className={styles.label}>
+              Оборудование*
+            </label>
+            <select
+              id="equipment"
+              name="equipment"
+              required
+              className={styles.select}
+              value={newRequest.equipmentId}
+              onChange={(e) => setNewRequest({...newRequest, equipmentId: e.target.value})}
+            >
+              <option value="" disabled>Выберите оборудование</option>
+              {equipments.map((eq) => (
+                <option key={eq._id} value={eq._id}>
+                  {eq.name}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
-
+        
         <div className={styles.formGroup}>
-          <label htmlFor="description">Описание</label>
+          <label htmlFor="description" className={styles.label}>
+            Подробное описание проблемы*
+          </label>
           <textarea
             id="description"
-            placeholder="Введите описание"
-            value={newRequest.description || ''}
-            onChange={(e) => setNewRequest({ ...newRequest, description: e.target.value })}
-            className={styles.formTextarea}
+            name="description"
+            rows={4}
+            required
+            className={styles.textarea}
+            placeholder="Опишите проблему максимально подробно"
+            value={newRequest.description}
+            onChange={(e) => setNewRequest({...newRequest, description: e.target.value})}
           />
         </div>
-
-        <button 
-          onClick={handleCreate} 
-          className={styles.submitButton}
-          disabled={isSubmitting}
-        >
-          {isSubmitting ? 'Создание...' : 'Создать заявку'}
-        </button>
-      </div>
+        
+        <div className={styles.formActions}>
+          <button
+            type="reset"
+            className={styles.secondaryButton}
+            onClick={() => setNewRequest({
+              title: '',
+              description: '',
+              status: 'Pending',
+              equipmentId: '',
+              masterId: user?._id || ''
+            })}
+          >
+            <i className="fas fa-eraser"></i> Очистить
+          </button>
+          <button
+            type="submit"
+            className={styles.primaryButton}
+            disabled={isSubmitting}
+          >
+            <i className="fas fa-paper-plane"></i> 
+            {isSubmitting ? 'Создание...' : 'Создать заявку'}
+          </button>
+        </div>
+      </form>
     </div>
   );
 };

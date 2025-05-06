@@ -32,9 +32,7 @@ class authController {
         login,
         password: hash,
         role,
-        if (workshop) {
-          userData.workshop = workshop;
-        }
+        ...(workshop && { workshop }),
       })
   
       console.log('Создаю пользователя:', user)

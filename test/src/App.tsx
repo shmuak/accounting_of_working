@@ -11,6 +11,10 @@ import AddRequest from './features/master/pages/AddRequest';
 import AddEquipment from './features/admin/pages/equipments/AddEquipment';
 import ListEquipments from './features/admin/pages/equipments/ListEquipments';
 import ListRequest from './features/master/pages/ListRequest';
+import DispatcherLayout from './features/dispatcher/dispatcherLayout';
+import DispatcherRequests from './features/dispatcher/pages/DispatcherRequests';
+import DispatcherMechanics from './features/dispatcher/pages/DispatcherMechanics';
+import DispatcherSchedule from './features/dispatcher/pages/DispatcherSchedule';
 const App = () => {
   return (
     <Router>
@@ -79,6 +83,29 @@ const App = () => {
           
         </Route>
 
+        <Route  path="/dispatcher" element={<DispatcherLayout /> }>
+        
+          <Route path="requests"
+          element ={
+            <ProtectedRoute requiredRole='DISPATCHER'>
+              <DispatcherRequests />
+            </ProtectedRoute>
+          }/>
+
+          <Route path="mechanics"
+            element ={
+              <ProtectedRoute requiredRole='DISPATCHER'>
+                <DispatcherMechanics />
+              </ProtectedRoute>
+            }/>
+
+          <Route path="schedule"
+            element ={
+              <ProtectedRoute requiredRole='DISPATCHER'>
+                <DispatcherSchedule />
+              </ProtectedRoute>
+            }/>
+        </Route>
 
         
 

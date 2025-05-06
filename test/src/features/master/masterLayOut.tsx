@@ -1,36 +1,52 @@
 import { Outlet, NavLink } from 'react-router-dom';
-import { VscRequestChanges } from "react-icons/vsc";
-import { IoMdExit } from "react-icons/io";
-import { GrDocumentText } from "react-icons/gr";
-
+import { FaPlusCircle, FaList, FaSignOutAlt } from 'react-icons/fa';
 import styles from '../../shared/styles/pages/Layout/masterLayout.module.scss';
+
 const MasterLayout = () => {
   return (
-    
     <div className={styles.container}>
-      <aside className={styles.toolbar}>
-        <nav>
-          <ul>
-            <li>
-              <NavLink to="/master/create-request" title="Создать заявку">
-                <VscRequestChanges />
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/master/requests" title='Список заявок'>
-              <GrDocumentText />
-                </NavLink>
-            </li>
-            <li>
-              <NavLink to="/auth/login" title="Выход">
-                <IoMdExit />
-              </NavLink>
-            </li>
+      <nav className={styles.topNav}>
+        <div className={styles.navContainer}>
+          <div className={styles.navLeft}>
+            <div className={styles.avatar}>М</div>
+            <span className={styles.brand}>Мастер</span>
+          </div>
+          
+          <div className={styles.navCenter}>
+            <NavLink 
+              to="/master/create-request" 
+              className={({ isActive }) => 
+                `${styles.navItem} ${isActive ? styles.active : ''}`
+              }
+            >
+              <FaPlusCircle className={styles.navIcon} />
+              Создать заявку
+            </NavLink>
+            <NavLink 
+              to="/master/requests" 
+              className={({ isActive }) => 
+                `${styles.navItem} ${isActive ? styles.active : ''}`
+              }
+            >
+              <FaList className={styles.navIcon} />
+              Мои заявки
+            </NavLink>
+          </div>
+          
+          <div className={styles.navRight}>
+            
+            <NavLink 
+              to="/auth/login" 
+              className={styles.navItem}
+              title="Выход"
+            >
+              <FaSignOutAlt className={styles.navIcon} />
+            </NavLink>
+          </div>
+        </div>
+      </nav>
 
-          </ul>
-        </nav>
-      </aside>
-      <main className={styles.main}>
+      <main className={styles.mainContent}>
         <Outlet />
       </main>
     </div>

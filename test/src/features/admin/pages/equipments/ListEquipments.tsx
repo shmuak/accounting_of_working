@@ -26,7 +26,7 @@ const ListEquipments = () => {
 
   const handleDelete = async (id: string) => {
     await deleteEquipment(id)
-    loadEquipments()
+    loadEquipments()  
   }
 
   const handleEdit = (equipment: IEquipment & { _id: string }) => {

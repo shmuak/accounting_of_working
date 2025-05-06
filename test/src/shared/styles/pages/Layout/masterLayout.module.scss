@@ -1,46 +1,110 @@
-/* adminLayout.module.scss */
-.toolbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    background-color: #2c3e50;
-    padding: 20px;
-    display: flex;
-  }
-  .container {
-    margin-left: 80px; 
-    display: flex;
-  }
-  
-  .toolbar ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .toolbar li {
-    margin-bottom: 40px;
-    padding: 10px;
-  }
+.container {
+  background-color: #f9fafb;
+  min-height: 100vh;
+}
 
-  .toolbar li::after {
-    background-color: #fff;
-    
+.topNav {
+  background-color: white;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  
+  .navContainer {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 4rem;
   }
   
-  .toolbar a {
-    color: white;
-    text-decoration: none;
-    font-size: 18px;
+  .navLeft {
     display: flex;
     align-items: center;
-    gap: 10px;
+    
+    .avatar {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 50%;
+      background-color: #3B82F6;
+      color: white;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 0.75rem;
+    }
+    
+    .brand {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: #1f2937;
+    }
   }
   
-  .active {
-    font-weight: bold;
-    color: #1abc9c;
+  .navCenter {
+    display: flex;
+    gap: 0.25rem;
   }
   
+  .navRight {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    
+    .requestCounter {
+      display: flex;
+      align-items: center;
+      padding: 0.25rem 0.75rem;
+      background-color: #EFF6FF;
+      border-radius: 9999px;
+      font-size: 0.875rem;
+      
+      .counterNumber {
+        color: #2563EB;
+        font-weight: 500;
+      }
+      
+      .counterLabel {
+        color: #6B7280;
+        margin-left: 0.25rem;
+      }
+    }
+  }
+  
+  .navItem {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    font-weight: 500;
+    color: #4B5563;
+    transition: color 0.2s;
+    
+    &:hover {
+      color: #2563EB;
+    }
+    
+    &.active {
+      color: #2563EB;
+      border-bottom: 3px solid #2563EB;
+    }
+  }
+  
+  .navIcon {
+    margin-right: 0.5rem;
+  }
+}
 
-  
+.mainContent {
+  padding-top: 5rem;
+  padding-bottom: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}

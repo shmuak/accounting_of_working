@@ -1,20 +1,25 @@
 .container {
   display: flex;
+  min-height: 100vh;
 }
 
 .toolbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 80px;
-  background-color: #1f2937; // тёмно-серый (Tailwind style)
-  padding: 20px 0;
+  flex: 0 0 auto; // Не растягивается и не сжимается
+  width: auto; // Ширина по содержимому
+  min-width: 80px; // Минимальная ширина
+  background-color: #1f2937;
+  padding: 20px 15px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
+  justify-content: space-between;
   box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
   z-index: 10;
+  white-space: nowrap;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  overflow-y: auto;
 
   nav ul {
     list-style: none;
@@ -23,44 +28,108 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 30px;
+    align-items: flex-start;
+    gap: 20px;
+    flex: 1;
   }
 
   li {
     width: 100%;
-    display: flex;
-    justify-content: center;
 
     a {
       display: flex;
-      justify-content: center;
       align-items: center;
-      width: 48px;
+      gap: 10px;
+      width: 100%;
       height: 48px;
-      color: #cbd5e1; // светло-серый
+      color: #cbd5e1;
       font-size: 22px;
       border-radius: 12px;
+      text-decoration: none;
       transition: background-color 0.3s, color 0.3s;
+      padding: 0 12px;
 
       &:hover {
-        background-color: #374151; // слегка светлее фон
+        background-color: #374151;
         color: #ffffff;
       }
 
       &.active {
-        background-color: #10b981; // зелёный (Tailwind Emerald)
+        background-color: #10b981;
         color: white;
         font-weight: bold;
+      }
+
+      span {
+        font-size: 14px;
       }
     }
   }
 }
 
+.userPanel {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 15px;
+  margin-top: auto;
+  padding-bottom: 20px;
+  width: 100%;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #cbd5e1;
+  font-size: 14px;
+  width: 100%;
+  padding: 0 12px;
+
+  svg {
+    font-size: 24px;
+    flex-shrink: 0;
+  }
+
+  div {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.userName {
+  font-weight: 500;
+}
+
+.userRole {
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+.logout {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #cbd5e1;
+  font-size: 22px;
+  transition: color 0.3s;
+  text-decoration: none;
+  width: 100%;
+  padding: 0 12px;
+
+  &:hover {
+    color: #ffffff;
+  }
+
+  span {
+    font-size: 14px;
+  }
+}
+
 .main {
   flex: 1;
-  margin-left: 80px; // столько же, сколько ширина .toolbar
   padding: 2rem;
   background-color: #f9fafb;
   min-height: 100vh;
-}
+  overflow: auto;
+} 

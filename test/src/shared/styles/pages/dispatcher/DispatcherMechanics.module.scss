@@ -1,0 +1,147 @@
+.mechanics {
+    padding: 1.5rem;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  
+    h2 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #1f2937;
+    }
+  }
+  
+  .primaryButton {
+    background-color: #2563eb;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
+  
+    &:hover {
+      background-color: #1d4ed8;
+    }
+  }
+  
+  .mechanicsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .mechanicCard {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .mechanicHeader {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .mechanicImage {
+    width: 60px;
+    height: 60px;
+    border-radius: 9999px;
+    margin-right: 1rem;
+  }
+  
+  .mechanicName {
+    font-weight: 700;
+    font-size: 1.125rem;
+    color: #1f2937;
+    margin-bottom: 0.25rem;
+  }
+  
+  .mechanicPosition {
+    color: #6b7280;
+    font-size: 0.875rem;
+  }
+  
+  .progressContainer {
+    margin-bottom: 1rem;
+  }
+  
+  .progressLabel {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.25rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #374151;
+  }
+  
+  .progressBar {
+    height: 0.5rem;
+    background-color: #e5e7eb;
+    border-radius: 0.25rem;
+    overflow: hidden;
+  }
+  
+  .progressFill {
+    height: 100%;
+    background-color: #3b82f6;
+    border-radius: 0.25rem;
+  }
+  
+  .mechanicStats {
+    margin-bottom: 1rem;
+  }
+  
+  .statItem {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin-bottom: 0.5rem;
+  
+    &:last-child {
+      margin-bottom: 0;
+    }
+  
+    span:last-child {
+      font-weight: 500;
+      color: #1f2937;
+    }
+  }
+  
+  .mechanicActions {
+    display: flex;
+    gap: 0.5rem;
+  }
+  
+  .assignButton {
+    flex: 1;
+    background-color: #dbeafe;
+    color: #1e40af;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+  
+    &:hover {
+      background-color: #bfdbfe;
+    }
+  }
+  
+  .moreButton {
+    background-color: #f3f4f6;
+    color: #4b5563;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    width: 2.5rem;
+  
+    &:hover {
+      background-color: #e5e7eb;
+    }
+  }

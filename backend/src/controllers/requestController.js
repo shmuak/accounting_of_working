@@ -3,7 +3,11 @@ const Request = require('../models/request');
 //получение всех заявок 
 const getRequests = async (req, res) => {
     try {
-        const requests = await Request.find();
+      const requests = await Request.find()
+        .populate({
+          path: 'equipmentId',
+          populate: { path: 'workshopId' }
+        });
         res.status(200).json({message:'Get all requests',requests})
     } catch (error) {
         res.status(500).json({message: 'Server error'});

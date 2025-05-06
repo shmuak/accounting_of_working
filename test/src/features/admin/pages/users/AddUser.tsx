@@ -18,7 +18,7 @@ const AddUser = () => {
   useEffect(() => {
     fetchRoles().then(setRoles);
     fetchWorkshops().then(setWorkshops);
-    if (newUser.role === 'admin') {
+    if (newUser.role === 'ADMIN') {
       setNewUser(prev => ({ ...prev, workshop: '' }));
     }
   }, []);

@@ -11,6 +11,7 @@ const authRouter = require('./auth/authRouter');
 const adminRouter = require('./employees/admin/adminRouter');
 const roleRouter = require('./routes/roleRouters');
 const masterRouter = require('./employees/master/masterRouter');
+const dispatcherRouter = require('./employees/dispatcher/dispatcherRouter');
 const errorHandler = require('./utils/errorHandler');
 const cors = require('cors');
 
@@ -33,6 +34,7 @@ app.use('/reports', reportRouter );
 app.use('/admin', adminRouter)
 app.use('/roles', roleRouter);
 app.use('/master', masterRouter)
+app.use('/dispatcher', dispatcherRouter)
 app.use(errorHandler);
 
 module.exports = app;

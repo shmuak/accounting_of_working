@@ -13,7 +13,7 @@ const LoginForm = () => {
   const roleRouteMap: Record<string, string> = {
     ADMIN: '/admin/users',
     MASTER: '/master/create-request',
-    ENGINEER: '/engineer',
+    DISPATCHER: '/dispatcher',
     OPERATOR: '/operator',
     MANAGER: '/manager',
     AUDITOR: '/auditor',

@@ -8,4 +8,4 @@ const router = new Router();
 router.get('/users', roleMiddleware('ADMIN'), adminController.getUsers);
 router.get('/workshops', roleMiddleware('ADMIN'), getWorkshops);
 router.get('/equipments', getEquipments)
-module.exports = router;
+module.exports = router;    

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const RequestSchema = new mongoose.Schema({
-    equipmentId: mongoose.Schema.Types.ObjectId, 
+    equipmentId: { type: mongoose.Schema.Types.ObjectId, ref: 'Equipment' },
     masterId: {
         type: mongoose.Types.ObjectId,
         ref: 'User'
