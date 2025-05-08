@@ -24,7 +24,7 @@ const AddUser = () => {
   }, []);
 
   const handleCreate = async () => {
-    if (!newUser.login || !newUser.password || !newUser.role || (newUser.role !== 'ADMIN' && !newUser.workshop)) {
+    if (!newUser.login || !newUser.password || !newUser.role || (newUser.role !== 'ADMIN' && newUser.role !== 'DISPATCHER' && !newUser.workshop)) {
       alert('Заполните все поля');
       return;
     }
@@ -71,7 +71,7 @@ const AddUser = () => {
           </select>
         </div>
 
-        {newUser.role && newUser.role !== 'ADMIN' && (
+        {newUser.role && newUser.role !== 'ADMIN' && newUser.role !== 'DISPATCHER' && (
           <div className={styles.formGroup}>
             <label htmlFor="workshop">Цех</label>
             <select

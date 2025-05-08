@@ -1,0 +1,164 @@
+.reports {
+    padding: 1.5rem;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+  }
+  
+  .actions {
+    display: flex;
+    gap: 0.5rem;
+  }
+  
+  .reportContent {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  
+    @media (min-width: 768px) {
+      grid-template-columns: 1fr 2fr;
+    }
+  }
+  
+  .reportParams {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .subtitle {
+    font-size: 1.125rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+    margin-top: 0;
+  }
+  
+  .formGroup {
+    margin-bottom: 1rem;
+  }
+  
+  .label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 0.25rem;
+  }
+  
+  .formControl {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 0.375rem;
+    background-color: white;
+    transition: border-color 0.15s ease-in-out;
+    font-size: 0.875rem;
+  
+    &:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.25);
+    }
+  }
+  
+  .reportResults {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .chartContainer {
+    margin-bottom: 1.5rem;
+    height: 200px;
+  }
+  
+  .statsTable {
+    overflow-x: auto;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+  
+    th, td {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border-light);
+    }
+  
+    th {
+      font-weight: 500;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      background-color: var(--bg-secondary);
+    }
+  
+    td {
+      color: var(--text-secondary);
+    }
+  }
+  
+  .btn {
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    font-weight: 500;
+    transition: all 0.15s ease-in-out;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    cursor: pointer;
+  
+    &.primary {
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+  
+      &:hover {
+        background-color: var(--primary-dark);
+      }
+    }
+  
+    &.secondary {
+      background-color: white;
+      color: var(--text-secondary);
+      border: 1px solid var(--border-color);
+  
+      &:hover {
+        background-color: var(--bg-secondary);
+      }
+    }
+  
+    &.fullWidth {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+  
+  .success {
+    color: var(--success-color);
+  }
+  
+  .danger {
+    color: var(--danger-color);
+  }
+  
+  // Иконки Font Awesome
+  .fas {
+    margin-right: 0.25rem;
+  }

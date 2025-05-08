@@ -113,14 +113,6 @@
   }
 }
 
-.mainContent {
-  flex: 1;
-  overflow: auto;
-  display: flex;
-  flex-direction: column;
-  min-width: 0; // Фикс для переполнения контента
-}
-
 .header {
   background-color: white;
   padding: 1rem;
@@ -174,7 +166,14 @@
 
 .content {
   flex: 1;
-  padding: 1.5rem;
   background-color: #f3f4f6;
-  overflow: auto; // Добавлено для прокрутки контента
+  max-width: 96%;// Добавлено
+}
+
+.mainContent {
+  flex: 1;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
 }

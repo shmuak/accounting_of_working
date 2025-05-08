@@ -14,7 +14,7 @@ import ListRequest from './features/master/pages/ListRequest';
 import DispatcherLayout from './features/dispatcher/dispatcherLayout';
 import DispatcherRequests from './features/dispatcher/pages/DispatcherRequests';
 import DispatcherMechanics from './features/dispatcher/pages/DispatcherMechanics';
-import DispatcherSchedule from './features/dispatcher/pages/DispatcherSchedule';
+import Reports from './features/dispatcher/pages/reports/Reports';
 const App = () => {
   return (
     <Router>
@@ -99,10 +99,10 @@ const App = () => {
               </ProtectedRoute>
             }/>
 
-          <Route path="schedule"
+          <Route path="reports"
             element ={
               <ProtectedRoute requiredRole='DISPATCHER'>
-                <DispatcherSchedule />
+                <Reports />
               </ProtectedRoute>
             }/>
         </Route>

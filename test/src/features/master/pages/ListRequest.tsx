@@ -216,7 +216,7 @@ const ListRequest = () => {
                     <h3 className={styles.requestTitle}>{request.title}</h3>
                     <div className={styles.requestMeta}>
                       <span className={`${styles.statusBadge} ${styles[request.status]}`}>
-                        {request.status === 'pending' ? 'Ожидание' : 
+                        {request.status === 'Pending' ? 'Ожидание' : 
                         request.status === 'in-progress' ? 'В работе' : 'Завершено'}
                       </span>
                     </div>
