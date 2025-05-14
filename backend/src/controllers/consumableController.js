@@ -1,4 +1,4 @@
-const Consumable = require('../models/Consumable');
+const Consumable = require('../models/consumable');
 
 //Получение всех расходников
 const getConsumables = async (req,res) => {

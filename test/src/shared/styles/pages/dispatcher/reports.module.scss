@@ -152,6 +152,10 @@
   
   .success {
     color: var(--success-color);
+  }canvas {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
   }
   
   .danger {
@@ -162,3 +166,4 @@
   .fas {
     margin-right: 0.25rem;
   }
+

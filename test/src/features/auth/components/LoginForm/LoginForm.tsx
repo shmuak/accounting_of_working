@@ -14,8 +14,8 @@ const LoginForm = () => {
     ADMIN: '/admin/users',
     MASTER: '/master/create-request',
     DISPATCHER: '/dispatcher',
-    OPERATOR: '/operator',
-    MANAGER: '/manager',
+    MECHANIC: '/mechanic',
+    STOKEKEEPER: '/stokekeeper',
     AUDITOR: '/auditor',
   };
   

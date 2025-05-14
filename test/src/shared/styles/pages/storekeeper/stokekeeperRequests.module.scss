@@ -1,0 +1,260 @@
+.requestsPage {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.statsCard {
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+}
+
+.statsTitle {
+  font-size: 1.125rem;
+  font-weight: bold;
+  color: #1f2937;
+  margin: 0 0 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.statItem {
+  display: flex;
+  flex-direction: column;
+}
+
+.statLabel {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.statValue {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #1f2937;
+}
+
+.filters {
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.filterSelect {
+  flex: 1;
+  min-width: 150px;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  transition: border-color 0.2s;
+  
+  &:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 1px #3b82f6;
+  }
+}
+
+.filterButton {
+  padding: 0.5rem 1rem;
+  background-color: #1e40af;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  
+  &:hover {
+    background-color: #1e3a8a;
+  }
+}
+
+.requestList {
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.listHeader {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.listTitle {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #1f2937;
+  margin: 0;
+}
+
+.listContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.listFooter {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid #e5e7eb;
+  text-align: center;
+}
+
+.showAllButton {
+  color: #1e40af;
+  font-weight: 500;
+  font-size: 0.875rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s;
+  
+  &:hover {
+    color: #1e3a8a;
+  }
+}
+
+.requestItem {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
+  transition: all 0.2s;
+  
+  &:hover {
+    background-color: #f9fafb;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.requestHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.requestUser {
+  font-weight: 500;
+  color: #1f2937;
+  margin: 0;
+}
+
+.requestDate {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin: 0.25rem 0 0;
+}
+
+.requestStatus {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 9999px;
+  font-weight: 500;
+  
+  &.statusNew {
+    background-color: #fef3c7;
+    color: #92400e;
+  }
+  
+  &.statusProcessing {
+    background-color: #dbeafe;
+    color: #1e40af;
+  }
+  
+  &.statusCompleted {
+    background-color: #dcfce7;
+    color: #166534;
+  }
+  
+  &.statusRejected {
+    background-color: #fee2e2;
+    color: #b91c1c;
+  }
+}
+
+.requestDescription {
+  font-size: 0.875rem;
+  color: #4b5563;
+  margin: 0 0 1rem;
+}
+
+.requestItems {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+}
+
+.requestItemRow {
+  display: flex;
+  justify-content: space-between;
+}
+
+.itemName {
+  color: #6b7280;
+}
+
+.itemQuantity {
+  font-weight: 500;
+  color: #1f2937;
+}
+
+.requestActions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.approveButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: #dcfce7;
+  color: #166534;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  
+  &:hover {
+    background-color: #bbf7d0;
+  }
+}
+
+.rejectButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: #fee2e2;
+  color: #b91c1c;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  
+  &:hover {
+    background-color: #fecaca;
+  }
+}

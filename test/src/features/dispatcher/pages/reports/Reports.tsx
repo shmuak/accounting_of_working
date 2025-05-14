@@ -1,61 +1,284 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Chart from 'chart.js/auto';
 import styles from '../../../../shared/styles/pages/dispatcher/reports.module.scss';
+import { fetchUsers, fetchWorkshops, fetchRequestsMechabnic } from '../../api';
+import { IUser, IWorkshop, IRequestMechanic } from '../../../../shared/types';
+import { format, subDays } from 'date-fns';
+import { jsPDF } from 'jspdf';
+import html2canvas from 'html2canvas';
+
+interface IRequestExtended extends IRequestMechanic {
+  createdAt: string;
+  updatedAt: string;
+}
 
 const Reports: React.FC = () => {
   const requestsChartRef = useRef<HTMLCanvasElement>(null);
+  const reportResultsRef = useRef<HTMLDivElement>(null);
   const chartInstance = useRef<Chart | null>(null);
+  const [mechanics, setMechanics] = useState<{_id: string, login: string}[]>([]);
+  const [workshops, setWorkshops] = useState<IWorkshop[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [selectedStatus, setSelectedStatus] = useState<string>('Все статусы');
+  const [selectedMechanic, setSelectedMechanic] = useState<string>('Все слесари');
+  const [selectedWorkshop, setSelectedWorkshop] = useState<string>('Все цеха');
+  const [requests, setRequests] = useState<IRequestExtended[]>([]);
+  const [timeRange, setTimeRange] = useState<string>('Последний месяц');
+  const [filteredRequests, setFilteredRequests] = useState<IRequestExtended[]>([]);
+  const [isExporting, setIsExporting] = useState(false);
+
+  const exportToPDF = async () => {
+    if (!reportResultsRef.current) return;
+  
+    setIsExporting(true);
+    let originalWidth: number | undefined;
+    let originalHeight: number | undefined;
+  
+    try {
+      if (requestsChartRef.current) {
+        originalWidth = requestsChartRef.current.width;
+        originalHeight = requestsChartRef.current.height;
+      }
+  
+      const canvas = await html2canvas(reportResultsRef.current, {
+        logging: false,
+        useCORS: true,
+        allowTaint: true,
+      });
+  
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const imgWidth = 190;
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+  
+      pdf.addImage(canvas, 'PNG', 10, 10, imgWidth, imgHeight);
+      pdf.save(`Отчет_по_заявкам_${format(new Date(), 'yyyy-MM-dd')}.pdf`);
+    } catch (error) {
+      console.error('Ошибка при создании PDF:', error);
+      alert('Не удалось создать PDF файл');
+    } finally {
+      setIsExporting(false);
+      
+      if (requestsChartRef.current && originalWidth && originalHeight) {
+        requestsChartRef.current.width = originalWidth;
+        requestsChartRef.current.height = originalHeight;
+      }
+    }
+  };
 
   useEffect(() => {
-    if (requestsChartRef.current) {
-      // Destroy previous chart instance if it exists
+    const fetchData = async () => {
+      try {
+        const mechanicsData = await fetchUsers();
+        setMechanics(mechanicsData.filter((user: IUser) => user.role === 'MECHANIC'));
+        
+        const workshopsData = await fetchWorkshops();
+        setWorkshops(workshopsData);
+        
+        await loadRequests();
+        
+        setIsLoading(false);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const loadRequests = async () => {
+    try {
+      const requestsData = await fetchRequestsMechabnic();
+      setRequests(requestsData as IRequestExtended[]);
+      applyFilters(requestsData as IRequestExtended[], selectedStatus, timeRange, selectedMechanic, selectedWorkshop);
+    } catch (error) {
+      console.error('Error loading requests:', error);
+    }
+  };
+
+  const applyFilters = (
+    requests: IRequestExtended[], 
+    status: string, 
+    range: string,
+    mechanicId: string,
+    workshopId: string
+  ) => {
+    let filtered = [...requests];
+    
+    // Фильтр по статусу
+    if (status !== 'Все статусы') {
+      filtered = filtered.filter(request => request.status === status);
+    }
+    
+    // Фильтр по механику
+    if (mechanicId !== 'Все слесари') {
+      filtered = filtered.filter(request => {
+        if (typeof request.masterId === 'string') {
+          return request.masterId === mechanicId;
+        } else if (request.masterId && typeof request.masterId === 'object') {
+          return request.masterId._id === mechanicId;
+        }
+        return false;
+      });
+    }
+    
+    // Фильтр по цеху
+    if (workshopId !== 'Все цеха') {
+      filtered = filtered.filter(request => {
+        if (typeof request.equipmentId === 'object' && request.equipmentId !== null) {
+          return request.equipmentId.workshopId === workshopId || 
+                 (typeof request.equipmentId.workshopId === 'object' && 
+                  request.equipmentId.workshopId._id === workshopId);
+        }
+        return false;
+      });
+    }
+    
+    // Фильтр по дате
+    const now = new Date();
+    let startDate: Date;
+    
+    switch (range) {
+      case 'Последняя неделя':
+        startDate = subDays(now, 7);
+        break;
+      case 'Последний месяц':
+        startDate = subDays(now, 30);
+        break;
+      case 'Последний год':
+        startDate = subDays(now, 365);
+        break;
+      default:
+        startDate = new Date(0);
+    }
+    
+    filtered = filtered.filter(request => {
+      const createdAt = new Date(request.createdAt);
+      return createdAt >= startDate;
+    });
+    
+    setFilteredRequests(filtered);
+  };
+
+  const handleStatusChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const status = e.target.value;
+    setSelectedStatus(status);
+    applyFilters(requests, status, timeRange, selectedMechanic, selectedWorkshop);
+  };
+
+  const handleMechanicChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const mechanicId = e.target.value;
+    setSelectedMechanic(mechanicId);
+    applyFilters(requests, selectedStatus, timeRange, mechanicId, selectedWorkshop);
+  };
+
+  const handleWorkshopChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const workshopId = e.target.value;
+    setSelectedWorkshop(workshopId);
+    applyFilters(requests, selectedStatus, timeRange, selectedMechanic, workshopId);
+  };
+
+  const handleTimeRangeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const range = e.target.value;
+    setTimeRange(range);
+    applyFilters(requests, selectedStatus, range, selectedMechanic, selectedWorkshop);
+  };
+
+  const prepareChartData = () => {
+    const groupedByDate: Record<string, { new: number, inProgress: number, completed: number }> = {};
+    
+    filteredRequests.forEach(request => {
+      const date = format(new Date(request.createdAt), 'dd MMM');
+      
+      if (!groupedByDate[date]) {
+        groupedByDate[date] = { new: 0, inProgress: 0, completed: 0 };
+      }
+      
+      if (request.status === 'Pending') {
+        groupedByDate[date].new++;
+      } else if (request.status === 'Approved') {
+        groupedByDate[date].inProgress++;
+      } else if (request.status === 'Rejected') {
+        groupedByDate[date].completed++;
+      }
+    });
+    
+    const sortedDates = Object.keys(groupedByDate).sort((a, b) => {
+      return new Date(a).getTime() - new Date(b).getTime();
+    });
+    
+    return {
+      labels: sortedDates,
+      datasets: [
+        {
+          label: 'Новые',
+          data: sortedDates.map(date => groupedByDate[date].new),
+          borderColor: 'rgba(59, 130, 246, 1)',
+          backgroundColor: 'rgba(59, 130, 246, 0.1)',
+          tension: 0.3,
+          fill: true
+        },
+        {
+          label: 'В работе',
+          data: sortedDates.map(date => groupedByDate[date].inProgress),
+          borderColor: 'rgba(252, 211, 77, 1)',
+          backgroundColor: 'rgba(252, 211, 77, 0.1)',
+          tension: 0.3,
+          fill: true
+        },
+        {
+          label: 'Завершено',
+          data: sortedDates.map(date => groupedByDate[date].completed),
+          borderColor: 'rgba(16, 185, 129, 1)',
+          backgroundColor: 'rgba(16, 185, 129, 0.1)',
+          tension: 0.3,
+          fill: true
+        }
+      ]
+    };
+  };
+
+  useEffect(() => {
+    if (requestsChartRef.current && !isLoading && filteredRequests.length > 0) {
       if (chartInstance.current) {
         chartInstance.current.destroy();
       }
 
       const ctx = requestsChartRef.current.getContext('2d');
       if (ctx) {
+        const chartData = prepareChartData();
+        
         chartInstance.current = new Chart(ctx, {
           type: 'line',
-          data: {
-            labels: ['1 июн', '5 июн', '10 июн', '15 июн', '20 июн', '25 июн', '30 июн'],
-            datasets: [
-              {
-                label: 'Новые',
-                data: [3, 5, 2, 4, 6, 3, 2],
-                borderColor: 'rgba(59, 130, 246, 1)',
-                backgroundColor: 'rgba(59, 130, 246, 0.1)',
-                tension: 0.3,
-                fill: true
-              },
-              {
-                label: 'В работе',
-                data: [2, 3, 4, 3, 2, 4, 3],
-                borderColor: 'rgba(252, 211, 77, 1)',
-                backgroundColor: 'rgba(252, 211, 77, 0.1)',
-                tension: 0.3,
-                fill: true
-              },
-              {
-                label: 'Завершено',
-                data: [4, 5, 3, 6, 4, 7, 5],
-                borderColor: 'rgba(16, 185, 129, 1)',
-                backgroundColor: 'rgba(16, 185, 129, 0.1)',
-                tension: 0.3,
-                fill: true
-              }
-            ]
-          },
+          data: chartData,
           options: {
             responsive: true,
+            maintainAspectRatio: false,
             plugins: {
               legend: {
                 position: 'top',
+                labels: {
+                  font: {
+                    size: 14
+                  }
+                }
               }
             },
             scales: {
               y: {
-                beginAtZero: true
+                beginAtZero: true,
+                ticks: {
+                  font: {
+                    size: 12
+                  }
+                }
+              },
+              x: {
+                ticks: {
+                  font: {
+                    size: 12
+                  }
+                }
               }
             }
           }
@@ -63,24 +286,54 @@ const Reports: React.FC = () => {
       }
     }
 
-    // Cleanup function to destroy chart when component unmounts
     return () => {
       if (chartInstance.current) {
         chartInstance.current.destroy();
       }
     };
-  }, []);
+  }, [isLoading, filteredRequests]);
+
+  const calculateStatistics = () => {
+    const totalRequests = filteredRequests.length;
+    const completedRequests = filteredRequests.filter(r => r.status === 'Rejected').length;
+    const avgCompletionTime = '4ч 35м';
+    const completionRate = totalRequests > 0 
+      ? Math.round((completedRequests / totalRequests) * 100) 
+      : 0;
+    const qualityRating = '4.7 / 5';
+
+    return {
+      totalRequests,
+      completedRequests,
+      avgCompletionTime,
+      completionRate,
+      qualityRating
+    };
+  };
+
+  const stats = calculateStatistics();
+
+  if (isLoading) {
+    return <div className={styles.loading}>Загрузка данных...</div>;
+  }
 
   return (
     <div className={styles.reports}>
       <div className={styles.header}>
         <h2 className={styles.title}>Отчеты по заявкам</h2>
         <div className={styles.actions}>
-          <button className={`${styles.btn} ${styles.primary}`}>
-            <i className="fas fa-file-export"></i> Экспорт
-          </button>
-          <button className={`${styles.btn} ${styles.secondary}`}>
-            <i className="fas fa-filter"></i> Фильтр
+          <button 
+            className={`${styles.btn} ${styles.primary}`}
+            onClick={exportToPDF}
+            disabled={isExporting}
+          >
+            {isExporting ? (
+              <span>Создание PDF...</span>
+            ) : (
+              <>
+                <i className="fas fa-file-export"></i> Экспорт в PDF
+              </>
+            )}
           </button>
         </div>
       </div>
@@ -91,57 +344,77 @@ const Reports: React.FC = () => {
           
           <div className={styles.formGroup}>
             <label className={styles.label}>Период</label>
-            <select className={styles.formControl} defaultValue="Последний месяц">
+            <select 
+              className={styles.formControl} 
+              value={timeRange}
+              onChange={handleTimeRangeChange}
+            >
               <option value="Последняя неделя">Последняя неделя</option>
               <option value="Последний месяц">Последний месяц</option>
-              <option value="Последний квартал">Последний квартал</option>
               <option value="Последний год">Последний год</option>
-              <option value="Произвольный период">Произвольный период</option>
             </select>
           </div>
 
           <div className={styles.formGroup}>
             <label className={styles.label}>Цех</label>
-            <select className={styles.formControl} defaultValue="Все цеха">
+            <select 
+              className={styles.formControl} 
+              value={selectedWorkshop}
+              onChange={handleWorkshopChange}
+            >
               <option value="Все цеха">Все цеха</option>
-              <option value="Литейный цех">Литейный цех</option>
-              <option value="Механический цех">Механический цех</option>
-              <option value="Сборочный цех">Сборочный цех</option>
-              <option value="Склад">Склад</option>
+              {workshops.map(workshop => (
+                <option key={workshop._id} value={workshop._id}>
+                  {workshop.name}
+                </option>
+              ))}
             </select>
           </div>
 
           <div className={styles.formGroup}>
             <label className={styles.label}>Слесарь</label>
-            <select className={styles.formControl} defaultValue="Все слесари">
+            <select 
+              className={styles.formControl} 
+              value={selectedMechanic}
+              onChange={handleMechanicChange}
+            >
               <option value="Все слесари">Все слесари</option>
-              <option value="Алексей Смирнов">Алексей Смирнов</option>
-              <option value="Дмитрий Иванов">Дмитрий Иванов</option>
-              <option value="Сергей Кузнецов">Сергей Кузнецов</option>
+              {mechanics.map(mechanic => (
+                <option key={mechanic._id} value={mechanic._id}>
+                  {mechanic.login}
+                </option>
+              ))}
             </select>
           </div>
 
           <div className={styles.formGroup}>
             <label className={styles.label}>Статус</label>
-            <select className={styles.formControl} defaultValue="Все статусы">
+            <select 
+              className={styles.formControl} 
+              value={selectedStatus}
+              onChange={handleStatusChange}
+            >
               <option value="Все статусы">Все статусы</option>
-              <option value="Новые">Новые</option>
-              <option value="В работе">В работе</option>
-              <option value="Завершено">Завершено</option>
-              <option value="Отклонено">Отклонено</option>
+              <option value="Pending">Новые</option>
+              <option value="Approved">В работе</option>
+              <option value="Rejected">Завершено</option>
             </select>
           </div>
-
-          <button className={`${styles.btn} ${styles.primary} ${styles.fullWidth}`}>
-            Сформировать отчет
-          </button>
         </div>
 
-        <div className={styles.reportResults}>
-          <h3 className={styles.subtitle}>Статистика за последний месяц</h3>
+        <div className={styles.reportResults} ref={reportResultsRef}>
+          <h3 className={styles.subtitle}>
+            {selectedStatus === 'Все статусы' 
+              ? `Статистика за ${timeRange.toLowerCase()}` 
+              : `Статистика по заявкам со статусом "${selectedStatus}" за ${timeRange.toLowerCase()}`}
+          </h3>
           
           <div className={styles.chartContainer}>
-            <canvas ref={requestsChartRef} height="200"></canvas>
+            <canvas 
+              ref={requestsChartRef} 
+              height={500}
+              width={800}
+            ></canvas>
           </div>
 
           <div className={styles.statsTable}>
@@ -156,38 +429,7 @@ const Reports: React.FC = () => {
               <tbody>
                 <tr>
                   <td>Всего заявок</td>
-                  <td>47</td>
-                  <td className={styles.success}>
-                    <i className="fas fa-arrow-up"></i> 12%
-                  </td>
-                </tr>
-                <tr>
-                  <td>Среднее время выполнения</td>
-                  <td>4ч 35м</td>
-                  <td className={styles.danger}>
-                    <i className="fas fa-arrow-down"></i> 8%
-                  </td>
-                </tr>
-                <tr>
-                  <td>Завершено в срок</td>
-                  <td>39 (83%)</td>
-                  <td className={styles.success}>
-                    <i className="fas fa-arrow-up"></i> 5%
-                  </td>
-                </tr>
-                <tr>
-                  <td>Отклонено заявок</td>
-                  <td>3 (6%)</td>
-                  <td className={styles.danger}>
-                    <i className="fas fa-arrow-up"></i> 2%
-                  </td>
-                </tr>
-                <tr>
-                  <td>Средняя оценка качества</td>
-                  <td>4.7 / 5</td>
-                  <td className={styles.success}>
-                    <i className="fas fa-arrow-up"></i> 0.2
-                  </td>
+                  <td>{stats.totalRequests}</td>
                 </tr>
               </tbody>
             </table>

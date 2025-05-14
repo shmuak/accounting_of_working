@@ -13,6 +13,8 @@ const roleRouter = require('./routes/roleRouters');
 const masterRouter = require('./employees/master/masterRouter');
 const requestsMechanicRouters = require('./routes/requestsMechanicRouters');
 const dispatcherRouter = require('./employees/dispatcher/dispatcherRouter');
+const mechanicRouter = require('./employees/mechanic/mechanicRouter');
+const stokekeeperRouter = require('./employees/stokekeeper/stokekeeperRoute');
 const errorHandler = require('./utils/errorHandler');
 const cors = require('cors');
 
@@ -26,17 +28,21 @@ app.use(cors({
 app.use(morgan('dev'));
 
 app.use('/auth', authRouter);
-app.use('/users', userRoutes);
+
 app.use('/requests', requestRouters);
 app.use('/request-mechanic', requestsMechanicRouters);
 app.use('/workshops', workshopRouters);
 app.use('/equipments', equipmentRouters);
 app.use('/consumables', consumableRoutes);
 app.use('/reports', reportRouter );
-app.use('/admin', adminRouter)
 app.use('/roles', roleRouter);
-app.use('/master', masterRouter)
-app.use('/dispatcher', dispatcherRouter)
+
+app.use('/admin', adminRouter);
+app.use('/users', userRoutes);
+app.use('/master', masterRouter);
+app.use('/dispatcher', dispatcherRouter);
+app.use('/mechanic', mechanicRouter);
+app.use('/stokekeeper', stokekeeperRouter)
 app.use(errorHandler);
 
 module.exports = app;

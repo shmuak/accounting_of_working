@@ -42,7 +42,7 @@ const AdminLayout = () => {
             <li>
               <NavLink to="/admin/equipments/add" title="Добавить оборудование">
                 <FaTools />
-                <span>Добавить</span>
+                <span>Добавить оборудование</span>
               </NavLink>
             </li>
             <li>

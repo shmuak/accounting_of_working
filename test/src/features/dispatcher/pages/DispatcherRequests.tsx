@@ -55,7 +55,7 @@ const DispatcherRequests = () => {
         description: selectedRequest.description,
         equipmentId: selectedRequest.equipmentId,
         masterId: selectedMechanic,
-        status: 'Pending'
+        status: 'Approved'
       });
       await deleteRequest(selectedRequest._id);
 
@@ -124,9 +124,6 @@ const DispatcherRequests = () => {
       <div className={styles.header}>
         <h2>Управление заявками</h2>
         <div className={styles.actions}>
-          <button className={styles.primaryButton}>
-            <i className="fas fa-plus"></i> Новая заявка
-          </button>
         </div>
       </div>
 
@@ -191,7 +188,6 @@ const DispatcherRequests = () => {
                         >
                           Назначить
                         </button>
-                        <button className={styles.tableButton}>Подробнее</button>
                       </td>
                     </tr>
                   );

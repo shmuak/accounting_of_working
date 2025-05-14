@@ -39,9 +39,12 @@ export interface IRequestMechanic {
   description?: string;
   status: string;
   equipmentId: IEquipment | string;
-  masterId: string | { _id: string; login: string },
+  masterId: string | { _id: string; login: string };
   masterScheduleId?: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
+
 export interface IEquipment {
   _id?: string;
   name: string;
@@ -49,5 +52,12 @@ export interface IEquipment {
   description: string;
   status: string;
   workshopId: IWorkshop | string;
+}
+
+export interface IConsumable {
+  _id: string;
+  name: string;
+  unit: string;
+  quantity: string;
 }
 

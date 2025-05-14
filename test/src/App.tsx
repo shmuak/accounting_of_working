@@ -15,6 +15,14 @@ import DispatcherLayout from './features/dispatcher/dispatcherLayout';
 import DispatcherRequests from './features/dispatcher/pages/DispatcherRequests';
 import DispatcherMechanics from './features/dispatcher/pages/DispatcherMechanics';
 import Reports from './features/dispatcher/pages/reports/Reports';
+import MechanicLayout from './features/mechanic/MechanicLayout';
+import MechanicRequests from './features/mechanic/pages/MechanicRequests';
+import MechanicWarehouse from './features/mechanic/pages/MechanicWarehouse';
+import MechanicOrderWarehouse from './features/mechanic/pages/MechanicOrderWarehouse';
+import StokekeeperLayout from './features/storekeeper/StokekeeperLayout';
+import StokekeeperInventory from './features/storekeeper/pages/StokekeeperInventory';
+import StokekeeperRequests from './features/storekeeper/pages/StokekeeperRequests';
+import StokekeeperReports from './features/storekeeper/pages/StokekeeperReports';
 const App = () => {
   return (
     <Router>
@@ -79,8 +87,7 @@ const App = () => {
                 <ListRequest />
               </ProtectedRoute>
             } 
-          />
-          
+          />  
         </Route>
 
         <Route  path="/dispatcher" element={<DispatcherLayout /> }>
@@ -107,7 +114,49 @@ const App = () => {
             }/>
         </Route>
 
-        
+        <Route path='/mechanic' element={<MechanicLayout />}>
+            <Route  path="requests"
+              element = {
+                <ProtectedRoute requiredRole='MECHANIC'>
+                  <MechanicRequests />
+                </ProtectedRoute>
+            }/>
+            <Route path="Warehouse"
+              element = {
+                <ProtectedRoute requiredRole='MECHANIC'>
+                  <MechanicWarehouse />
+                </ProtectedRoute>
+            }/>
+           <Route path="request-warehouse"
+              element = {
+                <ProtectedRoute requiredRole='MECHANIC'>
+                  <MechanicOrderWarehouse />
+                </ProtectedRoute>
+            }/>  
+        </Route>
+        <Route path='/stokekeeper' element={<StokekeeperLayout />}>
+            <Route path="inventory"
+              element = {
+                <ProtectedRoute requiredRole='STOKEKEEPER'>
+                  <StokekeeperInventory />
+                </ProtectedRoute>
+              }            
+            />
+            <Route path="requests"
+              element={
+                <ProtectedRoute requiredRole='STOKEKEEPER'>
+                  <StokekeeperRequests />
+                </ProtectedRoute>
+              } 
+            />
+            <Route path="reports"
+              element={
+                <ProtectedRoute requiredRole='STOKEKEEPER'>
+                  <StokekeeperReports/>
+                </ProtectedRoute>
+              } 
+            />
+        </Route>
 
         <Route path="*" element={<Navigate to="/auth/login" />} />
       </Routes>
