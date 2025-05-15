@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import StatsCard from '../components/Inventory/StatsCard';
 import InventoryList from '../components/Inventory/InventoryList';
 import CreateConsumableModal from '../components/Inventory/CreateConsumableModal';
 import styles from '../../../shared/styles/pages/storekeeper/inventory.module.scss';
-import { IConsumable } from '../../../shared/types';
-import { fetchInventory, createInventory } from '../api';
+import { IConsumable, ALL_CATEGORIES } from '../../../shared/types';
+import { fetchInventory, createInventory, updateInventory, deleteInventory } from '../api';
 
 const InventoryPage = () => {
   const [activeView, setActiveView] = useState<'list' | 'grid'>('list');
@@ -12,6 +12,10 @@ const InventoryPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState<string>('Все категории');
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const categories = ALL_CATEGORIES;
 
   useEffect(() => {
     const loadData = async () => {
@@ -32,7 +36,7 @@ const InventoryPage = () => {
   const handleCreateConsumable = async (newConsumable: Omit<IConsumable, '_id'>) => {
     try {
       const createdConsumable = await createInventory(newConsumable);
-      setConsumables([...consumables, createdConsumable]);
+      setConsumables(prev => [...prev, createdConsumable]);
       setIsModalOpen(false);
     } catch (err) {
       console.error('Ошибка при создании расходника:', err);
@@ -40,9 +44,53 @@ const InventoryPage = () => {
     }
   };
 
-  // Рассчитываем статистику
-  const totalItems = consumables.length;
-  const lowStockItems = consumables.filter(item => parseInt(item.quantity) < 5).length;
+  const handleUpdateConsumable = async (id: string, updatedData: Partial<IConsumable>) => {
+    try {
+      const updatedConsumable = await updateInventory(id, updatedData);
+      setConsumables(prev => 
+        prev.map(item => item._id === id ? updatedConsumable : item)
+      );
+    } catch (err) {
+      console.error('Ошибка при обновлении расходника:', err);
+      setError('Не удалось обновить расходник');
+    }
+  };
+
+  const handleDeleteConsumable = async (id: string) => {
+    try {
+      await deleteInventory(id);
+      setConsumables(prev => prev.filter(item => item._id !== id));
+    } catch (err) {
+      console.error('Ошибка при удалении расходника:', err);
+      setError('Не удалось удалить расходник');
+    }
+  };
+
+  const filteredConsumables = useMemo(() => {
+    let result = [...consumables];
+    
+    if (selectedCategory !== 'Все категории') {
+      result = result.filter(item => item && item.category === selectedCategory);
+    }
+    
+    if (searchQuery) {
+      const query = searchQuery.toLowerCase();
+      result = result.filter(item => {
+        const nameMatch = item.name.toLowerCase().includes(query);
+        const articleMatch = item._id.slice(0, 6).toLowerCase().includes(query);
+        return nameMatch || articleMatch;
+      });
+    }
+    
+    return result;
+  }, [consumables, selectedCategory, searchQuery]);
+
+  const totalItems = filteredConsumables.length;
+  const lowStockItems = filteredConsumables.filter(item => {
+    if (!item || !item.quantity) return false;
+    const quantity = parseInt(item.quantity);
+    return !isNaN(quantity) && quantity < 5;
+  }).length;
 
   return (
     <div className={styles.inventoryPage}>
@@ -70,12 +118,21 @@ const InventoryPage = () => {
       <div className={styles.filters}>
         <div className={styles.filterGroup}>
           <span className={styles.filterLabel}>Фильтры:</span>
-          <select className={styles.filterSelect}>
-            <option>Все категории</option>
-            <option>Запчасти</option>
-            <option>Инструменты</option>
-            <option>Расходники</option>
-            <option>Электроника</option>
+          <input
+            type="text"
+            placeholder="Поиск по названию или артикулу..."
+            className={styles.searchInput}
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          <select 
+            className={styles.filterSelect}
+            value={selectedCategory}
+            onChange={(e) => setSelectedCategory(e.target.value)}
+          >
+            {categories.map(cat => (
+              <option key={cat} value={cat}>{cat}</option>
+            ))}
           </select>
           <button 
             className={styles.addButton}
@@ -94,7 +151,9 @@ const InventoryPage = () => {
         <InventoryList 
           activeView={activeView} 
           setActiveView={setActiveView} 
-          consumables={consumables} 
+          consumables={filteredConsumables}
+          onUpdate={handleUpdateConsumable}
+          onDelete={handleDeleteConsumable}
         />
       )}
 

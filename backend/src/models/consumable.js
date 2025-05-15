@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 
 const ConsumableSchema = new mongoose.Schema({
     name: { type: String, required: true, trim: true },
-    quantity: { type: Number, required: true, min: 0 },
+    quantity: { type: String, required: true },
+    category: { type: String, required: true},
     unit: { type: String, required: true, trim: true },
 }, { timestamps: true });
 

@@ -13,14 +13,13 @@ const Sidebar = () => {
     <aside className={styles.sidebar}>
       <div className={styles.logo}>
         <FaWarehouse />
-        <span className={styles.logoText}>Склад PRO</span>
+        <span className={styles.logoText}>Склад</span>
       </div>
       
       <div className={styles.userInfo}>
         <div className={styles.avatar}>КЛ</div>
         <div className={styles.userDetails}>
           <p className={styles.userName}>Кладовщик</p>
-          <p className={styles.userEmail}>admin@sklad.ru</p>
         </div>
       </div>
       

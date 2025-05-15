@@ -69,9 +69,34 @@ const deleteRequestsMechanic = async (req, res) => {
   }
 };
 
+const completeRequestMechanic = async (req, res) => {
+  try {
+    const request = await RequestMechanic.findByIdAndUpdate(
+      req.params.id,
+      { 
+        status: 'Completed',
+        completedAt: new Date() // Добавляем дату завершения
+      },
+      { new: true, runValidators: true }
+    ).populate('masterId equipmentId');
+
+    if (!request) {
+      return res.status(404).json({ message: 'Request not found' });
+    }
+
+    res.status(200).json({ request });
+  } catch (error) {
+    console.error('Error completing request:', error);
+    res.status(500).json({ 
+      message: 'Server error',
+      error: error.message 
+    });
+  }
+};
 module.exports = { 
   getRequestsMechanic, 
   createRequestsMechanic, 
   updateRequestsMechanic, 
-  deleteRequestsMechanic 
+  deleteRequestsMechanic,
+  completeRequestMechanic 
 };

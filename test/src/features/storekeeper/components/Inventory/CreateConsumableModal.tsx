@@ -9,10 +9,13 @@ interface CreateConsumableModalProps {
 }
 
 const CreateConsumableModal = ({ isOpen, onClose, onSubmit }: CreateConsumableModalProps) => {
+  const categories = ['Запчасти', 'Инструменты', 'Расходники', 'Электроника', 'Прочее'];
+  
   const [formData, setFormData] = useState<Omit<IConsumable, '_id'>>({
     name: '',
-    quantity: '0',
-    unit: 'шт'
+    quantity: "0",
+    unit: 'шт',
+    category: 'Расходники'
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -71,6 +74,20 @@ const CreateConsumableModal = ({ isOpen, onClose, onSubmit }: CreateConsumableMo
               <option value="л">л</option>
               <option value="м">м</option>
               <option value="упак">упак</option>
+            </select>
+          </div>
+          
+          <div className={styles.formGroup}>
+            <label>Категория:</label>
+            <select
+              name="category"
+              value={formData.category}
+              onChange={handleChange}
+              required
+            >
+              {categories.map(cat => (
+                <option key={cat} value={cat}>{cat}</option>
+              ))}
             </select>
           </div>
           

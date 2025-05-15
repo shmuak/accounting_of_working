@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Система учета заявок наладчика</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .fade-in {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .status-badge {
+            padding: 0.25rem 0.5rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .status-new {
+            background-color: #93c5fd;
+            color: #1e40af;
+        }
+        
+        .status-in-progress {
+            background-color: #fcd34d;
+            color: #92400e;
+        }
+        
+        .status-completed {
+            background-color: #86efac;
+            color: #065f46;
+        }
+        
+        .sidebar-item:hover {
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+        
+        .sidebar-item.active {
+            background-color: rgba(59, 130, 246, 0.2);
+            border-left: 3px solid #3b82f6;
+        }
+        
+        .priority-high {
+            color: #ef4444;
+        }
+        
+        .priority-medium {
+            color: #f59e0b;
+        }
+        
+        .priority-low {
+            color: #10b981;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <div class="hidden md:flex md:flex-shrink-0">
+            <div class="flex flex-col w-64 border-r border-gray-200 bg-white">
+                <div class="flex items-center justify-center h-16 px-4 border-b border-gray-200">
+                    <div class="flex items-center">
+                        <i class="fas fa-tools text-blue-500 text-2xl mr-2"></i>
+                        <span class="text-xl font-semibold text-gray-800">Наладчик PRO</span>
+                    </div>
+                </div>
+                <div class="flex flex-col flex-grow px-4 py-4 overflow-y-auto">
+                    <div class="space-y-1">
+                        <div class="sidebar-item active px-3 py-2 rounded-lg cursor-pointer flex items-center">
+                            <i class="fas fa-inbox text-blue-500 mr-3"></i>
+                            <span class="text-sm font-medium">Новые заявки</span>
+                            <span class="ml-auto bg-blue-500 text-white text-xs px-2 py-1 rounded-full">3</span>
+                        </div>
+                        <div class="sidebar-item px-3 py-2 rounded-lg cursor-pointer flex items-center">
+                            <i class="fas fa-tasks text-yellow-500 mr-3"></i>
+                            <span class="text-sm font-medium">В работе</span>
+                            <span class="ml-auto bg-yellow-500 text-white text-xs px-2 py-1 rounded-full">2</span>
+                        </div>
+                        <div class="sidebar-item px-3 py-2 rounded-lg cursor-pointer flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                            <span class="text-sm font-medium">Выполненные</span>
+                        </div>
+                        <div class="sidebar-item px-3 py-2 rounded-lg cursor-pointer flex items-center">
+                            <i class="fas fa-cog text-gray-500 mr-3"></i>
+                            <span class="text-sm font-medium">Настройки</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-auto mb-4">
+                        <div class="p-3 bg-blue-50 rounded-lg">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0">
+                                    <img class="h-10 w-10 rounded-full" src="https://randomuser.me/api/portraits/men/32.jpg" alt="">
+                                </div>
+                                <div class="ml-3">
+                                    <p class="text-sm font-medium text-gray-900">Иванов П.С.</p>
+                                    <p class="text-xs text-gray-500">Наладчик 3 разряда</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main content -->
+        <div class="flex flex-col flex-1 overflow-hidden">
+            <!-- Top navigation -->
+            <div class="flex items-center justify-between h-16 px-4 border-b border-gray-200 bg-white">
+                <div class="flex items-center md:hidden">
+                    <button class="text-gray-500 focus:outline-none">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+                <div class="flex items-center">
+                    <h1 class="text-lg font-semibold text-gray-800">Новые заявки</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button class="p-1 text-gray-500 rounded-full hover:bg-gray-100 focus:outline-none">
+                        <i class="fas fa-bell"></i>
+                    </button>
+                    <div class="relative">
+                        <button class="flex items-center text-gray-500 focus:outline-none">
+                            <span class="hidden md:inline ml-2 text-sm font-medium">Иванов П.С.</span>
+                            <img class="h-8 w-8 rounded-full ml-2" src="https://randomuser.me/api/portraits/men/32.jpg" alt="">
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Content area -->
+            <div class="flex-1 overflow-y-auto p-4">
+                <!-- Stats cards -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                    <div class="bg-white rounded-lg shadow p-4">
+                        <div class="flex items-center">
+                            <div class="p-3 rounded-full bg-blue-100 text-blue-600">
+                                <i class="fas fa-inbox"></i>
+                            </div>
+                            <div class="ml-4">
+                                <p class="text-sm font-medium text-gray-500">Новые заявки</p>
+                                <p class="text-xl font-semibold text-gray-800">3</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow p-4">
+                        <div class="flex items-center">
+                            <div class="p-3 rounded-full bg-yellow-100 text-yellow-600">
+                                <i class="fas fa-tasks"></i>
+                            </div>
+                            <div class="ml-4">
+                                <p class="text-sm font-medium text-gray-500">В работе</p>
+                                <p class="text-xl font-semibold text-gray-800">2</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow p-4">
+                        <div class="flex items-center">
+                            <div class="p-3 rounded-full bg-green-100 text-green-600">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="ml-4">
+                                <p class="text-sm font-medium text-gray-500">Выполнено сегодня</p>
+                                <p class="text-xl font-semibold text-gray-800">1</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- New requests -->
+                <div class="bg-white rounded-lg shadow overflow-hidden mb-6 fade-in">
+                    <div class="px-4 py-3 border-b border-gray-200 flex justify-between items-center">
+                        <h2 class="font-semibold text-gray-800">Новые заявки</h2>
+                        <div class="relative">
+                            <button class="flex items-center text-gray-500 hover:text-gray-700 focus:outline-none">
+                                <span class="mr-1 text-sm">Сортировка</span>
+                                <i class="fas fa-chevron-down text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="divide-y divide-gray-200">
+                        <!-- Request 1 -->
+                        <div class="p-4 hover:bg-gray-50 cursor-pointer">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 pt-1">
+                                    <div class="p-2 rounded-full bg-blue-100 text-blue-600">
+                                        <i class="fas fa-exclamation-circle"></i>
+                                    </div>
+                                </div>
+                                <div class="ml-3 flex-1">
+                                    <div class="flex items-center justify-between">
+                                        <p class="text-sm font-medium text-gray-900">Ремонт станка ЧПУ #5</p>
+                                        <span class="status-badge status-new">Новая</span>
+                                    </div>
+                                    <p class="text-sm text-gray-500 mt-1">Слесарь: Петров А.В.</p>
+                                    <p class="text-sm text-gray-600 mt-2">Неисправность в системе подачи охлаждающей жидкости. Требуется диагностика и ремонт.</p>
+                                    <div class="flex items-center mt-3 text-sm text-gray-500">
+                                        <span class="flex items-center">
+                                            <i class="fas fa-clock mr-1"></i>
+                                            <span>Сегодня, 09:15</span>
+                                        </span>
+                                        <span class="flex items-center ml-4 priority-high">
+                                            <i class="fas fa-exclamation-circle mr-1"></i>
+                                            <span>Высокий приоритет</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-3 flex justify-end space-x-2">
+                                <button class="px-3 py-1 bg-blue-500 text-white text-sm rounded hover:bg-blue-600 focus:outline-none">
+                                    Принять в работу
+                                </button>
+                                <button class="px-3 py-1 bg-gray-200 text-gray-700 text-sm rounded hover:bg-gray-300 focus:outline-none">
+                                    Подробнее
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Request 2 -->
+                        <div class="p-4 hover:bg-gray-50 cursor-pointer">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 pt-1">
+                                    <div class="p-2 rounded-full bg-blue-100 text-blue-600">
+                                        <i class="fas fa-exclamation-circle"></i>
+                                    </div>
+                                </div>
+                                <div class="ml-3 flex-1">
+                                    <div class="flex items-center justify-between">
+                                        <p class="text-sm font-medium text-gray-900">Настройка пресса #3</p>
+                                        <span class="status-badge status-new">Новая</span>
+                                    </div>
+                                    <p class="text-sm text-gray-500 mt-1">Слесарь: Сидоров И.П.</p>
+                                    <p class="text-sm text-gray-600 mt-2">Требуется регулировка давления и проверка работы датчиков.</p>
+                                    <div class="flex items-center mt-3 text-sm text-gray-500">
+                                        <span class="flex items-center">
+                                            <i class="fas fa-clock mr-1"></i>
+                                            <span>Сегодня, 10:30</span>
+                                        </span>
+                                        <span class="flex items-center ml-4 priority-medium">
+                                            <i class="fas fa-exclamation-triangle mr-1"></i>
+                                            <span>Средний приоритет</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-3 flex justify-end space-x-2">
+                                <button class="px-3 py-1 bg-blue-500 text-white text-sm rounded hover:bg-blue-600 focus:outline-none">
+                                    Принять в работу
+                                </button>
+                                <button class="px-3 py-1 bg-gray-200 text-gray-700 text-sm rounded hover:bg-gray-300 focus:outline-none">
+                                    Подробнее
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Request 3 -->
+                        <div class="p-4 hover:bg-gray-50 cursor-pointer">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 pt-1">
+                                    <div class="p-2 rounded-full bg-blue-100 text-blue-600">
+                                        <i class="fas fa-exclamation-circle"></i>
+                                    </div>
+                                </div>
+                                <div class="ml-3 flex-1">
+                                    <div class="flex items-center justify-between">
+                                        <p class="text-sm font-medium text-gray-900">Замена подшипников конвейера</p>
+                                        <span class="status-badge status-new">Новая</span>
+                                    </div>
+                                    <p class="text-sm text-gray-500 mt-1">Слесарь: Кузнецов М.С.</p>
+                                    <p class="text-sm text-gray-600 mt-2">Износ подшипников на главном конвейере. Требуется замена и смазка.</p>
+                                    <div class="flex items-center mt-3 text-sm text-gray-500">
+                                        <span class="flex items-center">
+                                            <i class="fas fa-clock mr-1"></i>
+                                            <span>Сегодня, 11:45</span>
+                                        </span>
+                                        <span class="flex items-center ml-4 priority-low">
+                                            <i class="fas fa-info-circle mr-1"></i>
+                                            <span>Низкий приоритет</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-3 flex justify-end space-x-2">
+                                <button class="px-3 py-1 bg-blue-500 text-white text-sm rounded hover:bg-blue-600 focus:outline-none">
+                                    Принять в работу
+                                </button>
+                                <button class="px-3 py-1 bg-gray-200 text-gray-700 text-sm rounded hover:bg-gray-300 focus:outline-none">
+                                    Подробнее
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Requests in progress -->
+                <div class="bg-white rounded-lg shadow overflow-hidden mb-6 fade-in">
+                    <div class="px-4 py-3 border-b border-gray-200">
+                        <h2 class="font-semibold text-gray-800">Заявки в работе</h2>
+                    </div>
+                    <div class="divide-y divide-gray-200">
+                        <!-- Request 1 -->
+                        <div class="p-4 hover:bg-gray-50 cursor-pointer">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 pt-1">
+                                    <div class="p-2 rounded-full bg-yellow-100 text-yellow-600">
+                                        <i class="fas fa-tools"></i>
+                                    </div>
+                                </div>
+                                <div class="ml-3 flex-1">
+                                    <div class="flex items-center justify-between">
+                                        <p class="text-sm font-medium text-gray-900">Ремонт гидравлики пресса #2</p>
+                                        <span class="status-badge status-in-progress">В работе</span>
+                                    </div>
+                                    <p class="text-sm text-gray-500 mt-1">Слесарь: Васильев К.Л.</p>
+                                    <p class="text-sm text-gray-600 mt-2">Утечка гидравлической жидкости. Замена уплотнителей и проверка системы.</p>
+                                    <div class="flex items-center mt-3 text-sm text-gray-500">
+                                        <span class="flex items-center">
+                                            <i class="fas fa-clock mr-1"></i>
+                                            <span>Вчера, 14:20</span>
+                                        </span>
+                                        <span class="flex items-center ml-4">
+                                            <i class="fas fa-user-clock mr-1"></i>
+                                            <span>В работе 5 ч 30 мин</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-3 flex justify-end space-x-2">
+                                <button class="px-3 py-1 bg-green-500 text-white text-sm rounded hover:bg-green-600 focus:outline-none">
+                                    Завершить
+                                </button>
+                                <button class="px-3 py-1 bg-gray-200 text-gray-700 text-sm rounded hover:bg-gray-300 focus:outline-none">
+                                    Подробнее
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Request 2 -->
+                        <div class="p-4 hover:bg-gray-50 cursor-pointer">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 pt-1">
+                                    <div class="p-2 rounded-full bg-yellow-100 text-yellow-600">
+                                        <i class="fas fa-tools"></i>
+                                    </div>
+                                </div>
+                                <div class="ml-3 flex-1">
+                                    <div class="flex items-center justify-between">
+                                        <p class="text-sm font-medium text-gray-900">Наладка сварочного автомата</p>
+                                        <span class="status-badge status-in-progress">В работе</span>
+                                    </div>
+                                    <p class="text-sm text-gray-500 mt-1">Слесарь-сварщик: Борисов Д.Н.</p>
+                                    <p class="text-sm text-gray-600 mt-2">Нестабильная работа подающего механизма. Требуется регулировка.</p>
+                                    <div class="flex items-center mt-3 text-sm text-gray-500">
+                                        <span class="flex items-center">
+                                            <i class="fas fa-clock mr-1"></i>
+                                            <span>Сегодня, 08:45</span>
+                                        </span>
+                                        <span class="flex items-center ml-4">
+                                            <i class="fas fa-user-clock mr-1"></i>
+                                            <span>В работе 2 ч 15 мин</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-3 flex justify-end space-x-2">
+                                <button class="px-3 py-1 bg-green-500 text-white text-sm rounded hover:bg-green-600 focus:outline-none">
+                                    Завершить
+                                </button>
+                                <button class="px-3 py-1 bg-gray-200 text-gray-700 text-sm rounded hover:bg-gray-300 focus:outline-none">
+                                    Подробнее
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Completed requests -->
+                <div class="bg-white rounded-lg shadow overflow-hidden fade-in">
+                    <div class="px-4 py-3 border-b border-gray-200">
+                        <h2 class="font-semibold text-gray-800">Выполненные заявки</h2>
+                    </div>
+                    <div class="divide-y divide-gray-200">
+                        <!-- Request 1 -->
+                        <div class="p-4 hover:bg-gray-50 cursor-pointer">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 pt-1">
+                                    <div class="p-2 rounded-full bg-green-100 text-green-600">
+                                        <i class="fas fa-check"></i>
+                                    </div>
+                                </div>
+                                <div class="ml-3 flex-1">
+                                    <div class="flex items-center justify-between">
+                                        <p class="text-sm font-medium text-gray-900">Чистка и смазка редуктора</p>
+                                        <span class="status-badge status-completed">Выполнено</span>
+                                    </div>
+                                    <p class="text-sm text-gray-500 mt-1">Слесарь-ремонтник: Семенов О.Р.</p>
+                                    <p class="text-sm text-gray-600 mt-2">Полная разборка, чистка и смазка редуктора конвейерной линии.</p>
+                                    <div class="flex items-center mt-3 text-sm text-gray-500">
+                                        <span class="flex items-center">
+                                            <i class="fas fa-calendar-alt mr-1"></i>
+                                            <span>Сегодня, 13:00</span>
+                                        </span>
+                                        <span class="flex items-center ml-4">
+                                            <i class="fas fa-stopwatch mr-1"></i>
+                                            <span>Затрачено 3 ч 20 мин</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-3 flex justify-end">
+                                <button class="px-3 py-1 bg-gray-200 text-gray-700 text-sm rounded hover:bg-gray-300 focus:outline-none">
+                                    Подробнее
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simple animation for sidebar items
+        document.querySelectorAll('.sidebar-item').forEach(item => {
+            item.addEventListener('click', function() {
+                document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Here you would typically load different content based on the selected tab
+                // For this example, we'll just simulate it
+                const tabName = this.querySelector('span').textContent;
+                console.log(`Switched to tab: ${tabName}`);
+            });
+        });
+        
+        // Simulate accepting a request
+        document.querySelectorAll('button:contains("Принять в работу")').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const requestCard = this.closest('.p-4');
+                const requestTitle = requestCard.querySelector('.text-sm.font-medium').textContent;
+                alert(`Заявка "${requestTitle}" принята в работу!`);
+                
+                // Here you would typically update the status in your backend
+                // For this example, we'll just simulate it
+                const statusBadge = requestCard.querySelector('.status-badge');
+                statusBadge.classList.remove('status-new');
+                statusBadge.classList.add('status-in-progress');
+                statusBadge.textContent = 'В работе';
+                
+                // Move to "In Progress" section in a real app
+                console.log(`Request "${requestTitle}" moved to In Progress`);
+            });
+        });
+        
+        // Simulate completing a request
+        document.querySelectorAll('button:contains("Завершить")').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const requestCard = this.closest('.p-4');
+                const requestTitle = requestCard.querySelector('.text-sm.font-medium').textContent;
+                alert(`Заявка "${requestTitle}" завершена!`);
+                
+                // Here you would typically update the status in your backend
+                // For this example, we'll just simulate it
+                const statusBadge = requestCard.querySelector('.status-badge');
+                statusBadge.classList.remove('status-in-progress');
+                statusBadge.classList.add('status-completed');
+                statusBadge.textContent = 'Выполнено';
+                
+                // Move to "Completed" section in a real app
+                console.log(`Request "${requestTitle}" moved to Completed`);
+            });
+        });
+    </script>
+</body>
+</html>

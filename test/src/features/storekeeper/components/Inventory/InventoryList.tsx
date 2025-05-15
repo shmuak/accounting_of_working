@@ -7,9 +7,17 @@ type InventoryListProps = {
   activeView: 'list' | 'grid';
   setActiveView: (view: 'list' | 'grid') => void;
   consumables: IConsumable[];
+  onUpdate: (id: string, data: Partial<IConsumable>) => void;
+  onDelete: (id: string) => void;
 };
 
-const InventoryList = ({ activeView, setActiveView, consumables }: InventoryListProps) => {
+const InventoryList = ({ 
+  activeView, 
+  setActiveView, 
+  consumables,
+  onUpdate,
+  onDelete 
+}: InventoryListProps) => {
   const getIconForCategory = (category: string) => {
     switch (category) {
       case 'Запчасти': return <FaCog />;
@@ -20,7 +28,6 @@ const InventoryList = ({ activeView, setActiveView, consumables }: InventoryList
     }
   };
 
-  // Явно указываем тип возвращаемого значения
   const getStatus = (quantity: string): 'low' | 'medium' | 'high' => {
     const qty = parseInt(quantity);
     if (qty < 5) return 'low';
@@ -32,14 +39,13 @@ const InventoryList = ({ activeView, setActiveView, consumables }: InventoryList
     id: item._id,
     name: item.name,
     code: `Арт. ${item._id.slice(0, 6).toUpperCase()}`,
-    icon: getIconForCategory('Расходники'),
-    category: 'Расходники' as const,
+    icon: getIconForCategory(item.category),
+    category: item.category,
     warehouse: 'Основной склад',
     quantity: parseInt(item.quantity),
-    status: getStatus(item.quantity), // Теперь TypeScript знает, что это 'low' | 'medium' | 'high'
+    status: getStatus(item.quantity), 
     unit: item.unit
   }));
-
 
   return (
     <div className={styles.inventoryList}>
@@ -73,24 +79,34 @@ const InventoryList = ({ activeView, setActiveView, consumables }: InventoryList
             </div>
             
             {inventoryItems.map(item => (
-              <InventoryItem key={item.id} item={item} view="list" />
+              <InventoryItem 
+                key={item.id} 
+                item={item} 
+                view="list"
+                onUpdate={onUpdate}
+                onDelete={onDelete}
+              />
             ))}
           </>
         ) : (
           <div className={styles.gridView}>
             {inventoryItems.map(item => (
-              <InventoryItem key={item.id} item={item} view="grid" />
+              <InventoryItem 
+                key={item.id} 
+                item={item} 
+                view="grid"
+                onUpdate={onUpdate}
+                onDelete={onDelete}
+              />
             ))}
           </div>
         )}
       </div>
       
       <div className={styles.listFooter}>
-        <span className={styles.footerText}>Показано {inventoryItems.length} из {inventoryItems.length} позиций</span>
-        <div className={styles.pagination}>
-          <button className={styles.paginationButton}>Назад</button>
-          <button className={`${styles.paginationButton} ${styles.active}`}>Вперед</button>
-        </div>
+        <span className={styles.footerText}>
+          Показано {inventoryItems.length} из {inventoryItems.length} позиций
+        </span>
       </div>
     </div>
   );

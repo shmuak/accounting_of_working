@@ -4,9 +4,48 @@
 
 .header {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column; // Меняем на колонку
+  gap: 1rem;
   margin-bottom: 1.5rem;
+
+  @media (min-width: 768px) { // На десктопе делаем в строку
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.headerActions {
+  display: flex;
+  flex-direction: column; // По умолчанию колонка
+    gap: 1.5rem;
+  
+  @media (min-width: 768px) { // На десктопе в строку
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.search {
+  
+  @media (min-width: 768px) {
+    width: 250px; 
+  }
+}
+
+.createRequestButton {
+  width: 100%; // На мобильных занимает всю ширину
+  
+  @media (min-width: 768px) {
+    width: auto; // На десктопе автоширина
+    white-space: nowrap; // Текст не переносится
+  }
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 
   h1 {
     font-size: 1.5rem;
@@ -17,10 +56,9 @@
 
 .search {
   position: relative;
-  width: 250px;
 
   input {
-    width: 100%;
+    width: 200px;
     padding: 0.5rem 2rem 0.5rem 1rem;
     border: 1px solid #e5e7eb;
     border-radius: 0.375rem;
@@ -126,5 +164,139 @@
   &:hover {
     color: #1d4ed8;
     text-decoration: underline;
+  }
+}
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: white;
+  padding: 25px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  animation: fadeIn 0.3s ease-out;
+
+  h2 {
+    margin-top: 0;
+    color: #333;
+    font-size: 1.5rem;
+  }
+
+  p {
+    margin: 10px 0;
+    color: #555;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.formGroup {
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  label {
+    font-weight: 500;
+    color: #333;
+  }
+
+  input {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 80px;
+    text-align: center;
+  }
+}
+
+.modalButtons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 25px;
+}
+
+.cancelButton {
+  padding: 8px 16px;
+  background: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+
+  &:hover {
+    background: #e0e0e0;
+  }
+}
+
+.submitButton {
+  padding: 8px 16px;
+  background: #4a90e2;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+
+  &:hover {
+    background: #3a7bc8;
+  }
+}
+
+.successMessage {
+  text-align: center;
+  color: #2ecc71;
+
+  h3 {
+    color: inherit;
+  }
+}
+.createRequestButton {
+  padding: 0.5rem 1rem;
+  background-color: #3b82f6; // Синий цвет из Tailwind
+  color: white;
+  border: none;
+  border-radius: 0.375rem; // 6px
+  font-size: 0.875rem; // 14px
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  &:hover {
+    background-color: #2563eb; // Темнее при наведении
+    transform: translateY(-1px);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+
+  &:active {
+    background-color: #1d4ed8; // Еще темнее при нажатии
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    background-color: #9ca3af; // Серый при отключении
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+
+  i {
+    font-size: 0.875rem;
   }
 }

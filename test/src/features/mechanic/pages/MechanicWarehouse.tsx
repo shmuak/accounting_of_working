@@ -1,72 +1,336 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+// Убедитесь, что импортированы обе функции API и новый компонент модального окна
+import { fetchInventory, createConsumableOrder, createManualConsumableRequest } from '../api';
+// Убедитесь, что импортированы обновленные типы
+import { IConsumable, CreateOrderParams, IUser, CreateManualRequestParams, Category } from '../../../shared/types';
 import styles from '../../../shared/styles/pages/mechanic/warehousePage.module.scss';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../app/store';
+import CreateManualRequestModal from '../components/CreateManualRequestModal'; // Укажите правильный путь
 
-interface IConsumable {
-  id: string;
-  name: string;
-  description: string;
-  quantity: number;
-  location: string;
-  unit: string;
+interface ApiError extends Error {
+  response?: {
+    data?: {
+      message?: string;
+    };
+  };
 }
-
 const WarehousePage = () => {
   const [searchQuery, setSearchQuery] = useState('');
-  
-  // Пример данных расходников
-  const consumables: IConsumable[] = [
-    {
-      id: '1',
-      name: 'Подшипник 6308',
-      description: 'Для шпинделя токарного станка',
-      quantity: 12,
-      location: 'Стеллаж 5, полка 3',
-      unit: 'шт'
-    },
-    // Другие расходники...
-  ];
+  const [consumables, setConsumables] = useState<IConsumable[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  const filteredConsumables = consumables.filter(consumable =>
-    consumable.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    consumable.description.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  // Состояние для модального окна заказа существующего товара
+  const [selectedConsumable, setSelectedConsumable] = useState<IConsumable | null>(null);
+  const [orderQuantity, setOrderQuantity] = useState(1);
+  const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
+  const [orderSuccess, setOrderSuccess] = useState(false);
+  // Добавим состояние для загрузки и ошибки заказа существующего товара (опционально, но хорошо для UX)
+  const [orderLoading, setOrderLoading] = useState(false);
+  const [orderError, setOrderError] = useState<string | null>(null);
+
+
+  // НОВОЕ Состояние для модального окна создания заявки вручную
+  const [isManualRequestModalOpen, setIsManualRequestModalOpen] = useState(false);
+  const [manualRequestLoading, setManualRequestLoading] = useState(false);
+  const [manualRequestError, setManualRequestError] = useState<string | null>(null);
+  const [manualRequestSuccessMessage, setManualRequestSuccessMessage] = useState<string | null>(null);
+
+
+  const user = useSelector((state: RootState) => state.auth.user) as IUser | null;
+
+  // Эффект для загрузки инвентаря
+  useEffect(() => {
+    const loadInventory = async () => {
+      try {
+        setLoading(true);
+        setError(null); // Сброс ошибки при загрузке
+        const data = await fetchInventory();
+        setConsumables(data);
+      } catch (err) {
+        console.error('Ошибка при загрузке данных:', err);
+        setError('Не удалось загрузить данные со склада');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadInventory();
+  }, []); // Зависимостей нет, загружается один раз при монтировании
+
+  // Обработчик клика по кнопке "Заказать" для существующего товара
+  const handleOrderClick = (consumable: IConsumable) => {
+    setSelectedConsumable(consumable);
+    setOrderQuantity(1);
+    setIsOrderModalOpen(true);
+    setOrderSuccess(false); // Сброс успеха при открытии
+    setOrderError(null); // Сброс ошибки при открытии
+    setOrderLoading(false); // Сброс загрузки
+  };
+
+  // Обработчик отправки формы заказа существующего товара
+  const handleOrderSubmit = async () => {
+    if (!selectedConsumable || !user || orderLoading) return; // Запрещаем отправку, если уже грузится или нет пользователя/товара
+
+    try {
+      setOrderLoading(true);
+      setOrderError(null);
+
+      const orderData: CreateOrderParams = {
+        name: selectedConsumable.name,
+        quantity: orderQuantity.toString(),
+        category: selectedConsumable.category,
+        unit: selectedConsumable.unit,
+        masterId: user._id,
+        consumableId: selectedConsumable._id
+      };
+
+      await createConsumableOrder(orderData);
+      setOrderSuccess(true);
+
+      // Обновляем локальное состояние *не* количества, а просто подтверждаем действие
+      // Фактическое количество на складе должен менять кладовщик
+      // setConsumables(prev => prev.map(item =>
+      //   item._id === selectedConsumable._id
+      //     ? { ...item, quantity: (parseInt(item.quantity)).toString() } // ЭТО НЕПРАВИЛЬНО, склад меняет кладовщик
+      //     : item
+      // ));
+
+      // Можно просто показать сообщение об успехе и закрыть модалку
+      setTimeout(() => {
+        setIsOrderModalOpen(false);
+        // Опционально: сбросить selectedConsumable после закрытия
+        // setSelectedConsumable(null);
+      }, 2000);
+    } catch (err) {
+      console.error('Ошибка при оформлении заказа:', err);
+      const errorMessage = (err as ApiError).response?.data?.message || 'Не удалось оформить заказ';
+      setOrderError(errorMessage);
+    }
+    finally {
+      setOrderLoading(false);
+    }
+  };
+
+  // НОВЫЕ Обработчики для модального окна ручного создания заявки
+
+  const handleOpenManualRequestModal = () => {
+      if (!user?._id) {
+          alert('Ошибка: Не удалось определить пользователя для создания заявки.');
+          return;
+      }
+      setIsManualRequestModalOpen(true);
+      setManualRequestSuccessMessage(null); // Сброс успеха при открытии
+      setManualRequestError(null); // Сброс ошибки при открытии
+      setManualRequestLoading(false); // Сброс загрузки
+  };
+
+  const handleCloseManualRequestModal = () => {
+      setIsManualRequestModalOpen(false);
+      // Опционально: сбросить сообщения после закрытия
+      // setManualRequestSuccessMessage(null);
+      // setManualRequestError(null);
+  };
+
+  const handleManualRequestSubmit = async (formData: { name: string; quantity: string; unit: string; category: string }) => {
+      if (!user?._id || manualRequestLoading) return;
+
+      try {
+          setManualRequestLoading(true);
+          setManualRequestError(null); // Сброс предыдущей ошибки
+
+          const requestData: CreateManualRequestParams = {
+              name: formData.name,
+              quantity: formData.quantity,
+              unit: formData.unit,
+              category: formData.category as Category, // Приводим к типу Category
+              masterId: user._id,
+          };
+
+          // Вызов новой API функции
+          const newRequest = await createManualConsumableRequest(requestData);
+
+          // Успех!
+          console.log('Manual request created:', newRequest);
+          setManualRequestSuccessMessage(`Заявка "${newRequest.name}" успешно создана!`);
+
+          // Заявка создана, но она не меняет инвентарь на этой странице.
+          // Она появится в списке заявок на PurchasesPage.
+          // Здесь можно просто показать успех и закрыть модалку.
+
+           setTimeout(() => {
+               handleCloseManualRequestModal(); // Закрываем модалку
+               setManualRequestSuccessMessage(null); // Сбрасываем сообщение об успехе после закрытия
+           }, 2000); // Закрыть через 2 секунды
+
+          } catch (err) {
+        console.error('Ошибка при создании заявки вручную:', err);
+        const errorMessage = (err as ApiError).response?.data?.message || 'Не удалось создать заявку';
+        setManualRequestError(errorMessage);
+      } finally {
+          setManualRequestLoading(false);
+      }
+  };
+
+
+  const filteredConsumables = consumables.filter(consumable => {
+    const query = searchQuery.toLowerCase();
+    const nameMatch = consumable.name.toLowerCase().includes(query);
+    const categoryMatch = consumable.category.toLowerCase().includes(query);
+    return nameMatch || categoryMatch;
+  });
+
+  const getQuantityStatus = (quantity: string) => {
+    const qty = parseInt(quantity);
+    if (qty > 10) return 'high';
+    if (qty > 0) return 'low';
+    return 'out';
+  };
+
+  if (loading) {
+    return <div className={styles.container}>Загрузка данных склада...</div>;
+  }
+
+  if (error) {
+    return <div className={styles.container}>{error}</div>;
+  }
 
   return (
     <div className={styles.container}>
       <div className={styles.header}>
         <h1>Склад</h1>
-        <div className={styles.search}>
-          <input
-            type="text"
-            placeholder="Поиск..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-          <i className="fas fa-search"></i>
+        <div className={styles.headerActions}>
+          <div className={styles.search}>
+            <input
+              type="text"
+              placeholder="Поиск по названию или категории..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+            <i className="fas fa-search"></i>
+          </div>
+          <button
+            className={styles.createRequestButton}
+            onClick={handleOpenManualRequestModal}
+            disabled={!user}
+          >
+            <i className="fas fa-plus"></i> Создать заявку 
+          </button>
         </div>
       </div>
 
       <div className={styles.grid}>
-        {filteredConsumables.map((consumable) => (
-          <div key={consumable.id} className={styles.consumableCard}>
-            <div className={styles.cardHeader}>
-              <h3>{consumable.name}</h3>
-              <span className={
-                consumable.quantity > 10 ? styles.inStockHigh :
-                consumable.quantity > 0 ? styles.inStockLow :
-                styles.outOfStock
-              }>
-                В наличии: {consumable.quantity} {consumable.unit}
-              </span>
+        {filteredConsumables.length > 0 ? (
+          filteredConsumables.map((consumable) => (
+            <div key={consumable._id} className={styles.consumableCard}>
+              <div className={styles.cardHeader}>
+                <h3>{consumable.name}</h3>
+                <span className={
+                  getQuantityStatus(consumable.quantity) === 'high' ? styles.inStockHigh :
+                  getQuantityStatus(consumable.quantity) === 'low' ? styles.inStockLow :
+                  styles.outOfStock
+                }>
+                  В наличии: {consumable.quantity} {consumable.unit}
+                </span>
+              </div>
+              <div className={styles.cardMeta}>
+                <span className={styles.category}>{consumable.category}</span>
+                {consumable.quantity === "0" && (
+                  <span className={styles.warning}>Требуется заказ!</span>
+                )}
+              </div>
+              <div className={styles.cardFooter}>
+                {/* Кнопка "Заказать" для существующего товара */}
+                <button
+                  className={styles.orderButton}
+                  onClick={() => handleOrderClick(consumable)}
+                  disabled={!user} // Отключаем, если пользователь не залогинен
+                >
+                  {consumable.quantity === "0" ? 'Срочный заказ' : 'Заказать'}
+                </button>
+              </div>
             </div>
-            <p className={styles.description}>{consumable.description}</p>
-            <div className={styles.cardFooter}>
-              <span className={styles.location}>{consumable.location}</span>
-              <button className={styles.orderButton}>Заказать</button>
-            </div>
+          ))
+        ) : (
+          <div className={styles.noResults}>
+            {searchQuery ? 'Ничего не найдено' : 'Нет данных о расходниках'}
           </div>
-        ))}
+        )}
       </div>
+
+      {/* Модальное окно заказа существующего товара */}
+      {isOrderModalOpen && selectedConsumable && (
+        <div className={styles.modalOverlay}>
+          <div className={styles.modal}>
+            {orderSuccess ? (
+              <div className={styles.successMessage}>
+                <h3>Заказ оформлен успешно!</h3>
+                <p>
+                  Заказано {orderQuantity} {selectedConsumable.unit} {selectedConsumable.name}
+                </p>
+              </div>
+            ) : (
+              <>
+                <h2>Оформление заказа</h2>
+                <p>Товар: <strong>{selectedConsumable.name}</strong></p>
+                <p>Категория: <strong>{selectedConsumable.category}</strong></p>
+
+                <div className={styles.formGroup}>
+                  <label htmlFor="order-quantity">Количество:</label>
+                  <input
+                    id="order-quantity"
+                    type="number"
+                    min="1"
+                    // max="100" // Уберите max, если нет ограничений
+                    value={orderQuantity}
+                    onChange={(e) => setOrderQuantity(Math.max(1, parseInt(e.target.value) || 1))}
+                    disabled={orderLoading} // Отключаем ввод во время загрузки
+                  />
+                  <span>{selectedConsumable.unit}</span>
+                </div>
+
+                {orderError && <div className={styles.errorMessage}>{orderError}</div>} {/* Отображение ошибки */}
+
+
+                <div className={styles.modalButtons}>
+                  <button
+                    className={styles.cancelButton}
+                    onClick={() => setIsOrderModalOpen(false)}
+                    disabled={orderLoading} // Отключаем кнопку во время загрузки
+                  >
+                    Отмена
+                  </button>
+                  <button
+                    className={styles.submitButton}
+                    onClick={handleOrderSubmit}
+                    disabled={orderLoading} // Отключаем кнопку во время загрузки
+                  >
+                     {orderLoading ? 'Отправка...' : 'Подтвердить заказ'}
+                  </button>
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* НОВОЕ Модальное окно для создания заявки вручную */}
+      <CreateManualRequestModal
+          isOpen={isManualRequestModalOpen}
+          onClose={handleCloseManualRequestModal}
+          onSubmit={handleManualRequestSubmit}
+          isLoading={manualRequestLoading}
+          error={manualRequestError}
+      />
+
+        {/* Отображение сообщения об успехе ручной заявки вне модалки (опционально) */}
+        {manualRequestSuccessMessage && (
+            <div className={`${styles.successMessage} ${styles.floatingMessage}`}>
+                {manualRequestSuccessMessage}
+            </div>
+        )}
+
     </div>
   );
 };

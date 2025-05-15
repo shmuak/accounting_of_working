@@ -1,4 +1,4 @@
-import { FaBars,  FaSearch } from 'react-icons/fa';
+import { FaBars } from 'react-icons/fa';
 import styles from '../../../shared/styles/pages/Layout/stokekeeperLayout.module.scss';
 
 const Topbar = () => {
@@ -15,17 +15,6 @@ const Topbar = () => {
         
       </div>
       
-      <div className={styles.bottomSection}>
-
-        <div className={styles.search}>
-          <FaSearch className={styles.searchIcon} />
-          <input 
-            type="text" 
-            placeholder="Поиск..." 
-            className={styles.searchInput}
-          />
-        </div>
-      </div>
     </header>
   );
 };

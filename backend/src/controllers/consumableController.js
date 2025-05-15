@@ -12,16 +12,22 @@ const getConsumables = async (req,res) => {
 
 //Создание расходника
 const createConsumable = async (req, res) => {
-      try {
-           const newConsumable = new Consumable(req.body);
-           const savedConsumable = await newConsumable.save();
-           res.status(201).json({ message: 'Consumable added', equipment: savedConsumable });
-       } catch (error) {
-           if (error.code === 11000) { // Ошибка дублирования (если name уникальный)
-               return res.status(400).json({ message: 'Consumable with this name already exists' });
-           }
-           res.status(500).json({ message: 'Server error' });
-       }
+  try {
+    const { name, quantity, unit, category } = req.body;
+    console.log('Received data:', { name, quantity, unit, category }); 
+    
+    const newConsumable = new Consumable({
+      name,
+      quantity,
+      unit,
+      category 
+    });
+    
+    const savedConsumable = await newConsumable.save();
+    res.status(201).json(savedConsumable);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
 }
 
 //обновление данных расходника
