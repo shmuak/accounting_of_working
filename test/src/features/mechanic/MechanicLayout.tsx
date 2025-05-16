@@ -9,7 +9,7 @@ import { IoMdExit } from "react-icons/io";
 import { BiUser } from "react-icons/bi";
 import styles from '../../shared/styles/pages/Layout/mechanicLayout.module.scss';
 import { IUser } from '../../shared/types';
-import { RootState } from '../../store';
+import { RootState } from '../../store';  
 import { useSelector } from 'react-redux';
 
 const MechanicLayout = () => {

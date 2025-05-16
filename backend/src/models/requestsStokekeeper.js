@@ -14,7 +14,7 @@ const RequestsStokekeeperSchema = new mongoose.Schema({
       status: { // НОВОЕ ПОЛЕ
         type: String,
         required: true,
-        enum: ['В обработке', 'Принято', 'Прибыло', 'Отменено'], // Добавьте возможные статусы
+        enum: ['В обработке', 'Принято', 'Прибыло','Выполнено ', 'Отменено'], // Добавьте возможные статусы
         default: 'В обработке' // Начальный статус по умолчанию
     },
     unit: { type: String, required: true, trim: true }

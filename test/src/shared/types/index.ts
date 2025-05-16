@@ -75,7 +75,7 @@
     export const ALL_CATEGORIES = ['Все категории', ...Object.values(Categories)] as const;
 
     // Тип для статусов заявок на расходники
-    export type ConsumableRequestStatus = 'В обработке' | 'Принято' | 'Прибыло' | 'Отменено'; // НОВЫЙ ТИП
+    export type ConsumableRequestStatus = 'В обработке'| 'Принято' | 'Прибыло' | 'Выполнено ' | 'Отменено'; // НОВЫЙ ТИП
 
     // Интерфейс для создания заявки из списка склада (уже есть)
     export interface CreateOrderParams {

@@ -24,21 +24,22 @@
 
 export const fetchRequests = async (): Promise<IConsumableRequest[]> => {
   try {
-    const response = await $api.get('/requests-stokekeeper'); 
+    const response = await $api.get('/stokekeeper/requests'); 
     return response.data.requests;
   } catch (error) {
     console.error("Error fetching requests:", error);
     throw error; 
   }
 };
-
-export const updateRequestStatus = async (id: string, status: 'approved' | 'rejected'): Promise<IConsumableRequest> => {
+export const updateRequestStatus = async (
+  id: string, 
+  status: 'Принято' | 'Отменено' | 'Прибыло' | 'Выполнено'
+): Promise<IConsumableRequest> => {
   try {
-    const response = await $api.patch(`/requests-stokekeeper/${id}`, { status }); // Используем маршрут из вашего бэкенда
-    // Бэкенд возвращает { message, request }, нам нужен request
+    const response = await $api.patch(`/request-stokekeeper/${id}`, { status });
     return response.data.request;
   } catch (error) {
     console.error(`Error updating request ${id} status to ${status}:`, error);
-    throw error; // Перебрасываем ошибку
+    throw error;
   }
 };

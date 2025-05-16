@@ -7,8 +7,29 @@ import {
   FaWarehouse
 } from 'react-icons/fa';
 import styles from '../../../shared/styles/pages/Layout/stokekeeperLayout.module.scss';
+import { IConsumableRequest } from '../../../shared/types';
+import { useEffect, useState } from 'react';
+import { fetchRequests } from '../api';
 
 const Sidebar = () => {
+    const [requests, setRequests] = useState<IConsumableRequest[]>([]);
+  
+    const loadRequests = async () => {
+    try {
+      const fetchedRequests = await fetchRequests();
+      // Фильтруем только незавершенные заявки
+      const activeRequests = fetchedRequests.filter(
+        req => !['Выполнено', 'Отменено'].includes(req.status)
+      );
+      setRequests(activeRequests);
+    } catch (err) {
+      console.error("Failed to fetch requests:", err);
+    } 
+  };
+
+    useEffect(() => {
+      loadRequests();
+    }, []);
   return (
     <aside className={styles.sidebar}>
       <div className={styles.logo}>
@@ -31,7 +52,7 @@ const Sidebar = () => {
         <NavLink to="/stokekeeper/requests" className={styles.navItem}>
           <FaClipboardList />
           <span>Заявки</span>
-          <span className={styles.badge}>3</span>
+          <span className={styles.badge}>{requests.length}</span>
         </NavLink>
         <NavLink to="/stokekeeper/reports" className={styles.navItem}>
           <FaChartLine />

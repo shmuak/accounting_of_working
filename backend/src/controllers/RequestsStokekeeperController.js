@@ -144,33 +144,32 @@ const getRequestsStokekeeperByMaster = async (req, res) => {
 // Пример для update:
 const updateRequestsStokekeeper = async (req, res) => {
   try {
-    const updates = req.body;
-    // Удаляем masterId из updates, если его нельзя менять через этот роут
-    delete updates.masterId;
-
-    const request = await RequestsStokekeeper.findByIdAndUpdate(
-      req.params.id,
-      { $set: updates },
-      { new: true, runValidators: true }
-    ).populate('masterId', 'login') // Популяризируем для ответа
-     .populate('consumableId'); // Популяризируем для ответа
-
-    if (!request) return res.status(404).json({ message: 'Request not found' });
-
+    const { status } = req.body;
+    const requestId = req.params.id;
+    
+    // Упрощенная версия без проверки переходов
+    const updatedRequest = await RequestsStokekeeper.findByIdAndUpdate(
+      requestId,
+      { status },
+      { new: true }
+    );
+    
+    if (!updatedRequest) {
+      return res.status(404).json({ message: 'Request not found' });
+    }
+    
     res.status(200).json({
-      message: 'Request updated',
-      request
+      message: 'Request status updated',
+      request: updatedRequest
     });
   } catch (error) {
-     console.error('Error in updateRequestsStokekeeper:', error);
-     if (error.name === 'ValidationError') {
-        const errors = Object.values(error.errors).map(err => err.message);
-        return res.status(400).json({ message: 'Validation failed', errors });
-    }
-    res.status(500).json({ message: 'Server error' });
+    console.error('Error in updateRequestsStokekeeper:', error);
+    res.status(500).json({ 
+      message: 'Server error',
+      error: error.message
+    });
   }
 };
-
 const deleteRequestsStokekeeper = async (req, res) => {
   try {
     const request = await RequestsStokekeeper.findByIdAndDelete(req.params.id);
@@ -182,6 +181,7 @@ const deleteRequestsStokekeeper = async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 };
+
 
 
 module.exports = {

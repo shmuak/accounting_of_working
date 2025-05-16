@@ -70,10 +70,8 @@ const RequestsPage = () => {
   if (!requestToComplete || !user) return;
   
   try {
-    // 1. Завершаем заявку механика
     await completeRequestMechanic(requestToComplete._id);
     
-    // 2. Получаем equipmentId
     const equipmentId = typeof requestToComplete.equipmentId === 'object' 
       ? requestToComplete.equipmentId._id 
       : requestToComplete.equipmentId;
@@ -82,7 +80,6 @@ const RequestsPage = () => {
       throw new Error('Equipment ID is required');
     }
 
-    // 3. Создаем AJASTER заявку
     await createAjasterRequest({
       title: requestToComplete.title,
       description: workDescription,
@@ -94,7 +91,6 @@ const RequestsPage = () => {
       }))
     });
 
-    // 4. Обновляем UI
     setRequests(prev => prev.filter(req => req._id !== requestToComplete._id));
     setRequestToComplete(null);
     
