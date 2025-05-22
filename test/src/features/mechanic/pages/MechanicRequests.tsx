@@ -68,10 +68,10 @@ const RequestsPage = () => {
 
   const handleCompleteWithDetails = async (workDescription: string, usedConsumables: UsedConsumable[]) => {
   if (!requestToComplete || !user) return;
-  
+
   try {
     await completeRequestMechanic(requestToComplete._id);
-    
+
     const equipmentId = typeof requestToComplete.equipmentId === 'object' 
       ? requestToComplete.equipmentId._id 
       : requestToComplete.equipmentId;
@@ -80,11 +80,17 @@ const RequestsPage = () => {
       throw new Error('Equipment ID is required');
     }
 
+    // Получаем workshopId из данных пользователя
+    const workshopId = typeof user.workshop === 'object' 
+      ? user.workshop._id 
+      : user.workshop;
+
     await createAjasterRequest({
       title: requestToComplete.title,
       description: workDescription,
       equipmentId,
       masterId: user._id,
+      workshopId, // Передаем workshopId
       usedConsumables: usedConsumables.map(uc => ({
         consumableId: uc.id,
         quantity: uc.quantity
@@ -93,10 +99,8 @@ const RequestsPage = () => {
 
     setRequests(prev => prev.filter(req => req._id !== requestToComplete._id));
     setRequestToComplete(null);
-    
   } catch (err) {
     console.error('Error completing request:', err);
-   
   }
 };
 

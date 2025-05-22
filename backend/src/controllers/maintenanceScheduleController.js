@@ -17,7 +17,7 @@ const createMaintenanceSchedule = async (req, res) => {
            const savedMaintenanceSchedule = await newMaintenanceSchedule.save();
            res.status(201).json({ message: 'Maintenance Schedule added', equipment: savedMaintenanceSchedule });
        } catch (error) {
-           if (error.code === 11000) { // Ошибка дублирования (если name уникальный)
+           if (error.code === 11000) { 
                return res.status(400).json({ message: 'Maintenance Schedule with this name already exists' });
            }
            res.status(500).json({ message: 'Server error' });

@@ -37,7 +37,7 @@
       _id: string;
       title: string;
       description?: string;
-      status: 'Pending' | 'InProgress' | 'Completed' | 'Cancelled';
+      status: 'Pending' | 'Approved' | 'Completed' | 'Cancelled';
       completedAt?: string;
       equipmentId: IEquipment | string;
       masterId: string | { _id: string; login: string };
@@ -75,7 +75,7 @@
     export const ALL_CATEGORIES = ['Все категории', ...Object.values(Categories)] as const;
 
     // Тип для статусов заявок на расходники
-    export type ConsumableRequestStatus = 'В обработке'| 'Принято' | 'Прибыло' | 'Выполнено ' | 'Отменено'; // НОВЫЙ ТИП
+    export type ConsumableRequestStatus = 'В обработке'| 'Принято' | 'Прибыло' | 'Выполнено' | 'Отменено'; // НОВЫЙ ТИП
 
     // Интерфейс для создания заявки из списка склада (уже есть)
     export interface CreateOrderParams {
@@ -128,6 +128,7 @@ export interface CreateAjasterRequestParams {
   title: string;
   description: string;
   equipmentId: string;
+  workshopId: string;
   masterId: string;
   usedConsumables: {
     consumableId: string;

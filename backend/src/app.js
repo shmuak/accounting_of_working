@@ -15,6 +15,7 @@ const requestsMechanicRouters = require('./routes/requestsMechanicRouters');
 const requestsStokekeeperRouter = require('./routes/requestsStokekeeperRouter')
 const dispatcherRouter = require('./employees/dispatcher/dispatcherRouter');
 const mechanicRouter = require('./employees/mechanic/mechanicRouter');
+const adjusterRouter = require('./employees/adjaster/adjasterRouter')
 const stokekeeperRouter = require('./employees/stokekeeper/stokekeeperRoute');
 const errorHandler = require('./utils/errorHandler');
 const cors = require('cors');
@@ -44,7 +45,8 @@ app.use('/users', userRoutes);
 app.use('/master', masterRouter);
 app.use('/dispatcher', dispatcherRouter);
 app.use('/mechanic', mechanicRouter);
-app.use('/stokekeeper', stokekeeperRouter)
+app.use('/stokekeeper', stokekeeperRouter);
+app.use('/adjuster', adjusterRouter);
 app.use(errorHandler);
 
 module.exports = app;

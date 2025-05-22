@@ -28,6 +28,109 @@
     }
   }
 }
+.reportsSection {
+  // Можно добавить отступ снизу для заголовка, если он слишком близко к таблице
+  .sectionTitle {
+    margin-bottom: 1.5rem; // Или другое значение по вкусу
+  }
+
+  .requestsTable {
+    background-color: white; // Фон как у карточек
+    border-radius: 0.5rem;   // Скругление как у карточек
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); // Тень как у карточек
+    overflow: hidden; // Чтобы скругление работало с внутренними элементами (например, с фоном заголовка таблицы)
+                      // Если таблица может быть широкой, замените на overflow-x: auto;
+
+    table {
+      width: 100%;
+      border-collapse: collapse; // Убирает двойные рамки между ячейками
+      font-size: 0.875rem;      // Чуть меньше основного, или по вашему выбору
+
+      th, td {
+        padding: 0.75rem 1rem; // Внутренние отступы для ячеек
+        text-align: left;      // Выравнивание текста по левому краю
+        border-bottom: 1px solid #e5e7eb; // Разделительная линия между строками
+        vertical-align: middle; // Вертикальное выравнивание по центру, если контент разной высоты
+      }
+
+      th {
+        background-color: #f9fafb; // Светло-серый фон для заголовков
+        font-weight: 600;          // Полужирный шрифт для заголовков
+        color: #374151;            // Темно-серый цвет текста для заголовков
+        // Можно сделать нижнюю границу заголовка чуть толще для выделения
+        // border-bottom-width: 2px;
+      }
+
+      tbody {
+        tr {
+          &:hover {
+            background-color: #f3f4f6; // Легкий фон при наведении на строку
+          }
+
+          // Убрать границу у последней строки для чистоты
+          &:last-child {
+            td {
+              border-bottom: none;
+            }
+          }
+        }
+
+        td {
+          color: #4b5563; // Цвет текста для ячеек данных
+
+          // Стили для бейджей статусов (у вас уже есть основа)
+          .statusBadge {
+            display: inline-block; // Чтобы padding и border-radius работали корректно
+            font-size: 0.75rem;
+            padding: 0.2rem 0.6rem; // Немного скорректируем паддинги
+            border-radius: 9999px; // Овальная форма
+            font-weight: 500;
+            line-height: 1.2;      // Для лучшего вертикального центрирования текста
+
+            // Цвета для статусов. Подберите из вашей палитры или используйте эти:
+            &.pending { // В обработке
+              background-color: #fef3c7; // Желтоватый (как у statsIcon.yellow)
+              color: #92400e;
+            }
+
+            &.approved { // Принято - можно использовать синий или фиолетовый
+              background-color: #e0e7ff; // Светлее чем #dbeafe
+              color: #4338ca;         // Indigo
+            }
+
+            &.completed { // Выполнено - зеленый
+              background-color: #dcfce7; // Как у reportStatus
+              color: #166534;
+            }
+            &.cancelled { // Отменено
+              background-color: #fee2e2; // Например, светло-красный (как у statsIcon.red)
+              color: #b91c1c;             // Темно-красный
+            }
+            // Добавьте другие статусы при необходимости
+          }
+        }
+      }
+      // Выравнивание для числовых колонок (опционально)
+      // Например, если хотите чтобы числа были по центру или правому краю
+      // th:nth-child(n), td:nth-child(n) { text-align: center; }
+      // Для "Всего запросов" (2-я колонка) и далее:
+      th:nth-child(n+2), td:nth-child(n+2) {
+         text-align: center;
+      }
+      // Исключение для первой колонки "Механик" если предыдущее правило применяется ко всем th,td
+      th:first-child, td:first-child {
+        text-align: left;
+      }
+    }
+
+    .noResults {
+      padding: 2rem;
+      text-align: center;
+      color: #6b7280; // Приглушенный цвет
+      font-style: italic;
+    }
+  }
+}
 
 .logo {
   padding: 1rem;

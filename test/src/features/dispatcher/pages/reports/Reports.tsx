@@ -198,7 +198,7 @@ const Reports: React.FC = () => {
         groupedByDate[date].new++;
       } else if (request.status === 'Approved') {
         groupedByDate[date].inProgress++;
-      } else if (request.status === 'Rejected') {
+      } else if (request.status === 'Cancelled') {
         groupedByDate[date].completed++;
       }
     });
@@ -293,25 +293,25 @@ const Reports: React.FC = () => {
     };
   }, [isLoading, filteredRequests]);
 
-  const calculateStatistics = () => {
-    const totalRequests = filteredRequests.length;
-    const completedRequests = filteredRequests.filter(r => r.status === 'Rejected').length;
-    const avgCompletionTime = '4ч 35м';
-    const completionRate = totalRequests > 0 
-      ? Math.round((completedRequests / totalRequests) * 100) 
-      : 0;
-    const qualityRating = '4.7 / 5';
+  // const calculateStatistics = () => {
+  //   const totalRequests = filteredRequests.length;
+  //   const completedRequests = filteredRequests.filter(r => r.status === 'Cancelled').length;
+  //   const avgCompletionTime = '4ч 35м';
+  //   const completionRate = totalRequests > 0 
+  //     ? Math.round((completedRequests / totalRequests) * 100) 
+  //     : 0;
+  //   const qualityRating = '4.7 / 5';
 
-    return {
-      totalRequests,
-      completedRequests,
-      avgCompletionTime,
-      completionRate,
-      qualityRating
-    };
-  };
+  //   return {
+  //     totalRequests,
+  //     completedRequests,
+  //     avgCompletionTime,
+  //     completionRate,
+  //     qualityRating
+  //   };
+  // };
 
-  const stats = calculateStatistics();
+  // const stats = calculateStatistics();
 
   if (isLoading) {
     return <div className={styles.loading}>Загрузка данных...</div>;
@@ -418,7 +418,7 @@ const Reports: React.FC = () => {
           </div>
 
           <div className={styles.statsTable}>
-            <table className={styles.table}>
+            {/* <table className={styles.table}>
               <thead>
                 <tr>
                   <th>Показатель</th>
@@ -432,7 +432,7 @@ const Reports: React.FC = () => {
                   <td>{stats.totalRequests}</td>
                 </tr>
               </tbody>
-            </table>
+            </table> */}
           </div>
         </div>
       </div>

@@ -21,6 +21,22 @@
   }
 }
 
+.filterContainer {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.filterSelect {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  min-width: 250px;
+}
+
+// Остальные стили остаются без изменений
 .listGrid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -69,7 +85,7 @@
       border-radius: 8px;
       border: 1px solid #ccc;
       font-size: 0.95rem;
-      width: 40%;
+      width: 30%;
     }
   }
     
@@ -121,5 +137,50 @@
 
   &:hover {
     background-color: #5a6268;
+  }
+}
+
+.userInfo {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-bottom: 1rem; // У вас было два определения margin-bottom, оставил одно
+
+  // Стили для input, когда он является прямым потомком .userInfo
+  input[type="text"], // Уточняем тип инпута, если нужно, или просто input
+  input[type="string"], // Такого типа нет, возможно, опечатка. Если это кастомный, то можно оставить.
+  // Если у вас только текстовые инпуты, достаточно input или input[type="text"]
+  // Если у вас могут быть select или textarea в режиме редактирования, добавьте и для них
+  input { // Этот селектор применится ко всем инпутам внутри .userInfo
+    padding: 0.6rem 0.8rem; // Немного увеличил для лучшего вида
+    border-radius: 6px;    // Чуть меньше, чем у кнопок, для разнообразия
+    border: 1px solid #ccc;
+    font-size: 0.9rem;
+    width: 100%; // <--- ВАЖНО: Заставить инпут занимать всю ширину ячейки грида
+    box-sizing: border-box; // Чтобы padding и border не увеличивали общую ширину сверх 100%
+
+    &:focus { // Стили при фокусе
+      border-color: #007bff;
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+    }
+  }
+}
+
+.infoRow {
+  display: flex;
+  flex-direction: column;
+
+  .label {
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: #666;
+    margin-bottom: 0.2rem;
+  }
+
+  .value {
+    font-size: 0.95rem;
+    color: #222;
+    word-break: break-word;
   }
 }

@@ -16,7 +16,7 @@ const LoginForm = () => {
     DISPATCHER: '/dispatcher',
     MECHANIC: '/mechanic',
     STOKEKEEPER: '/stokekeeper',
-    AUDITOR: '/auditor',
+    ADJUSTER: '/adjuster',
   };
   
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

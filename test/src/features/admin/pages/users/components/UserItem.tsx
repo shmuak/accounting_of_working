@@ -11,7 +11,6 @@ const UserItem = ({ user, onEdit, onDelete }: Props) => {
   return (
     <li className={styles.item}>
       <div className={styles.userInfo}>
-        <span className={styles.userId}>{user._id}</span>
         <span className={styles.userLogin}>{user.login}</span>
         <span className={styles.userRole}>{user.role || 'Нет роли'}</span>
         <span className={styles.userRole}>

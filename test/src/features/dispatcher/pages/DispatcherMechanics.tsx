@@ -12,7 +12,6 @@ const DispatcherMechanics = () => {
   const [loading, setLoading] = useState(true);
   const [requests, setRequests] = useState<IRequestMechanic[]>([]);
 
-  // Функция для преобразования workshop в объект IWorkshop
   const normalizeWorkshop = (workshop: WorkshopWithString): IWorkshop | null => {
     if (typeof workshop === 'string') {
       return null;
@@ -20,30 +19,42 @@ const DispatcherMechanics = () => {
     return workshop;
   };
 
-  // Функция для получения ID цеха
   const getWorkshopId = (workshop: WorkshopWithString): string | null => {
     const normalized = normalizeWorkshop(workshop);
     return normalized?._id || null;
   };
 
-  // Функция для получения названия цеха
   const getWorkshopName = (workshop: WorkshopWithString): string => {
     const normalized = normalizeWorkshop(workshop);
     return normalized?.name || 'Не указан';
   };
 
-  // Функция для подсчета задач механика
-// Функция для подсчета задач механика
-const countMechanicTasks = (mechanicId: string): number => {
-  return requests.filter(request => {
-    if (typeof request.masterId === 'string') {
-      return request.masterId === mechanicId;
-    } else if (request.masterId && typeof request.masterId === 'object') {
-      return request.masterId._id.toString() === mechanicId;
+  // Функция для подсчета задач механика со статусом Pending
+  const countPendingTasks = (mechanicId: string): number => {
+    return requests.filter(request => {
+      // Проверяем, что заявка имеет статус Pending
+      if (request.status !== 'Pending') return false;
+      
+      // Проверяем принадлежность заявки механику
+      if (typeof request.masterId === 'string') {
+        return request.masterId === mechanicId;
+      } else if (request.masterId && typeof request.masterId === 'object') {
+        return request.masterId._id.toString() === mechanicId;
+      }
+      return false;
+    }).length;
+  };
+
+  // Функция для определения класса карточки в зависимости от загруженности
+  const getCardClass = (pendingTasksCount: number): string => {
+    if (pendingTasksCount === 0) {
+      return `${styles.mechanicCard} ${styles.lowLoad}`;
+    } else if (pendingTasksCount <= 2) {
+      return `${styles.mechanicCard} ${styles.mediumLoad}`;
+    } else {
+      return `${styles.mechanicCard} ${styles.highLoad}`;
     }
-    return false;
-  }).length;
-};
+  };
 
   useEffect(() => {
     const loadData = async () => {
@@ -55,7 +66,6 @@ const countMechanicTasks = (mechanicId: string): number => {
         
         const mechanicsData = users.filter((user: IUser) => user.role === 'MECHANIC');
         
-        // Собираем уникальные цеха
         const workshopsMap = new Map<string, IWorkshop>();
         
         mechanicsData.forEach((user: IUser) => {
@@ -78,7 +88,6 @@ const countMechanicTasks = (mechanicId: string): number => {
     loadData();
   }, []);
 
-  // Фильтруем механиков по выбранному цеху
   const filteredMechanics = selectedWorkshop 
     ? mechanics.filter(mechanic => {
         const workshopId = getWorkshopId(mechanic.workshop);
@@ -94,9 +103,6 @@ const countMechanicTasks = (mechanicId: string): number => {
     <div className={styles.container}>
       <div className={styles.header}>
         <h2>Управление слесарями</h2>
-        <button className={styles.primaryButton}>
-          <i className="fas fa-user-plus"></i> Добавить слесаря
-        </button>
       </div>
 
       <div className={styles.filterSection}>
@@ -118,27 +124,31 @@ const countMechanicTasks = (mechanicId: string): number => {
 
       <div className={styles.mechanicsGrid}>
         {filteredMechanics.length > 0 ? (
-          filteredMechanics.map(mechanic => (
-            <div key={mechanic._id} className={styles.mechanicCard}>
-              <div className={styles.mechanicHeader}>
-                <div>
-                  <h3 className={styles.mechanicName}>{mechanic.login}</h3>
-                  <p className={styles.mechanicPosition}> {mechanic.role}</p>
-                  <p className={styles.mechanicWorkshop}>
-                    Цех: {getWorkshopName(mechanic.workshop)}
-                  </p>
+          filteredMechanics.map(mechanic => {
+            const pendingTasks = countPendingTasks(mechanic._id);
+            const cardClass = getCardClass(pendingTasks);
+            
+            return (
+              <div key={mechanic._id} className={cardClass}>
+                <div className={styles.mechanicHeader}>
+                  <div>
+                    <h3 className={styles.mechanicName}>{mechanic.login}</h3>
+                    <p className={styles.mechanicPosition}>Слесарь</p>
+                    <p className={styles.mechanicWorkshop}>
+                      Цех: {getWorkshopName(mechanic.workshop)}
+                    </p>
+                  </div>
                 </div>
-              </div>
 
-              <div className={styles.mechanicStats}>
-                <div className={styles.statItem}>
-                  <span>Текущих задач:</span>
-                  
-                  <span>{countMechanicTasks(mechanic._id)}</span>
+                <div className={styles.mechanicStats}>
+                  <div className={styles.statItem}>
+                    <span>Незавершенных заявок:</span>
+                    <span className={styles.taskCount}>{pendingTasks}</span>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))
+            );
+          })
         ) : (
           <div className={styles.noResults}>
             {selectedWorkshop 

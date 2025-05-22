@@ -78,7 +78,6 @@ const ListWorkshops = () => {
             ) : (
               <>
                 <div className={styles.userInfo}>
-                  <span className={styles.userId}><strong>ID:</strong> {w._id}</span>
                   <span className={styles.userLogin}><strong>Название:</strong> {w.name}</span>
                   <span className={styles.userRole}><strong>Местоположение:</strong> {w.location}</span>
                   <span className={styles.userRole}><strong>Описание:</strong> {w.description || 'Нет описания'}</span>

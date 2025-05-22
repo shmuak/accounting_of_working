@@ -17,7 +17,7 @@ const Sidebar = () => {
     const loadRequests = async () => {
     try {
       const fetchedRequests = await fetchRequests();
-      // Фильтруем только незавершенные заявки
+
       const activeRequests = fetchedRequests.filter(
         req => !['Выполнено', 'Отменено'].includes(req.status)
       );
@@ -62,7 +62,9 @@ const Sidebar = () => {
       
       <div className={styles.footer}>
         <button className={styles.logoutButton}>
-          <FaSignOutAlt />
+          <NavLink to="/logout" title="Выход" className={styles.logout}>
+            <FaSignOutAlt />
+          </NavLink>
           <span>Выйти</span>
         </button>
       </div>

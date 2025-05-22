@@ -1,0 +1,277 @@
+Date : 2025-05-18 21:36:45
+Directory : d:\Диплом\accounting_of_working\backend
+Total : 156 files,  -12673 codes, -150 comments, -1320 blanks, all -14143 lines
+
+Languages
++--------------------+------------+------------+------------+------------+------------+
+| language           | files      | code       | comment    | blank      | total      |
++--------------------+------------+------------+------------+------------+------------+
+| JavaScript         |         47 |      1,063 |         45 |        192 |      1,300 |
+| Properties         |          2 |          2 |          0 |          2 |          4 |
+| XML                |          2 |         -2 |          0 |          0 |         -2 |
+| JSON with Comments |          1 |         -7 |          0 |         -1 |         -8 |
+| Markdown           |          1 |        -45 |          0 |        -10 |        -55 |
+| PostCSS            |          2 |        -82 |          0 |        -14 |        -96 |
+| TypeScript         |         18 |       -436 |        -44 |        -85 |       -565 |
+| HTML               |          2 |       -454 |        -14 |        -28 |       -496 |
+| JSON               |          6 |     -3,269 |         -4 |         -6 |     -3,279 |
+| SCSS               |         30 |     -4,617 |        -20 |       -800 |     -5,437 |
+| TypeScript JSX     |         45 |     -4,826 |       -113 |       -570 |     -5,509 |
++--------------------+------------+------------+------------+------------+------------+
+
+Directories
++--------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                         | files      | code       | comment    | blank      | total      |
++--------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                            |        156 |    -12,673 |       -150 |     -1,320 |    -14,143 |
+| . (Files)                                                                                                    |          4 |      1,291 |          0 |          8 |      1,299 |
+| ..                                                                                                           |        107 |    -15,046 |       -195 |     -1,518 |    -16,759 |
+| ..\test                                                                                                      |        107 |    -15,046 |       -195 |     -1,518 |    -16,759 |
+| ..\test (Files)                                                                                              |          9 |     -4,646 |         -5 |        -24 |     -4,675 |
+| ..\test\public                                                                                               |          1 |         -1 |          0 |          0 |         -1 |
+| ..\test\src                                                                                                  |         97 |    -10,399 |       -190 |     -1,494 |    -12,083 |
+| ..\test\src (Files)                                                                                          |          7 |       -255 |         -1 |        -28 |       -284 |
+| ..\test\src\app                                                                                              |          1 |         -9 |          0 |         -3 |        -12 |
+| ..\test\src\assets                                                                                           |          1 |         -1 |          0 |          0 |         -1 |
+| ..\test\src\features                                                                                         |         50 |     -5,302 |       -127 |       -620 |     -6,049 |
+| ..\test\src\features\adjuster                                                                                |          2 |       -509 |        -18 |        -35 |       -562 |
+| ..\test\src\features\admin                                                                                   |         11 |       -796 |         -1 |       -102 |       -899 |
+| ..\test\src\features\admin (Files)                                                                           |          2 |       -132 |          0 |        -17 |       -149 |
+| ..\test\src\features\admin\components                                                                        |          1 |        -21 |          0 |         -4 |        -25 |
+| ..\test\src\features\admin\components\userSearch                                                             |          1 |        -21 |          0 |         -4 |        -25 |
+| ..\test\src\features\admin\pages                                                                             |          8 |       -643 |         -1 |        -81 |       -725 |
+| ..\test\src\features\admin\pages\equipments                                                                  |          2 |       -216 |         -1 |        -25 |       -242 |
+| ..\test\src\features\admin\pages\users                                                                       |          4 |       -260 |          0 |        -38 |       -298 |
+| ..\test\src\features\admin\pages\users (Files)                                                               |          2 |       -186 |          0 |        -25 |       -211 |
+| ..\test\src\features\admin\pages\users\components                                                            |          2 |        -74 |          0 |        -13 |        -87 |
+| ..\test\src\features\admin\pages\workshops                                                                   |          2 |       -167 |          0 |        -18 |       -185 |
+| ..\test\src\features\auth                                                                                    |          4 |       -118 |          0 |        -17 |       -135 |
+| ..\test\src\features\auth (Files)                                                                            |          2 |        -41 |          0 |         -7 |        -48 |
+| ..\test\src\features\auth\components                                                                         |          1 |        -59 |          0 |         -8 |        -67 |
+| ..\test\src\features\auth\components\LoginForm                                                               |          1 |        -59 |          0 |         -8 |        -67 |
+| ..\test\src\features\auth\pages                                                                              |          1 |        -18 |          0 |         -2 |        -20 |
+| ..\test\src\features\dispatcher                                                                              |          8 |     -1,186 |        -35 |       -137 |     -1,358 |
+| ..\test\src\features\dispatcher (Files)                                                                      |          2 |        -96 |         -6 |        -10 |       -112 |
+| ..\test\src\features\dispatcher\components                                                                   |          2 |       -120 |         -4 |        -12 |       -136 |
+| ..\test\src\features\dispatcher\pages                                                                        |          4 |       -970 |        -25 |       -115 |     -1,110 |
+| ..\test\src\features\dispatcher\pages (Files)                                                                |          3 |       -582 |        -21 |        -64 |       -667 |
+| ..\test\src\features\dispatcher\pages\reports                                                                |          1 |       -388 |         -4 |        -51 |       -443 |
+| ..\test\src\features\master                                                                                  |          4 |       -457 |          0 |        -52 |       -509 |
+| ..\test\src\features\master (Files)                                                                          |          2 |        -65 |          0 |        -12 |        -77 |
+| ..\test\src\features\master\pages                                                                            |          2 |       -392 |          0 |        -40 |       -432 |
+| ..\test\src\features\mechanic                                                                                |          8 |     -1,024 |        -46 |       -138 |     -1,208 |
+| ..\test\src\features\mechanic (Files)                                                                        |          2 |       -112 |          0 |        -13 |       -125 |
+| ..\test\src\features\mechanic\components                                                                     |          3 |       -337 |        -11 |        -42 |       -390 |
+| ..\test\src\features\mechanic\pages                                                                          |          3 |       -575 |        -35 |        -83 |       -693 |
+| ..\test\src\features\storekeeper                                                                             |         13 |     -1,212 |        -27 |       -139 |     -1,378 |
+| ..\test\src\features\storekeeper (Files)                                                                     |          2 |        -58 |          0 |         -7 |        -65 |
+| ..\test\src\features\storekeeper\components                                                                  |          8 |       -710 |        -19 |        -77 |       -806 |
+| ..\test\src\features\storekeeper\components (Files)                                                          |          2 |        -82 |         -1 |        -12 |        -95 |
+| ..\test\src\features\storekeeper\components\Inventory                                                        |          4 |       -457 |         -1 |        -38 |       -496 |
+| ..\test\src\features\storekeeper\components\requests                                                         |          2 |       -171 |        -17 |        -27 |       -215 |
+| ..\test\src\features\storekeeper\pages                                                                       |          3 |       -444 |         -8 |        -55 |       -507 |
+| ..\test\src\hooks                                                                                            |          1 |         -3 |          0 |         -1 |         -4 |
+| ..\test\src\routes                                                                                           |          1 |        -20 |          0 |         -7 |        -27 |
+| ..\test\src\shared                                                                                           |         32 |     -4,748 |        -28 |       -822 |     -5,598 |
+| ..\test\src\shared\api                                                                                       |          1 |        -14 |          0 |         -5 |        -19 |
+| ..\test\src\shared\styles                                                                                    |         30 |     -4,617 |        -20 |       -800 |     -5,437 |
+| ..\test\src\shared\styles (Files)                                                                            |          2 |        -48 |        -13 |        -16 |        -77 |
+| ..\test\src\shared\styles\components                                                                         |          4 |       -178 |          0 |        -31 |       -209 |
+| ..\test\src\shared\styles\components\FormAuth                                                                |          1 |        -41 |          0 |         -6 |        -47 |
+| ..\test\src\shared\styles\components\UserItem                                                                |          1 |        -48 |          0 |         -9 |        -57 |
+| ..\test\src\shared\styles\components\editUserModal                                                           |          1 |        -73 |          0 |        -12 |        -85 |
+| ..\test\src\shared\styles\components\searchUsers                                                             |          1 |        -16 |          0 |         -4 |        -20 |
+| ..\test\src\shared\styles\pages                                                                              |         24 |     -4,391 |         -7 |       -753 |     -5,151 |
+| ..\test\src\shared\styles\pages\Layout                                                                       |          5 |       -771 |          0 |       -129 |       -900 |
+| ..\test\src\shared\styles\pages\dispatcher                                                                   |          4 |       -711 |         -2 |       -131 |       -844 |
+| ..\test\src\shared\styles\pages\equipment                                                                    |          2 |       -205 |          0 |        -38 |       -243 |
+| ..\test\src\shared\styles\pages\login                                                                        |          1 |        -63 |          0 |        -12 |        -75 |
+| ..\test\src\shared\styles\pages\mechanic                                                                     |          3 |       -699 |         -1 |       -114 |       -814 |
+| ..\test\src\shared\styles\pages\request                                                                      |          2 |       -306 |          0 |        -52 |       -358 |
+| ..\test\src\shared\styles\pages\storekeeper                                                                  |          3 |     -1,365 |         -4 |       -229 |     -1,598 |
+| ..\test\src\shared\styles\pages\user                                                                         |          2 |        -98 |          0 |        -16 |       -114 |
+| ..\test\src\shared\styles\pages\workshop                                                                     |          2 |       -173 |          0 |        -32 |       -205 |
+| ..\test\src\shared\types                                                                                     |          1 |       -117 |         -8 |        -17 |       -142 |
+| ..\test\src\store                                                                                            |          4 |        -61 |        -34 |        -13 |       -108 |
+| ..\test\src\store (Files)                                                                                    |          1 |        -13 |          0 |         -2 |        -15 |
+| ..\test\src\store\auth                                                                                       |          3 |        -48 |        -34 |        -11 |        -93 |
+| src                                                                                                          |         45 |      1,082 |         45 |        190 |      1,317 |
+| src (Files)                                                                                                  |          1 |         43 |          0 |          7 |         50 |
+| src\auth                                                                                                     |          2 |         71 |          0 |         18 |         89 |
+| src\config                                                                                                   |          1 |         14 |          0 |          2 |         16 |
+| src\controllers                                                                                              |         10 |        605 |         45 |         89 |        739 |
+| src\employees                                                                                                |          8 |         68 |          0 |         12 |         80 |
+| src\employees\adjaster                                                                                       |          1 |          4 |          0 |          2 |          6 |
+| src\employees\admin                                                                                          |          2 |         23 |          0 |          3 |         26 |
+| src\employees\dispatcher                                                                                     |          1 |         12 |          0 |          2 |         14 |
+| src\employees\master                                                                                         |          2 |          6 |          0 |          2 |          8 |
+| src\employees\mechanic                                                                                       |          1 |         15 |          0 |          2 |         17 |
+| src\employees\stokekeeper                                                                                    |          1 |          8 |          0 |          1 |          9 |
+| src\middlewares                                                                                              |          2 |         42 |          0 |          8 |         50 |
+| src\models                                                                                                   |         11 |        141 |          0 |         24 |        165 |
+| src\routes                                                                                                   |          9 |         93 |          0 |         28 |        121 |
+| src\utils                                                                                                    |          1 |          5 |          0 |          2 |          7 |
++--------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++--------------------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| filename                                                                                                     | language           | code       | comment    | blank      | total      |
++--------------------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| d:\Диплом\accounting_of_working\backend\.env                                                                 | Properties         |          3 |          0 |          2 |          5 |
+| d:\Диплом\accounting_of_working\backend\package-lock.json                                                    | JSON               |      1,254 |          0 |          1 |      1,255 |
+| d:\Диплом\accounting_of_working\backend\package.json                                                         | JSON               |         26 |          0 |          1 |         27 |
+| d:\Диплом\accounting_of_working\backend\server.js                                                            | JavaScript         |          8 |          0 |          4 |         12 |
+| d:\Диплом\accounting_of_working\backend\src\app.js                                                           | JavaScript         |         43 |          0 |          7 |         50 |
+| d:\Диплом\accounting_of_working\backend\src\auth\authController.js                                           | JavaScript         |         60 |          0 |         14 |         74 |
+| d:\Диплом\accounting_of_working\backend\src\auth\authRouter.js                                               | JavaScript         |         11 |          0 |          4 |         15 |
+| d:\Диплом\accounting_of_working\backend\src\config\db.js                                                     | JavaScript         |         14 |          0 |          2 |         16 |
+| d:\Диплом\accounting_of_working\backend\src\controllers\RequestsStokekeeperController.js                     | JavaScript         |        147 |         18 |         29 |        194 |
+| d:\Диплом\accounting_of_working\backend\src\controllers\consumableController.js                              | JavaScript         |         44 |          4 |          7 |         55 |
+| d:\Диплом\accounting_of_working\backend\src\controllers\equipmentController.js                               | JavaScript         |         41 |          4 |          5 |         50 |
+| d:\Диплом\accounting_of_working\backend\src\controllers\maintenanceScheduleController.js                     | JavaScript         |         40 |          4 |          5 |         49 |
+| d:\Диплом\accounting_of_working\backend\src\controllers\reportController.js                                  | JavaScript         |         40 |          4 |          5 |         49 |
+| d:\Диплом\accounting_of_working\backend\src\controllers\requestController.js                                 | JavaScript         |         52 |          3 |          6 |         61 |
+| d:\Диплом\accounting_of_working\backend\src\controllers\requestsAjasterController.js                         | JavaScript         |         69 |          0 |         10 |         79 |
+| d:\Диплом\accounting_of_working\backend\src\controllers\requestsMechanicController.js                        | JavaScript         |         91 |          0 |         11 |        102 |
+| d:\Диплом\accounting_of_working\backend\src\controllers\userController.js                                    | JavaScript         |         41 |          4 |          6 |         51 |
+| d:\Диплом\accounting_of_working\backend\src\controllers\workshopController.js                                | JavaScript         |         40 |          4 |          5 |         49 |
+| d:\Диплом\accounting_of_working\backend\src\employees\adjaster\adjasterRouter.js                             | JavaScript         |          4 |          0 |          2 |          6 |
+| d:\Диплом\accounting_of_working\backend\src\employees\admin\adminController.js                               | JavaScript         |         13 |          0 |          2 |         15 |
+| d:\Диплом\accounting_of_working\backend\src\employees\admin\adminRouter.js                                   | JavaScript         |         10 |          0 |          1 |         11 |
+| d:\Диплом\accounting_of_working\backend\src\employees\dispatcher\dispatcherRouter.js                         | JavaScript         |         12 |          0 |          2 |         14 |
+| d:\Диплом\accounting_of_working\backend\src\employees\master\masterController.js                             | JavaScript         |          0 |          0 |          1 |          1 |
+| d:\Диплом\accounting_of_working\backend\src\employees\master\masterRouter.js                                 | JavaScript         |          6 |          0 |          1 |          7 |
+| d:\Диплом\accounting_of_working\backend\src\employees\mechanic\mechanicRouter.js                             | JavaScript         |         15 |          0 |          2 |         17 |
+| d:\Диплом\accounting_of_working\backend\src\employees\stokekeeper\stokekeeperRoute.js                        | JavaScript         |          8 |          0 |          1 |          9 |
+| d:\Диплом\accounting_of_working\backend\src\middlewares\authMiddleware.js                                    | JavaScript         |         18 |          0 |          3 |         21 |
+| d:\Диплом\accounting_of_working\backend\src\middlewares\roleMiddleware.js                                    | JavaScript         |         24 |          0 |          5 |         29 |
+| d:\Диплом\accounting_of_working\backend\src\models\Role.js                                                   | JavaScript         |          5 |          0 |          2 |          7 |
+| d:\Диплом\accounting_of_working\backend\src\models\User.js                                                   | JavaScript         |          8 |          0 |          4 |         12 |
+| d:\Диплом\accounting_of_working\backend\src\models\consumable.js                                             | JavaScript         |          8 |          0 |          2 |         10 |
+| d:\Диплом\accounting_of_working\backend\src\models\equipment.js                                              | JavaScript         |          9 |          0 |          2 |         11 |
+| d:\Диплом\accounting_of_working\backend\src\models\maintenanceSchedule.js                                    | JavaScript         |         21 |          0 |          2 |         23 |
+| d:\Диплом\accounting_of_working\backend\src\models\report.js                                                 | JavaScript         |         24 |          0 |          2 |         26 |
+| d:\Диплом\accounting_of_working\backend\src\models\request.js                                                | JavaScript         |         13 |          0 |          2 |         15 |
+| d:\Диплом\accounting_of_working\backend\src\models\requestsAjaster.js                                        | JavaScript         |         12 |          0 |          2 |         14 |
+| d:\Диплом\accounting_of_working\backend\src\models\requestsMechanic.js                                       | JavaScript         |         13 |          0 |          2 |         15 |
+| d:\Диплом\accounting_of_working\backend\src\models\requestsStokekeeper.js                                    | JavaScript         |         21 |          0 |          2 |         23 |
+| d:\Диплом\accounting_of_working\backend\src\models\workshop.js                                               | JavaScript         |          7 |          0 |          2 |          9 |
+| d:\Диплом\accounting_of_working\backend\src\routes\consumableRoutes.js                                       | JavaScript         |          8 |          0 |          3 |         11 |
+| d:\Диплом\accounting_of_working\backend\src\routes\equipmentRoutes.js                                        | JavaScript         |          8 |          0 |          3 |         11 |
+| d:\Диплом\accounting_of_working\backend\src\routes\reportRoutes.js                                           | JavaScript         |          8 |          0 |          3 |         11 |
+| d:\Диплом\accounting_of_working\backend\src\routes\requestRoutes.js                                          | JavaScript         |          8 |          0 |          3 |         11 |
+| d:\Диплом\accounting_of_working\backend\src\routes\requestsMechanicRouters.js                                | JavaScript         |          8 |          0 |          3 |         11 |
+| d:\Диплом\accounting_of_working\backend\src\routes\requestsStokekeeperRouter.js                              | JavaScript         |         13 |          0 |          3 |         16 |
+| d:\Диплом\accounting_of_working\backend\src\routes\roleRouters.js                                            | JavaScript         |         12 |          0 |          3 |         15 |
+| d:\Диплом\accounting_of_working\backend\src\routes\userRoutes.js                                             | JavaScript         |         20 |          0 |          4 |         24 |
+| d:\Диплом\accounting_of_working\backend\src\routes\workshopRoutes.js                                         | JavaScript         |          8 |          0 |          3 |         11 |
+| d:\Диплом\accounting_of_working\backend\src\utils\errorHandler.js                                            | JavaScript         |          5 |          0 |          2 |          7 |
+| d:\Диплом\accounting_of_working\test\README.md                                                               | Markdown           |        -45 |          0 |        -10 |        -55 |
+| d:\Диплом\accounting_of_working\test\eslint.config.js                                                        | JavaScript         |        -27 |          0 |         -2 |        -29 |
+| d:\Диплом\accounting_of_working\test\index.html                                                              | HTML               |        -13 |          0 |         -1 |        -14 |
+| d:\Диплом\accounting_of_working\test\package-lock.json                                                       | JSON               |     -4,462 |          0 |         -1 |     -4,463 |
+| d:\Диплом\accounting_of_working\test\package.json                                                            | JSON               |        -45 |          0 |         -1 |        -46 |
+| d:\Диплом\accounting_of_working\test\public\vite.svg                                                         | XML                |         -1 |          0 |          0 |         -1 |
+| d:\Диплом\accounting_of_working\test\src\.env                                                                | Properties         |         -1 |          0 |          0 |         -1 |
+| d:\Диплом\accounting_of_working\test\src\App.css                                                             | PostCSS            |        -26 |          0 |         -5 |        -31 |
+| d:\Диплом\accounting_of_working\test\src\App.tsx                                                             | TypeScript JSX     |       -158 |          0 |        -10 |       -168 |
+| d:\Диплом\accounting_of_working\test\src\app\store.ts                                                        | TypeScript         |         -9 |          0 |         -3 |        -12 |
+| d:\Диплом\accounting_of_working\test\src\assets\react.svg                                                    | XML                |         -1 |          0 |          0 |         -1 |
+| d:\Диплом\accounting_of_working\test\src\config.ts                                                           | TypeScript         |         -1 |          0 |          0 |         -1 |
+| d:\Диплом\accounting_of_working\test\src\features\adjuster\AdjusterLayout.tsx                                | TypeScript JSX     |        -68 |         -4 |         -8 |        -80 |
+| d:\Диплом\accounting_of_working\test\src\features\adjuster\adjuster.html                                     | HTML               |       -441 |        -14 |        -27 |       -482 |
+| d:\Диплом\accounting_of_working\test\src\features\admin\AdminLayout.tsx                                      | TypeScript JSX     |        -74 |          0 |         -3 |        -77 |
+| d:\Диплом\accounting_of_working\test\src\features\admin\api.ts                                               | TypeScript         |        -58 |          0 |        -14 |        -72 |
+| d:\Диплом\accounting_of_working\test\src\features\admin\components\userSearch\userSeacch.tsx                 | TypeScript JSX     |        -21 |          0 |         -4 |        -25 |
+| d:\Диплом\accounting_of_working\test\src\features\admin\pages\equipments\AddEquipment.tsx                    | TypeScript JSX     |       -112 |         -1 |        -13 |       -126 |
+| d:\Диплом\accounting_of_working\test\src\features\admin\pages\equipments\ListEquipments.tsx                  | TypeScript JSX     |       -104 |          0 |        -12 |       -116 |
+| d:\Диплом\accounting_of_working\test\src\features\admin\pages\users\AddUser.tsx                              | TypeScript JSX     |       -116 |          0 |        -13 |       -129 |
+| d:\Диплом\accounting_of_working\test\src\features\admin\pages\users\ListUsers.tsx                            | TypeScript JSX     |        -70 |          0 |        -12 |        -82 |
+| d:\Диплом\accounting_of_working\test\src\features\admin\pages\users\components\EditUserModal.tsx             | TypeScript JSX     |        -42 |          0 |         -9 |        -51 |
+| d:\Диплом\accounting_of_working\test\src\features\admin\pages\users\components\UserItem.tsx                  | TypeScript JSX     |        -32 |          0 |         -4 |        -36 |
+| d:\Диплом\accounting_of_working\test\src\features\admin\pages\workshops\AddWorkshop.tsx                      | TypeScript JSX     |        -77 |          0 |         -9 |        -86 |
+| d:\Диплом\accounting_of_working\test\src\features\admin\pages\workshops\ListWorkshops.tsx                    | TypeScript JSX     |        -90 |          0 |         -9 |        -99 |
+| d:\Диплом\accounting_of_working\test\src\features\auth\api.ts                                                | TypeScript         |         -6 |          0 |         -2 |         -8 |
+| d:\Диплом\accounting_of_working\test\src\features\auth\authSlice.ts                                          | TypeScript         |        -35 |          0 |         -5 |        -40 |
+| d:\Диплом\accounting_of_working\test\src\features\auth\components\LoginForm\LoginForm.tsx                    | TypeScript JSX     |        -59 |          0 |         -8 |        -67 |
+| d:\Диплом\accounting_of_working\test\src\features\auth\pages\Login.tsx                                       | TypeScript JSX     |        -18 |          0 |         -2 |        -20 |
+| d:\Диплом\accounting_of_working\test\src\features\dispatcher\api.ts                                          | TypeScript         |        -28 |          0 |         -4 |        -32 |
+| d:\Диплом\accounting_of_working\test\src\features\dispatcher\components\Modal.tsx                            | TypeScript JSX     |        -10 |          0 |         -1 |        -11 |
+| d:\Диплом\accounting_of_working\test\src\features\dispatcher\components\WorkloadChart.tsx                    | TypeScript JSX     |       -110 |         -4 |        -11 |       -125 |
+| d:\Диплом\accounting_of_working\test\src\features\dispatcher\dispatcherLayout.tsx                            | TypeScript JSX     |        -68 |         -6 |         -6 |        -80 |
+| d:\Диплом\accounting_of_working\test\src\features\dispatcher\pages\DispatcherMechanics.tsx                   | TypeScript JSX     |       -127 |         -7 |        -20 |       -154 |
+| d:\Диплом\accounting_of_working\test\src\features\dispatcher\pages\DispatcherRequests.tsx                    | TypeScript JSX     |       -253 |         -8 |        -24 |       -285 |
+| d:\Диплом\accounting_of_working\test\src\features\dispatcher\pages\DispatcherSchedule.tsx                    | TypeScript JSX     |       -202 |         -6 |        -20 |       -228 |
+| d:\Диплом\accounting_of_working\test\src\features\dispatcher\pages\reports\Reports.tsx                       | TypeScript JSX     |       -388 |         -4 |        -51 |       -443 |
+| d:\Диплом\accounting_of_working\test\src\features\master\api.ts                                              | TypeScript         |        -15 |          0 |         -6 |        -21 |
+| d:\Диплом\accounting_of_working\test\src\features\master\masterLayout.tsx                                    | TypeScript JSX     |        -50 |          0 |         -6 |        -56 |
+| d:\Диплом\accounting_of_working\test\src\features\master\pages\AddRequest.tsx                                | TypeScript JSX     |       -147 |          0 |        -12 |       -159 |
+| d:\Диплом\accounting_of_working\test\src\features\master\pages\ListRequest.tsx                               | TypeScript JSX     |       -245 |          0 |        -28 |       -273 |
+| d:\Диплом\accounting_of_working\test\src\features\mechanic\MechanicLayout.tsx                                | TypeScript JSX     |        -68 |          0 |         -6 |        -74 |
+| d:\Диплом\accounting_of_working\test\src\features\mechanic\api.ts                                            | TypeScript         |        -44 |          0 |         -7 |        -51 |
+| d:\Диплом\accounting_of_working\test\src\features\mechanic\components\CompleteRequestModal.tsx               | TypeScript JSX     |       -142 |          0 |        -17 |       -159 |
+| d:\Диплом\accounting_of_working\test\src\features\mechanic\components\CreateManualRequestModal.tsx           | TypeScript JSX     |       -143 |        -11 |        -16 |       -170 |
+| d:\Диплом\accounting_of_working\test\src\features\mechanic\components\RequestDetailsModal.tsx                | TypeScript JSX     |        -52 |          0 |         -9 |        -61 |
+| d:\Диплом\accounting_of_working\test\src\features\mechanic\pages\MechanicOrderWarehouse.tsx                  | TypeScript JSX     |        -89 |         -1 |        -14 |       -104 |
+| d:\Диплом\accounting_of_working\test\src\features\mechanic\pages\MechanicRequests.tsx                        | TypeScript JSX     |       -222 |         -2 |        -27 |       -251 |
+| d:\Диплом\accounting_of_working\test\src\features\mechanic\pages\MechanicWarehouse.tsx                       | TypeScript JSX     |       -264 |        -32 |        -42 |       -338 |
+| d:\Диплом\accounting_of_working\test\src\features\storekeeper\StokekeeperLayout.tsx                          | TypeScript JSX     |        -18 |          0 |         -2 |        -20 |
+| d:\Диплом\accounting_of_working\test\src\features\storekeeper\api.ts                                         | TypeScript         |        -40 |          0 |         -5 |        -45 |
+| d:\Диплом\accounting_of_working\test\src\features\storekeeper\components\Inventory\CreateConsumableModal.tsx | TypeScript JSX     |        -92 |          0 |        -12 |       -104 |
+| d:\Диплом\accounting_of_working\test\src\features\storekeeper\components\Inventory\InventoryItem.tsx         | TypeScript JSX     |       -221 |         -1 |        -12 |       -234 |
+| d:\Диплом\accounting_of_working\test\src\features\storekeeper\components\Inventory\InventoryList.tsx         | TypeScript JSX     |       -106 |          0 |         -9 |       -115 |
+| d:\Диплом\accounting_of_working\test\src\features\storekeeper\components\Inventory\StatsCard.tsx             | TypeScript JSX     |        -38 |          0 |         -5 |        -43 |
+| d:\Диплом\accounting_of_working\test\src\features\storekeeper\components\Sidebar.tsx                         | TypeScript JSX     |        -65 |         -1 |         -7 |        -73 |
+| d:\Диплом\accounting_of_working\test\src\features\storekeeper\components\Topbar.tsx                          | TypeScript JSX     |        -17 |          0 |         -5 |        -22 |
+| d:\Диплом\accounting_of_working\test\src\features\storekeeper\components\requests\RequestsItem.tsx           | TypeScript JSX     |       -110 |         -1 |        -13 |       -124 |
+| d:\Диплом\accounting_of_working\test\src\features\storekeeper\components\requests\RequestsList.tsx           | TypeScript JSX     |        -61 |        -16 |        -14 |        -91 |
+| d:\Диплом\accounting_of_working\test\src\features\storekeeper\pages\StokekeeperInventory.tsx                 | TypeScript JSX     |       -153 |          0 |        -16 |       -169 |
+| d:\Диплом\accounting_of_working\test\src\features\storekeeper\pages\StokekeeperReports.tsx                   | TypeScript JSX     |       -281 |         -8 |        -37 |       -326 |
+| d:\Диплом\accounting_of_working\test\src\features\storekeeper\pages\StokekeeperRequests.tsx                  | TypeScript JSX     |        -10 |          0 |         -2 |        -12 |
+| d:\Диплом\accounting_of_working\test\src\hooks\useAppDispatch.ts                                             | TypeScript         |         -3 |          0 |         -1 |         -4 |
+| d:\Диплом\accounting_of_working\test\src\index.css                                                           | PostCSS            |        -56 |          0 |         -9 |        -65 |
+| d:\Диплом\accounting_of_working\test\src\main.tsx                                                            | TypeScript JSX     |        -13 |          0 |         -3 |        -16 |
+| d:\Диплом\accounting_of_working\test\src\routes\ProtectedRoute.tsx                                           | TypeScript JSX     |        -20 |          0 |         -7 |        -27 |
+| d:\Диплом\accounting_of_working\test\src\shared\api\axios.ts                                                 | TypeScript         |        -14 |          0 |         -5 |        -19 |
+| d:\Диплом\accounting_of_working\test\src\shared\styles\_variables.scss                                       | SCSS               |        -48 |        -13 |        -15 |        -76 |
+| d:\Диплом\accounting_of_working\test\src\shared\styles\components\FormAuth\formAuth.module.scss              | SCSS               |        -41 |          0 |         -6 |        -47 |
+| d:\Диплом\accounting_of_working\test\src\shared\styles\components\UserItem\UserItem.module.scss              | SCSS               |        -48 |          0 |         -9 |        -57 |
+| d:\Диплом\accounting_of_working\test\src\shared\styles\components\editUserModal\editUserModal.module.scss    | SCSS               |        -73 |          0 |        -12 |        -85 |
+| d:\Диплом\accounting_of_working\test\src\shared\styles\components\searchUsers\searchUsers.module.scss        | SCSS               |        -16 |          0 |         -4 |        -20 |
+| d:\Диплом\accounting_of_working\test\src\shared\styles\mixins.scss                                           | SCSS               |          0 |          0 |         -1 |         -1 |
+| d:\Диплом\accounting_of_working\test\src\shared\styles\pages\Layout\adminLayout.module.scss                  | SCSS               |       -118 |          0 |        -17 |       -135 |
+| d:\Диплом\accounting_of_working\test\src\shared\styles\pages\Layout\dispatcherLayout.module.scss             | SCSS               |       -153 |          0 |        -26 |       -179 |
+| d:\Диплом\accounting_of_working\test\src\shared\styles\pages\Layout\masterLayout.module.scss                 | SCSS               |        -95 |          0 |        -15 |       -110 |
+| d:\Диплом\accounting_of_working\test\src\shared\styles\pages\Layout\mechanicLayout.module.scss               | SCSS               |       -119 |          0 |        -23 |       -142 |
+| d:\Диплом\accounting_of_working\test\src\shared\styles\pages\Layout\stokekeeperLayout.module.scss            | SCSS               |       -286 |          0 |        -48 |       -334 |
+| d:\Диплом\accounting_of_working\test\src\shared\styles\pages\dispatcher\DispatcherMechanics.module.scss      | SCSS               |       -139 |          0 |        -21 |       -160 |
+| d:\Диплом\accounting_of_working\test\src\shared\styles\pages\dispatcher\DispatcherRequests.module.scss       | SCSS               |       -285 |         -1 |        -51 |       -337 |
+| d:\Диплом\accounting_of_working\test\src\shared\styles\pages\dispatcher\DispatcherSchedule.module.scss       | SCSS               |       -147 |          0 |        -30 |       -177 |
+| d:\Диплом\accounting_of_working\test\src\shared\styles\pages\dispatcher\reports.module.scss                  | SCSS               |       -140 |         -1 |        -29 |       -170 |
+| d:\Диплом\accounting_of_working\test\src\shared\styles\pages\equipment\addEquipment.module.scss              | SCSS               |       -101 |          0 |        -16 |       -117 |
+| d:\Диплом\accounting_of_working\test\src\shared\styles\pages\equipment\listEquipments.module.scss            | SCSS               |       -104 |          0 |        -22 |       -126 |
+| d:\Диплом\accounting_of_working\test\src\shared\styles\pages\login\login.module.scss                         | SCSS               |        -63 |          0 |        -12 |        -75 |
+| d:\Диплом\accounting_of_working\test\src\shared\styles\pages\mechanic\mechanicRequests.module.scss           | SCSS               |       -338 |         -1 |        -52 |       -391 |
+| d:\Диплом\accounting_of_working\test\src\shared\styles\pages\mechanic\purchasesPage.module.scss              | SCSS               |       -104 |          0 |        -17 |       -121 |
+| d:\Диплом\accounting_of_working\test\src\shared\styles\pages\mechanic\warehousePage.module.scss              | SCSS               |       -257 |          0 |        -45 |       -302 |
+| d:\Диплом\accounting_of_working\test\src\shared\styles\pages\request\addRequest.module.scss                  | SCSS               |       -106 |          0 |        -16 |       -122 |
+| d:\Диплом\accounting_of_working\test\src\shared\styles\pages\request\listRequest.module.scss                 | SCSS               |       -200 |          0 |        -36 |       -236 |
+| d:\Диплом\accounting_of_working\test\src\shared\styles\pages\storekeeper\inventory.module.scss               | SCSS               |       -541 |          0 |        -89 |       -630 |
+| d:\Диплом\accounting_of_working\test\src\shared\styles\pages\storekeeper\stokekeeperReports.module.scss      | SCSS               |       -603 |         -4 |       -101 |       -708 |
+| d:\Диплом\accounting_of_working\test\src\shared\styles\pages\storekeeper\stokekeeperRequests.module.scss     | SCSS               |       -221 |          0 |        -39 |       -260 |
+| d:\Диплом\accounting_of_working\test\src\shared\styles\pages\user\addUser.module.scss                        | SCSS               |        -83 |          0 |        -13 |        -96 |
+| d:\Диплом\accounting_of_working\test\src\shared\styles\pages\user\listUsers.module.scss                      | SCSS               |        -15 |          0 |         -3 |        -18 |
+| d:\Диплом\accounting_of_working\test\src\shared\styles\pages\workshop\addWorkshop.module.scss                | SCSS               |        -87 |          0 |        -14 |       -101 |
+| d:\Диплом\accounting_of_working\test\src\shared\styles\pages\workshop\listWorkshop.module.scss               | SCSS               |        -86 |          0 |        -18 |       -104 |
+| d:\Диплом\accounting_of_working\test\src\shared\types\index.ts                                               | TypeScript         |       -117 |         -8 |        -17 |       -142 |
+| d:\Диплом\accounting_of_working\test\src\store\auth\slice.ts                                                 | TypeScript         |        -33 |          0 |         -3 |        -36 |
+| d:\Диплом\accounting_of_working\test\src\store\auth\thunks.ts                                                | TypeScript         |          0 |        -33 |         -4 |        -37 |
+| d:\Диплом\accounting_of_working\test\src\store\auth\types.ts                                                 | TypeScript         |        -15 |         -1 |         -4 |        -20 |
+| d:\Диплом\accounting_of_working\test\src\store\index.ts                                                      | TypeScript         |        -13 |          0 |         -2 |        -15 |
+| d:\Диплом\accounting_of_working\test\src\vite-env.d.ts                                                       | TypeScript         |          0 |         -1 |         -1 |         -2 |
+| d:\Диплом\accounting_of_working\test\tsconfig.app.json                                                       | JSON               |        -22 |         -2 |         -3 |        -27 |
+| d:\Диплом\accounting_of_working\test\tsconfig.json                                                           | JSON with Comments |         -7 |          0 |         -1 |         -8 |
+| d:\Диплом\accounting_of_working\test\tsconfig.node.json                                                      | JSON               |        -20 |         -2 |         -3 |        -25 |
+| d:\Диплом\accounting_of_working\test\vite.config.ts                                                          | TypeScript         |         -5 |         -1 |         -2 |         -8 |
+| Total                                                                                                        |                    |    -12,673 |       -150 |     -1,320 |    -14,143 |
++--------------------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+

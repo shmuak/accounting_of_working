@@ -23,6 +23,9 @@ import StokekeeperLayout from './features/storekeeper/StokekeeperLayout';
 import StokekeeperInventory from './features/storekeeper/pages/StokekeeperInventory';
 import StokekeeperRequests from './features/storekeeper/pages/StokekeeperRequests';
 import StokekeeperReports from './features/storekeeper/pages/StokekeeperReports';
+import AdjusterLayout from './features/adjuster/AdjusterLayout';
+import NewRequestsPage from './features/adjuster/pages/NewRequestsPage';
+import CompletedRequestsPage from './features/adjuster/pages/CompletedRequestsPage';
 const App = () => {
   return (
     <Router>
@@ -155,6 +158,23 @@ const App = () => {
                   <StokekeeperReports/>
                 </ProtectedRoute>
               } 
+            />
+        </Route>
+
+        <Route path='/adjuster' element={<AdjusterLayout/>}>
+              <Route path="requests"
+                element = {
+                  <ProtectedRoute requiredRole='ADJUSTER'>
+                    <NewRequestsPage />
+                  </ProtectedRoute>
+              }            
+            />
+             <Route path="completed"
+                element = {
+                  <ProtectedRoute requiredRole='ADJUSTER'>
+                    <CompletedRequestsPage />
+                  </ProtectedRoute>
+              }            
             />
         </Route>
 

@@ -107,12 +107,6 @@ const InventoryPage = () => {
           icon="warning" 
           color="red" 
         />
-        <StatsCard 
-          title="Новые заявки" 
-          value="3" 
-          icon="clipboard" 
-          color="yellow" 
-        />
       </div>
       
       <div className={styles.filters}>

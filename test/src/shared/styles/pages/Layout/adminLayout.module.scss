@@ -5,8 +5,6 @@
 
 .toolbar {
   flex: 0 0 auto; // Не растягивается и не сжимается
-  width: auto; // Ширина по содержимому
-  min-width: 80px; // Минимальная ширина
   background-color: #1f2937;
   padding: 20px 15px;
   display: flex;
@@ -41,7 +39,7 @@
       align-items: center;
       gap: 10px;
       width: 100%;
-      height: 48px;
+      height: 40px;
       color: #cbd5e1;
       font-size: 22px;
       border-radius: 12px;

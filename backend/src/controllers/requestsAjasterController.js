@@ -1,33 +1,35 @@
 const RequestsAjaster = require('../models/requestsAjaster');
 
 const getRequestsAjaster = async (req, res) => {
-    try {
-      const requests = await RequestsAjaster.find()
-        .populate('masterId') 
-        .populate({
-          path: 'equipmentId',
-          populate: { path: 'workshopId' }
-        });
-      console.log(requests)
-      res.status(200).json({ message: 'Get all requests', requests });
-    } catch (error) {
-      res.status(500).json({ message: 'Server error' });
-    }
-  };
+  try {
+    const requests = await RequestsAjaster.find()
+      .populate('masterId')
+      .populate('workshopId') // Добавляем populate для workshopId
+      .populate({
+        path: 'equipmentId',
+        populate: { path: 'workshopId' }
+      });
+    console.log(requests)
+    res.status(200).json({ message: 'Get all requests', requests });
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+};
 
 const createAjasterRequest = async (req, res) => {
   try {
-    const { title, description, equipmentId, masterId, usedConsumables } = req.body;
-    
+    const { title, description, equipmentId, masterId, workshopId, usedConsumables } = req.body;
+
     const newRequest = new RequestsAjaster({
       title,
       description,
       equipmentId,
       masterId,
+      workshopId, // Добавляем workshopId
       usedConsumables,
       status: 'Pending'
     });
-    
+
     const savedRequest = await newRequest.save();
     res.status(201).json({ 
       message: 'Ajaster request created', 
@@ -38,7 +40,6 @@ const createAjasterRequest = async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 };
-
 
 const updateRequestsAjaster = async (req, res) => {
   try {

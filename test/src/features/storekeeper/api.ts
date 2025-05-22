@@ -1,5 +1,5 @@
   import $api from "../../shared/api/axios";
-  import { IConsumable, IConsumableRequest } from "../../shared/types";
+  import { IConsumable, IConsumableRequest, IUser } from "../../shared/types";
 
   export const fetchInventory = async (): Promise<IConsumable[]> => {
       const response = await $api.get('/stokekeeper/consumables');
@@ -43,3 +43,13 @@ export const updateRequestStatus = async (
     throw error;
   }
 };
+export const fetchUsersForStorekeeper = async (): Promise<IUser[]> => {
+  try {
+    const response = await $api.get('/stokekeeper/mechanics');
+    return response.data || [];
+  } catch (err) {
+    console.error('Error fetching mechanics:', err);
+    return [];
+  }
+};
+

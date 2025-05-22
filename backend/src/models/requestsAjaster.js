@@ -6,6 +6,7 @@ const RequestsAjasterSchema = new mongoose.Schema({
         type: mongoose.Types.ObjectId,
         ref: 'User'
     },
+    workshopId: { type: mongoose.Schema.Types.ObjectId, ref: 'Workshop', required: true },
     masterScheduleId: mongoose.Schema.Types.ObjectId,
     title: {type: String, required: true, trim: true},
     description:{ type:String, trim: true },

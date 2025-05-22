@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { IRequest, IEquipment, IUser } from "../../../shared/types";
-import { fetchRequests, deleteRequest } from "../api"; 
+import { fetchRequests, deleteRequest } from "../api";
 import { fetchEquipments } from "../../admin/api";
 import { useDispatch } from 'react-redux';
 import { logout } from "../../auth/authSlice";
@@ -8,18 +8,32 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../app/store";
 import styles from '../../../shared/styles/pages/request/listRequest.module.scss';
 
+// Вспомогательная функция для получения статуса на русском языке
+const getStatusInRussian = (status: string): string => {
+  switch (status) {
+    case 'pending':
+      return 'Ожидание';
+    case 'approved':
+      return 'Одобрено';
+    case 'rejected':
+      return 'Отклонено';
+    default:
+      return status; // Возвращаем исходный статус, если он неизвестен
+  }
+};
+
 const ListRequest = () => {
   const dispatch = useDispatch();
   const [requests, setRequests] = useState<IRequest[]>([]);
   const [filteredRequests, setFilteredRequests] = useState<IRequest[]>([]);
-  const [statusFilter, setStatusFilter] = useState('all');
+  const [statusFilter, ] = useState('all');
   const [equipmentFilter, setEquipmentFilter] = useState('all');
   const [equipments, setEquipments] = useState<IEquipment[]>([]);
   const user = useSelector((state: RootState) => state.auth.user) as IUser | null;
 
   const loadEquipments = () => {
     if (!user || !user.workshop) return;
-    
+
     fetchEquipments()
       .then((allEquipments) => {
         const filtered = allEquipments.filter(
@@ -32,7 +46,9 @@ const ListRequest = () => {
       })
       .catch((err) => {
         console.error("Ошибка при получении оборудования:", err.response?.data || err.message);
-        dispatch(logout());
+        if (err.response?.status === 401 || err.response?.status === 403) {
+            dispatch(logout());
+        }
       });
   };
 
@@ -43,77 +59,75 @@ const ListRequest = () => {
           ? fetchedRequests.filter((req) => req.masterId === user._id)
           : [];
         setRequests(masterRequests);
+        // Применяем фильтры к загруженным заявкам
+        // Передаем masterRequests вместо requests, так как setRequests асинхронный
         applyFilters(masterRequests, statusFilter, equipmentFilter);
       })
       .catch((err) => {
         console.error("Ошибка при получении заявок:", err.response?.data || err.message);
-        dispatch(logout());
+        if (err.response?.status === 401 || err.response?.status === 403) {
+            dispatch(logout());
+        }
       });
   };
 
-  const applyFilters = (requests: IRequest[], status: string, equipment: string) => {
-    let filtered = [...requests];
-    
+  const applyFilters = (requestsToFilter: IRequest[], status: string, equipment: string) => {
+    let filtered = [...requestsToFilter];
+
     if (status !== 'all') {
+      // Убедитесь, что сравнение статусов корректно (например, 'Pending' === 'Pending')
       filtered = filtered.filter(r => r.status === status);
     }
-    
+
     if (equipment !== 'all') {
       filtered = filtered.filter(r => {
         if (typeof r.equipmentId === 'string') {
+          // Это условие может быть не нужно, если equipmentId всегда объект после populate
+          // Оставим для случая, если r.equipmentId может быть просто ID
           const eq = equipments.find(e => e._id === r.equipmentId);
           return eq?.name === equipment;
-        } 
+        }
         else if (r.equipmentId && typeof r.equipmentId === 'object') {
           return (r.equipmentId as IEquipment).name === equipment;
         }
         return false;
       });
     }
-    
     setFilteredRequests(filtered);
   };
 
   const handleDelete = async (id: string) => {
     try {
       await deleteRequest(id);
-      loadRequests();
+      loadRequests(); // Перезагружаем заявки после удаления
     } catch (err) {
       console.error("Ошибка при удалении заявки:", err);
       alert("Не удалось удалить заявку");
     }
   };
 
-  const getStats = () => {
-    return {
-      total: requests.length,
-      inProgress: requests.filter(r => r.status === 'in-progress').length,
-      completed: requests.filter(r => r.status === 'completed').length,
-      pending: requests.filter(r => r.status === 'pending').length
-    };
-  };
-
   useEffect(() => {
     loadEquipments();
     loadRequests();
-  }, []);
+  }, [user]); // Добавляем user в зависимости, если loadEquipments/loadRequests зависят от него
 
   useEffect(() => {
+    // `requests` уже отфильтрованы по masterId в loadRequests
     applyFilters(requests, statusFilter, equipmentFilter);
-  }, [statusFilter, equipmentFilter, requests, equipments]);
+  }, [statusFilter, equipmentFilter, requests, equipments]); // equipments тоже зависимость, если фильтр по оборудованию зависит от загруженных equipments
 
-  const stats = getStats();
-
-  const getEquipmentName = (equipmentId: string | IEquipment) => {
+  const getEquipmentName = (equipmentId: string | IEquipment | undefined) => {
+    if (!equipmentId) return 'Оборудование не указано';
     if (typeof equipmentId === 'string') {
+      // Если это ID, ищем в загруженном списке оборудования
       const eq = equipments.find(e => e._id === equipmentId);
-      return eq?.name || 'Неизвестно';
+      return eq?.name || 'Неизвестное оборудование (ID)';
     }
-    return equipmentId?.name || 'Неизвестно';
+    // Если это объект (популированные данные)
+    return equipmentId?.name || 'Неизвестное оборудование';
   };
 
   return (
-    
     <div className={styles.viewRequestsSection}>
       <div className="fullWidth">
         <div className={styles.sectionHeader}>
@@ -121,17 +135,17 @@ const ListRequest = () => {
           
           <div className={styles.filters}>
             <div className={styles.filterGroup}>
-              <select 
+              {/* <select 
                 id="filterStatus" 
                 className={styles.filterSelect}
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
               >
                 <option value="all">Все статусы</option>
-                <option value="pending">Ожидание</option>
-                <option value="in-progress">В работе</option>
-                <option value="completed">Завершено</option>
-              </select>
+                <option value="Pending">Ожидание</option>
+                <option value="Approved">Одобрено</option>
+                <option value="Rejected">Отклонено</option>
+              </select> */}
             </div>
             
             <div className={styles.filterGroup}>
@@ -152,57 +166,16 @@ const ListRequest = () => {
           </div>
         </div>
         
-        <div className={styles.statsContainer}>
-          <div className={styles.statCard}>
-            <div className={styles.statIcon}>
-              <i className="fas fa-inbox"></i>
-            </div>
-            <div>
-              <p className={styles.statLabel}>Всего заявок</p>
-              <p className={styles.statValue}>{stats.total}</p>
-            </div>
-          </div>
-          
-          <div className={styles.statCard}>
-            <div className={styles.statIcon}>
-              <i className="fas fa-clock"></i>
-            </div>
-            <div>
-              <p className={styles.statLabel}>Ожидание</p>
-              <p className={styles.statValue}>{stats.pending}</p>
-            </div>
-          </div>
-          
-          <div className={styles.statCard}>
-            <div className={styles.statIcon}>
-              <i className="fas fa-tools"></i>
-            </div>
-            <div>
-              <p className={styles.statLabel}>В работе</p>
-              <p className={styles.statValue}>{stats.inProgress}</p>
-            </div>
-          </div>
-          
-          <div className={styles.statCard}>
-            <div className={styles.statIcon}>
-              <i className="fas fa-check-circle"></i>
-            </div>
-            <div>
-              <p className={styles.statLabel}>Завершено</p>
-              <p className={styles.statValue}>{stats.completed}</p>
-            </div>
-          </div>
-        </div>
-        
         <div className={styles.requestsList}>
           {filteredRequests.length === 0 ? (
             <div className={styles.emptyState}>
               <i className="fas fa-inbox text-4xl text-gray-300 mb-3"></i>
               <p className="text-gray-500">Заявки не найдены</p>
-              {requests.length === 0 && (
+              {/* Отображаем кнопку создания, если вообще нет заявок (не только отфильтрованных) */}
+              {requests.length === 0 && ( 
                 <button 
                   className={styles.createButton}
-                  onClick={() => window.location.href = '/master/create-request'}
+                  onClick={() => window.location.href = '/master/create-request'} // Лучше использовать Link из react-router-dom
                 >
                   <i className="fas fa-plus mr-2"></i>Создать первую заявку
                 </button>
@@ -215,13 +188,18 @@ const ListRequest = () => {
                   <div>
                     <h3 className={styles.requestTitle}>{request.title}</h3>
                     <div className={styles.requestMeta}>
-                      <span className={`${styles.statusBadge} ${styles[request.status]}`}>
-                        {request.status === 'Pending' ? 'Ожидание' : 
-                        request.status === 'in-progress' ? 'В работе' : 'Завершено'}
+                      {/* 
+                        Используем getStatusInRussian для отображения.
+                        Для стилей styles[request.status] убедитесь, что в вашем CSS-модуле 
+                        есть классы .Pending, .Approved, .Rejected (с заглавной буквы) 
+                        или используйте styles[request.status.toLowerCase()] если классы в lowercase.
+                        Добавлен запасной класс styles.unknownStatus для непредвиденных статусов.
+                      */}
+                      <span className={`${styles.statusBadge} ${styles[request.status] || styles.unknownStatus}`}>
+                        {getStatusInRussian(request.status)}
                       </span>
                     </div>
                   </div>
-
                 </div>
                 
                 <div className={styles.requestEquipment}>
@@ -242,8 +220,7 @@ const ListRequest = () => {
                         alert(`Детали заявки #${request._id}\n\n` +
                               `Заголовок: ${request.title}\n` +
                               `Оборудование: ${getEquipmentName(request.equipmentId)}\n` +
-                              `Статус: ${request.status === 'pending' ? 'Ожидание' : 
-                                        request.status === 'in-progress' ? 'В работе' : 'Завершено'}\n` +
+                              `Статус: ${getStatusInRussian(request.status)}\n` + // Используем хелпер
                               `Описание:\n${request.description || 'Нет описания'}`);
                       }}
                     >
