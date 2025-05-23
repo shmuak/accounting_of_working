@@ -190,9 +190,9 @@ const fetchRequests = async (): Promise<IRequestMechanic[]> => {
                       Завершить
                     </button>
                   )}
-                  <button className={styles.secondaryButton}>
+                  {/* <button className={styles.secondaryButton}>
                     Подробнее
-                  </button>
+                  </button> */}
                 </div>
               </div>
             ))}

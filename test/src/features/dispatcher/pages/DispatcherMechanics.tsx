@@ -33,7 +33,7 @@ const DispatcherMechanics = () => {
   const countPendingTasks = (mechanicId: string): number => {
     return requests.filter(request => {
       // Проверяем, что заявка имеет статус Pending
-      if (request.status !== 'Pending') return false;
+    if (request.status !== 'Pending' && request.status !== 'Approved') return false;
       
       // Проверяем принадлежность заявки механику
       if (typeof request.masterId === 'string') {

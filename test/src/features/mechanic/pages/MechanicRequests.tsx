@@ -162,11 +162,14 @@ const RequestsPage = () => {
                 {currentRequests.map((request) => (
                   <tr key={request._id}>
                     <td>#{request._id.slice(-4)}</td>
-                    <td>
-                      {typeof request.equipmentId === 'object' 
-                        ? request.equipmentId.name 
+                   <td>
+                      {request.equipmentId 
+                        ? typeof request.equipmentId === 'object' 
+                          ? request.equipmentId.name 
+                          : 'Оборудование не найдено'
                         : 'Оборудование не найдено'}
                     </td>
+
                     <td>{request.title || '—'}</td>
                     <td>{request.createdAt ? formatDate(request.createdAt) : '—'}</td>
                     <td>
