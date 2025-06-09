@@ -4,7 +4,7 @@ import { BiBuilding, BiBuildings, BiUser } from "react-icons/bi";
 import { IoMdExit } from "react-icons/io";
 import styles from '../../shared/styles/pages/Layout/adminLayout.module.scss'
 import { useSelector } from 'react-redux';
-import { RootState } from '../../store';
+import { RootState } from '../../app/store';
 import { IUser } from '../../shared/types';
 
 const AdminLayout = () => {

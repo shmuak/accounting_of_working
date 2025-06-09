@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { IRequestMechanic, IUser } from '../../../shared/types/index';
 import styles from '../../../shared/styles/pages/adjuster/adjusterPages.module.scss';
 import $api from "../../../shared/api/axios";
-import { RootState } from '../../../store';
+import { RootState } from '../../../app/store';
 
 const NewRequestsPage = () => {
   const [requests, setRequests] = useState<IRequestMechanic[]>([]);
@@ -190,9 +190,7 @@ const fetchRequests = async (): Promise<IRequestMechanic[]> => {
                       Завершить
                     </button>
                   )}
-                  {/* <button className={styles.secondaryButton}>
-                    Подробнее
-                  </button> */}
+
                 </div>
               </div>
             ))}

@@ -293,26 +293,6 @@ const Reports: React.FC = () => {
     };
   }, [isLoading, filteredRequests]);
 
-  // const calculateStatistics = () => {
-  //   const totalRequests = filteredRequests.length;
-  //   const completedRequests = filteredRequests.filter(r => r.status === 'Cancelled').length;
-  //   const avgCompletionTime = '4ч 35м';
-  //   const completionRate = totalRequests > 0 
-  //     ? Math.round((completedRequests / totalRequests) * 100) 
-  //     : 0;
-  //   const qualityRating = '4.7 / 5';
-
-  //   return {
-  //     totalRequests,
-  //     completedRequests,
-  //     avgCompletionTime,
-  //     completionRate,
-  //     qualityRating
-  //   };
-  // };
-
-  // const stats = calculateStatistics();
-
   if (isLoading) {
     return <div className={styles.loading}>Загрузка данных...</div>;
   }

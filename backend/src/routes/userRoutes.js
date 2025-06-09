@@ -5,7 +5,7 @@ const {registration} = require('../auth/authController');
 const roleMiddleware = require("../middlewares/roleMiddleware");
 
 const router = express.Router();
-router.get('/', roleMiddleware("ADMIN"), getUsers);         // GET /users
+router.get('/', roleMiddleware("ADMIN"), getUsers);       
 router.post(
     '/',
     [
@@ -16,8 +16,8 @@ router.post(
     roleMiddleware("ADMIN"),
     registration
   );
-router.patch('/:id', roleMiddleware("ADMIN"), updateUser);                           // PATCH /users/:id
-router.delete('/:id', roleMiddleware("ADMIN"), deleteUser);                          // DELETE /users/:id
+router.patch('/:id', roleMiddleware("ADMIN"), updateUser);                         
+router.delete('/:id', roleMiddleware("ADMIN"), deleteUser);                        
 
 
 module.exports = router;

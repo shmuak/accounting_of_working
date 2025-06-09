@@ -1,4 +1,3 @@
-// src/components/requests/RequestsItem.tsx
 import { FaCheck, FaTimes, FaTruck, FaBoxOpen } from 'react-icons/fa';
 import styles from '../../../../shared/styles/pages/storekeeper/stokekeeperRequests.module.scss';
 import { IConsumableRequest, IUser } from '../../../../shared/types';

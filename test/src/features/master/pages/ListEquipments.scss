@@ -1,0 +1,52 @@
+.equipments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+
+  .equipment-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: #ebebeb;
+      transform: translateY(-2px);
+    }
+
+    .equipment-name {
+      font-weight: 500;
+      color: #333;
+    }
+
+    .equipment-status {
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-transform: capitalize;
+
+      &.active, &.available, &.working {
+        background-color: #e6f7e6;
+        color: #2e7d32;
+      }
+
+      &.inactive, &.unavailable, &.maintenance {
+        background-color: #fff3e0;
+        color: #e65100;
+      }
+
+      &.broken, &.error {
+        background-color: #ffebee;
+        color: #c62828;
+      }
+    }
+  }
+}

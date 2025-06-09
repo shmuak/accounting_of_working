@@ -9,7 +9,7 @@
     import { BiUser } from "react-icons/bi";
     import styles from '../../shared/styles/pages/Layout/dispatcherLayout.module.scss';
     import { IUser } from '../../shared/types';
-    import { RootState } from '../../store';
+    import { RootState } from '../../app/store';
     import { useSelector } from 'react-redux';
 
     const DispatcherLayout = () => {

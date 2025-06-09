@@ -1,4 +1,3 @@
-// src/features/auth/types.ts
 import { IUser } from '../../shared/types/index';
 
 export interface AuthState {

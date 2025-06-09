@@ -1,12 +1,10 @@
 import { useEffect, useState } from 'react';
-// Убедитесь, что импортированы обе функции API и новый компонент модального окна
 import { fetchInventory, createConsumableOrder, createManualConsumableRequest } from '../api';
-// Убедитесь, что импортированы обновленные типы
 import { IConsumable, CreateOrderParams, IUser, CreateManualRequestParams, Category } from '../../../shared/types';
 import styles from '../../../shared/styles/pages/mechanic/warehousePage.module.scss';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../app/store';
-import CreateManualRequestModal from '../components/CreateManualRequestModal'; // Укажите правильный путь
+import CreateManualRequestModal from '../components/CreateManualRequestModal'; 
 
 interface ApiError extends Error {
   response?: {
@@ -21,31 +19,25 @@ const WarehousePage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Состояние для модального окна заказа существующего товара
   const [selectedConsumable, setSelectedConsumable] = useState<IConsumable | null>(null);
   const [orderQuantity, setOrderQuantity] = useState(1);
   const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
   const [orderSuccess, setOrderSuccess] = useState(false);
-  // Добавим состояние для загрузки и ошибки заказа существующего товара (опционально, но хорошо для UX)
   const [orderLoading, setOrderLoading] = useState(false);
   const [orderError, setOrderError] = useState<string | null>(null);
 
-
-  // НОВОЕ Состояние для модального окна создания заявки вручную
   const [isManualRequestModalOpen, setIsManualRequestModalOpen] = useState(false);
   const [manualRequestLoading, setManualRequestLoading] = useState(false);
   const [manualRequestError, setManualRequestError] = useState<string | null>(null);
   const [manualRequestSuccessMessage, setManualRequestSuccessMessage] = useState<string | null>(null);
 
-
   const user = useSelector((state: RootState) => state.auth.user) as IUser | null;
 
-  // Эффект для загрузки инвентаря
   useEffect(() => {
     const loadInventory = async () => {
       try {
         setLoading(true);
-        setError(null); // Сброс ошибки при загрузке
+        setError(null); 
         const data = await fetchInventory();
         setConsumables(data);
       } catch (err) {
@@ -57,9 +49,8 @@ const WarehousePage = () => {
     };
 
     loadInventory();
-  }, []); // Зависимостей нет, загружается один раз при монтировании
+  }, []); 
 
-  // Обработчик клика по кнопке "Заказать" для существующего товара
   const handleOrderClick = (consumable: IConsumable) => {
     setSelectedConsumable(consumable);
     setOrderQuantity(1);
@@ -69,9 +60,8 @@ const WarehousePage = () => {
     setOrderLoading(false); // Сброс загрузки
   };
 
-  // Обработчик отправки формы заказа существующего товара
   const handleOrderSubmit = async () => {
-    if (!selectedConsumable || !user || orderLoading) return; // Запрещаем отправку, если уже грузится или нет пользователя/товара
+    if (!selectedConsumable || !user || orderLoading) return; 
 
     try {
       setOrderLoading(true);
@@ -89,19 +79,9 @@ const WarehousePage = () => {
       await createConsumableOrder(orderData);
       setOrderSuccess(true);
 
-      // Обновляем локальное состояние *не* количества, а просто подтверждаем действие
-      // Фактическое количество на складе должен менять кладовщик
-      // setConsumables(prev => prev.map(item =>
-      //   item._id === selectedConsumable._id
-      //     ? { ...item, quantity: (parseInt(item.quantity)).toString() } // ЭТО НЕПРАВИЛЬНО, склад меняет кладовщик
-      //     : item
-      // ));
 
-      // Можно просто показать сообщение об успехе и закрыть модалку
       setTimeout(() => {
         setIsOrderModalOpen(false);
-        // Опционально: сбросить selectedConsumable после закрытия
-        // setSelectedConsumable(null);
       }, 2000);
     } catch (err) {
       console.error('Ошибка при оформлении заказа:', err);
@@ -113,24 +93,20 @@ const WarehousePage = () => {
     }
   };
 
-  // НОВЫЕ Обработчики для модального окна ручного создания заявки
-
   const handleOpenManualRequestModal = () => {
       if (!user?._id) {
           alert('Ошибка: Не удалось определить пользователя для создания заявки.');
           return;
       }
       setIsManualRequestModalOpen(true);
-      setManualRequestSuccessMessage(null); // Сброс успеха при открытии
-      setManualRequestError(null); // Сброс ошибки при открытии
-      setManualRequestLoading(false); // Сброс загрузки
+      setManualRequestSuccessMessage(null); 
+      setManualRequestError(null); 
+      setManualRequestLoading(false); 
   };
 
   const handleCloseManualRequestModal = () => {
       setIsManualRequestModalOpen(false);
-      // Опционально: сбросить сообщения после закрытия
-      // setManualRequestSuccessMessage(null);
-      // setManualRequestError(null);
+
   };
 
   const handleManualRequestSubmit = async (formData: { name: string; quantity: string; unit: string; category: string }) => {
@@ -138,31 +114,25 @@ const WarehousePage = () => {
 
       try {
           setManualRequestLoading(true);
-          setManualRequestError(null); // Сброс предыдущей ошибки
+          setManualRequestError(null); 
 
           const requestData: CreateManualRequestParams = {
               name: formData.name,
               quantity: formData.quantity,
               unit: formData.unit,
-              category: formData.category as Category, // Приводим к типу Category
+              category: formData.category as Category, 
               masterId: user._id,
           };
 
-          // Вызов новой API функции
           const newRequest = await createManualConsumableRequest(requestData);
 
-          // Успех!
           console.log('Manual request created:', newRequest);
           setManualRequestSuccessMessage(`Заявка "${newRequest.name}" успешно создана!`);
 
-          // Заявка создана, но она не меняет инвентарь на этой странице.
-          // Она появится в списке заявок на PurchasesPage.
-          // Здесь можно просто показать успех и закрыть модалку.
-
            setTimeout(() => {
-               handleCloseManualRequestModal(); // Закрываем модалку
-               setManualRequestSuccessMessage(null); // Сбрасываем сообщение об успехе после закрытия
-           }, 2000); // Закрыть через 2 секунды
+               handleCloseManualRequestModal(); 
+               setManualRequestSuccessMessage(null);
+           }, 1000); 
 
           } catch (err) {
         console.error('Ошибка при создании заявки вручную:', err);
@@ -297,14 +267,14 @@ const WarehousePage = () => {
                   <button
                     className={styles.cancelButton}
                     onClick={() => setIsOrderModalOpen(false)}
-                    disabled={orderLoading} // Отключаем кнопку во время загрузки
+                    disabled={orderLoading} 
                   >
                     Отмена
                   </button>
                   <button
                     className={styles.submitButton}
                     onClick={handleOrderSubmit}
-                    disabled={orderLoading} // Отключаем кнопку во время загрузки
+                    disabled={orderLoading} 
                   >
                      {orderLoading ? 'Отправка...' : 'Подтвердить заказ'}
                   </button>
@@ -315,7 +285,6 @@ const WarehousePage = () => {
         </div>
       )}
 
-      {/* НОВОЕ Модальное окно для создания заявки вручную */}
       <CreateManualRequestModal
           isOpen={isManualRequestModalOpen}
           onClose={handleCloseManualRequestModal}
@@ -324,7 +293,6 @@ const WarehousePage = () => {
           error={manualRequestError}
       />
 
-        {/* Отображение сообщения об успехе ручной заявки вне модалки (опционально) */}
         {manualRequestSuccessMessage && (
             <div className={`${styles.successMessage} ${styles.floatingMessage}`}>
                 {manualRequestSuccessMessage}

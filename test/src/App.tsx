@@ -26,6 +26,7 @@ import StokekeeperReports from './features/storekeeper/pages/StokekeeperReports'
 import AdjusterLayout from './features/adjuster/AdjusterLayout';
 import NewRequestsPage from './features/adjuster/pages/NewRequestsPage';
 import CompletedRequestsPage from './features/adjuster/pages/CompletedRequestsPage';
+import ListEquipmentsMaster from './features/master/pages/ListEquipments';
 const App = () => {
   return (
     <Router>
@@ -80,6 +81,14 @@ const App = () => {
             element={
               <ProtectedRoute requiredRole="MASTER">
                 <AddRequest />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="list-equipments"
+            element={
+              <ProtectedRoute requiredRole="MASTER">
+                <ListEquipmentsMaster />
               </ProtectedRoute>
             }
           />

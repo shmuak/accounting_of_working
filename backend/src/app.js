@@ -6,13 +6,12 @@ const requestRouters = require('./routes/requestRoutes');
 const workshopRouters = require('./routes/workshopRoutes');
 const equipmentRouters = require('./routes/equipmentRoutes');
 const consumableRoutes = require('./routes/consumableRoutes');
-const reportRouter = require('./routes/reportRoutes');
 const authRouter = require('./auth/authRouter');
 const adminRouter = require('./employees/admin/adminRouter');
 const roleRouter = require('./routes/roleRouters');
 const masterRouter = require('./employees/master/masterRouter');
 const requestsMechanicRouters = require('./routes/requestsMechanicRouters');
-const requestsStokekeeperRouter = require('./routes/requestsStokekeeperRouter')
+const requestsStokekeeperRouter = require('./routes/requestsStokekeeperRouter');
 const dispatcherRouter = require('./employees/dispatcher/dispatcherRouter');
 const mechanicRouter = require('./employees/mechanic/mechanicRouter');
 const adjusterRouter = require('./employees/adjaster/adjasterRouter')
@@ -37,7 +36,6 @@ app.use('/request-stokekeeper', requestsStokekeeperRouter)
 app.use('/workshops', workshopRouters);
 app.use('/equipments', equipmentRouters);
 app.use('/consumables', consumableRoutes);
-app.use('/reports', reportRouter );
 app.use('/roles', roleRouter);
 
 app.use('/admin', adminRouter);

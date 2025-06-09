@@ -133,26 +133,6 @@ const DispatcherRequests = () => {
         <p className={styles.error}>{error}</p>
       ) : (
         <>
-          <div className={styles.stats}>
-            {['Pending', 'completed'].map(stat => (
-              <div className={styles.statCard} key={stat}>
-                <div>
-                  <p className={styles.statLabel}>{statusLabel(stat)}</p>
-                  <p className={styles.statValue}>
-                    {requests.filter(r => r.status === stat).length}
-                  </p>
-                </div>
-                <div className={`${styles.statIcon} ${styles[stat]}`}>
-                  <i className={
-                    stat === 'Pending' ? 'fas fa-tools' :
-                    stat === 'completed' ? 'fas fa-check-circle' :
-                    'fas fa-times-circle'
-                  }></i>
-                </div>
-              </div>
-            ))}
-          </div>
-
           <div className={styles.tableContainer}>
             <table className={styles.requestsTable}>
               <thead>

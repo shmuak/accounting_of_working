@@ -1,9 +1,7 @@
 import { useState, useEffect } from 'react';
-// Используем стили от Storekeeper'а, если они подходят, или создаем свои
 import styles from '../../../shared/styles/pages/storekeeper/inventory.module.scss';
-import { Category, Categories } from '../../../shared/types'; // Импортируем типы категорий
+import { Category, Categories } from '../../../shared/types'; 
 
-// Определяем тип данных, которые модальное окно вернет при отправке
 interface FormData {
   name: string;
   quantity: string;
@@ -14,7 +12,7 @@ interface FormData {
 interface CreateManualRequestModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSubmit: (data: FormData) => Promise<void>; // onSubmit теперь асинхронный
+  onSubmit: (data: FormData) => Promise<void>; 
   isLoading: boolean;
   error: string | null;
 }
@@ -136,8 +134,7 @@ const CreateManualRequestModal = ({
               required
               disabled={isLoading}
             >
-              {/* Опционально: Добавляем пустую опцию, если хотим требовать выбор */}
-               {/* <option value="" disabled>Выберите категорию</option> */}
+
               {categoryOptions.map(cat => (
                 <option key={cat} value={cat}>{cat}</option>
               ))}
@@ -150,13 +147,13 @@ const CreateManualRequestModal = ({
             <button
               type="button"
               onClick={onClose}
-              disabled={isLoading} // Отключаем кнопку во время загрузки
+              disabled={isLoading}
             >
               Отмена
             </button>
             <button
               type="submit"
-              disabled={isLoading} // Отключаем кнопку во время загрузки
+              disabled={isLoading} 
             >
               {isLoading ? 'Отправка...' : 'Создать заявку'}
             </button>

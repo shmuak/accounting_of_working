@@ -134,19 +134,6 @@ const ListRequest = () => {
           <h2 className={styles.sectionTitle}>Мои заявки</h2>
           
           <div className={styles.filters}>
-            <div className={styles.filterGroup}>
-              {/* <select 
-                id="filterStatus" 
-                className={styles.filterSelect}
-                value={statusFilter}
-                onChange={(e) => setStatusFilter(e.target.value)}
-              >
-                <option value="all">Все статусы</option>
-                <option value="Pending">Ожидание</option>
-                <option value="Approved">Одобрено</option>
-                <option value="Rejected">Отклонено</option>
-              </select> */}
-            </div>
             
             <div className={styles.filterGroup}>
               <select 

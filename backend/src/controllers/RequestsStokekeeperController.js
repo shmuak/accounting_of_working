@@ -190,5 +190,5 @@ module.exports = {
   updateRequestsStokekeeper,
   deleteRequestsStokekeeper,
   getRequestsStokekeeperByMaster,
-  createManualConsumableRequest // Экспортируем новую функцию
+  createManualConsumableRequest 
 };

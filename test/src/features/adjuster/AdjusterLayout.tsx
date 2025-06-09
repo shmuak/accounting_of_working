@@ -1,4 +1,3 @@
-// src/layouts/AdjusterLayout.tsx
 import { Outlet, NavLink } from 'react-router-dom';
 import { 
   FaInbox, 
@@ -7,7 +6,7 @@ import {
 } from 'react-icons/fa';
 import styles from '../../shared/styles/pages/Layout/adjuster.module.scss';
 import { IUser } from '../../shared/types';
-import { RootState } from '../../store';  
+import { RootState } from '../../app/store';  
 import { useSelector } from 'react-redux';
 import { IoMdExit } from 'react-icons/io';
 

@@ -6,7 +6,7 @@ const RequestsMechanicSchema = new mongoose.Schema({
         type: mongoose.Types.ObjectId,
         ref: 'User'
     },
-    masterScheduleId: mongoose.Schema.Types.ObjectId,
+   masterScheduleId: mongoose.Schema.Types.ObjectId,
     title: {type: String, required: true, trim: true},
     description:{ type:String, trim: true },
     status: { type:String, required: true, enum: ['Pending', 'Approved', 'Rejected','Completed'], default: 'Pending' }

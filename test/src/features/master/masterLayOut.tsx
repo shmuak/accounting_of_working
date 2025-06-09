@@ -31,6 +31,13 @@ const MasterLayout = () => {
               <FaList className={styles.navIcon} />
               Мои заявки
             </NavLink>
+            <NavLink
+             className={({ isActive }) => 
+                `${styles.navItem} ${isActive ? styles.active : ''}`
+              }
+              to="/master/list-equipments">
+              список оборудования
+            </NavLink>
           </div>
           
           <div className={styles.navRight}>

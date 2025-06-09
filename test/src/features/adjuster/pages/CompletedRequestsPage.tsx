@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { IRequestMechanic, IUser, IEquipment } from '../../../shared/types/index';
 import styles from '../../../shared/styles/pages/adjuster/adjusterPages.module.scss';
 import $api from "../../../shared/api/axios";
-import { RootState } from '../../../store';
+import { RootState } from '../../../app/store';
 
 interface CompletedRequest extends IRequestMechanic {
   ajusterId: string | { _id: string; login: string };
@@ -21,13 +21,13 @@ const CompletedRequestsPage = () => {
   const user = useSelector((state: RootState) => state.auth.user) as IUser | null;
 
   // Получаем уникальные списки оборудования и механиков для фильтров
-  const equipments = Array.from(new Set(
-    requests.map(request => 
-      typeof request.equipmentId === 'object' 
-        ? request.equipmentId.name 
-        : 'Неизвестное оборудование'
-    )
-  ));
+  // const equipments = Array.from(new Set(
+  //   requests.map(request => 
+  //     typeof request.equipmentId === 'object' 
+  //       ? request.equipmentId.name 
+  //       : 'Неизвестное оборудование'
+  //   )
+  // ));
 
   const mechanics = Array.from(new Set(
     requests.map(request => 
@@ -44,7 +44,7 @@ const CompletedRequestsPage = () => {
           throw new Error('Пользователь не авторизован');
         }
 
-        const response = await $api.get<{ requests: CompletedRequest[] }>('/adjuster/complited-requests');
+        const response = await $api.get<{ requests: CompletedRequest[] }>('/adjuster/complited');
         const ajusterRequests = response.data.requests.filter(req => {
           const ajusterId = typeof req.ajusterId === 'object' ? req.ajusterId._id : req.ajusterId;
           return ajusterId === user._id;
@@ -126,11 +126,11 @@ const CompletedRequestsPage = () => {
                 className={styles.filterSelect}
               >
                 <option value="">Все оборудование</option>
-                {equipments.map((equipment, index) => (
+                {/* {equipments.map((equipment, index) => (
                   <option key={index} value={equipment}>
                     {equipment}
                   </option>
-                ))}
+                ))} */}
               </select>
             </div>
             

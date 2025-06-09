@@ -7,7 +7,7 @@ const Login = () => {
       <div className={styles.content}>
         <div className={styles.titleSection}>
           <h1>УЧЕТ РЕМОНТНЫХ РАБОТ</h1>
-          <p>Система управления ремонтными работами предприятия</p>
+          <p> Управление ремонтными работами предприятия</p>
         </div>
         <div className={styles.formSection}>
           <LoginForm />
