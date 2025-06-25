@@ -12,7 +12,6 @@
 **Страница Мастера**  
 ![image](https://github.com/user-attachments/assets/02690a9a-4830-45ba-90b4-5b975c5ca9f1)  
 ![image](https://github.com/user-attachments/assets/6a19767e-af12-4231-bd3a-77542bcfd277)  
-  
 **Страница Диспетчера**  
 ![image](https://github.com/user-attachments/assets/4bd06363-64f1-49f7-a49a-9de0ffa2c359)  
 ![image](https://github.com/user-attachments/assets/81ff2f31-c6d9-435b-8ab6-ed9d72f8df95)  
