@@ -21,7 +21,7 @@
 ![image](https://github.com/user-attachments/assets/1a17d0c4-6222-4e87-b105-e35fe1a07eb1)  
 ![image](https://github.com/user-attachments/assets/45acb059-02d7-42ce-9080-16e2f5564661)  
 ![image](https://github.com/user-attachments/assets/44c8724a-1ea2-4008-aace-8f8af752c4f8)  
-**Страница Кладовщика**   
+**Страница Кладовщика**  
 ![image](https://github.com/user-attachments/assets/739e6e65-315e-485c-93b2-b28e465a2ef7)  
 ![image](https://github.com/user-attachments/assets/27f70248-f325-4f01-8b74-83a5e322682a)  
 ![image](https://github.com/user-attachments/assets/2b1fa6f6-7243-4fd0-a2c0-583d883392a1)  
