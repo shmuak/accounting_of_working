@@ -24,3 +24,15 @@
 - **База данных:** MongoDB
 - **Прочее:** Axios, Mongoose, dotenv, CORS, JWT
 
+Для локального запуска потребуется установленный Node.js, npm, и MongoDB Atlas или локальный MongoDB сервер.  
+Для серверной части потребуется запуск команд  
+cd backend  
+npm install  
+node server  
+Для клиентской части потребуется запуск команд  
+cd test  
+npm install  
+npm run dev  
+Для переменных в файле .env можно использовать  
+PORT=5000  
+MONGO_URI=mongodb+srv://..
