@@ -17,7 +17,7 @@
 ![image](https://github.com/user-attachments/assets/4bd06363-64f1-49f7-a49a-9de0ffa2c359)  
 ![image](https://github.com/user-attachments/assets/81ff2f31-c6d9-435b-8ab6-ed9d72f8df95)  
 ![image](https://github.com/user-attachments/assets/881f221b-8a4b-4601-b8f0-3ae18d82502c)  
-Страница Механика  
+**Страница Механика**  
 ![image](https://github.com/user-attachments/assets/1a17d0c4-6222-4e87-b105-e35fe1a07eb1)  
 ![image](https://github.com/user-attachments/assets/45acb059-02d7-42ce-9080-16e2f5564661)  
 ![image](https://github.com/user-attachments/assets/44c8724a-1ea2-4008-aace-8f8af752c4f8)  
@@ -25,7 +25,7 @@
 ![image](https://github.com/user-attachments/assets/739e6e65-315e-485c-93b2-b28e465a2ef7)  
 ![image](https://github.com/user-attachments/assets/27f70248-f325-4f01-8b74-83a5e322682a)  
 ![image](https://github.com/user-attachments/assets/2b1fa6f6-7243-4fd0-a2c0-583d883392a1)  
-Страница Наладчика  
+**Страница Наладчика**  
 ![image](https://github.com/user-attachments/assets/f284d37f-4808-43af-a71b-7628b1c14bd3)  
 
 - **Frontend:** React, TypeScript
