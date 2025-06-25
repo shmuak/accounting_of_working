@@ -15,3 +15,5 @@
   
 Страница Диспетчера  
 ![image](https://github.com/user-attachments/assets/4bd06363-64f1-49f7-a49a-9de0ffa2c359)  
+![image](https://github.com/user-attachments/assets/81ff2f31-c6d9-435b-8ab6-ed9d72f8df95)  
+![image](https://github.com/user-attachments/assets/881f221b-8a4b-4601-b8f0-3ae18d82502c)  
