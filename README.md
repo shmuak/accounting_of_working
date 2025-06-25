@@ -6,7 +6,7 @@
 - Повысить прозрачность процессов ремонта.  
 В приложении 6 ролей: Администратор,Мастер, Диспетчер, Механик, Кладовщик, Наладчик  
 Страница Администратора  
-  ![image](https://github.com/user-attachments/assets/282663fb-d109-46f7-89d6-5d8bb5897b67)  
+![image](https://github.com/user-attachments/assets/282663fb-d109-46f7-89d6-5d8bb5897b67)  
 ![image](https://github.com/user-attachments/assets/ca8bf245-8778-4d3d-824a-a2ed211e8b28)  
 Страница Мастера  
 ![image](https://github.com/user-attachments/assets/02690a9a-4830-45ba-90b4-5b975c5ca9f1)  
