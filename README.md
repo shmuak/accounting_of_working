@@ -22,5 +22,5 @@
 - **Frontend:** React, TypeScript
 - **Backend:** Node.js, Express, TypeScript
 - **База данных:** MongoDB
-- **Прочее:** Axios, Mongoose, dotenv, CORS
+- **Прочее:** Axios, Mongoose, dotenv, CORS, JWT
 
