@@ -10,7 +10,8 @@
   
 ![image](https://github.com/user-attachments/assets/ca8bf245-8778-4d3d-824a-a2ed211e8b28)  
 Страница Мастера  
-![image](https://github.com/user-attachments/assets/e66336ef-d89a-48d3-99a5-c895c9e38e47)  
+![image](https://github.com/user-attachments/assets/02690a9a-4830-45ba-90b4-5b975c5ca9f1)  
+  
 Страница Диспетчера  
 ![image](https://github.com/user-attachments/assets/67fb74bd-be14-4236-b626-53ae83d2ba26)  
 ![image](https://github.com/user-attachments/assets/4bd06363-64f1-49f7-a49a-9de0ffa2c359)  
